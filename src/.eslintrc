@@ -1,0 +1,24 @@
+{
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react/recommended", "prettier"],
+    "plugins": ["@typescript-eslint"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "env": {
+        "node": false,
+        "browser": true
+    },
+    "rules": {
+        "prettier/prettier": "error",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "no-console": "warn"
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "name": "react-template",
+    "version": "1.0.0",
+    "description": "Шаблон для создания react-приложений на стеке (react + ts + webpack + firebase + eslint + stylelint + prettier)",
+    "author": "Alexander Gordeev",
+    "license": "ISC",
+    "scripts": {
+        "start": "NODE_ENV=development webpack serve",
+        "build": "webpack",
+        "eslint": "npx eslint --ext .ts,.tsx,.js ./",
+        "eslint:fix": "npx eslint --ext .ts,.tsx,.js ./ --fix",
+        "prettier": "prettier --check ./",
+        "prettier:fix": "prettier --write ./",
+        "stylelint": "npx stylelint \"src/{**/*,*}.css\"",
+        "stylelint:fix": "npx stylelint \"src/{**/*,*}.css\" --fix"
+    },
+    "dependencies": {
+        "firebase": "^10.2.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "7.22.10",
+        "@babel/core": "7.22.10",
+        "@babel/preset-react": "7.22.5",
+        "@types/react": "18.2.20",
+        "@types/react-dom": "18.2.7",
+        "@typescript-eslint/eslint-plugin": "^6.4.0",
+        "@typescript-eslint/parser": "^6.4.0",
+        "babel-loader": "9.1.3",
+        "css-loader": "6.8.1",
+        "eslint": "^8.47.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-prettier": "^5.0.0",
+        "eslint-plugin-react": "^7.33.2",
+        "eslint-webpack-plugin": "^4.0.1",
+        "html-webpack-plugin": "5.5.3",
+        "pre-commit": "^1.2.2",
+        "prettier": "^3.0.2",
+        "react-router-dom": "^6.15.0",
+        "style-loader": "3.3.3",
+        "stylelint": "^15.10.3",
+        "stylelint-config-standard": "^34.0.0",
+        "stylelint-prettier": "^4.0.2",
+        "stylelint-webpack-plugin": "^4.1.1",
+        "ts-loader": "9.4.4",
+        "typescript": "5.1.6",
+        "webpack": "5.88.2",
+        "webpack-cli": "5.1.4",
+        "webpack-dev-server": "4.15.1"
+    },
+    "pre-commit": [
+        "stylelint",
+        "eslint",
+        "prettier"
+    ]
+}

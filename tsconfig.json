@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src",
+        "strict": true,
+        "esModuleInterop": true,
+        "jsx": "react",
+        "target": "ESNext",
+        "moduleResolution": "NodeNext",
+        "paths": {
+            "@components/*": ["components/*"],
+            "@styles/*": ["styles/*"],
+            "@features/*": ["features/*"],
+            "@static/*": ["static/*"],
+            "@icons/*": ["static/icons/*"],
+            "@fonts/*": ["static/fonts/*"]
+        }
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
+}

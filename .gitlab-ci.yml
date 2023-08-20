@@ -1,0 +1,30 @@
+stages:
+    - test
+    - build
+    - deploy
+
+code_quality:
+    image: node:19.5.0
+    stage: test
+    before_script:
+        - npm ci
+    script:
+        - npm run eslint
+        - npm run stylelint
+        - npm run prettier
+    only:
+        - merge_requests
+
+build:
+    image: node:19.5.0
+    stage: build
+    before_script:
+        - npm ci
+    script:
+        - npm run build
+    artifacts:
+        paths:
+            - dist
+    only:
+        - merge_requests
+        - master
