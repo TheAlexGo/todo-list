@@ -60,6 +60,7 @@ module.exports = {
             '@static': path.resolve('./src/static'),
             '@icons': path.resolve('./src/static/icons'),
             '@fonts': path.resolve('./src/static/fonts'),
+            '@types': path.resolve('./src/types.ts'),
         },
     },
     plugins: [

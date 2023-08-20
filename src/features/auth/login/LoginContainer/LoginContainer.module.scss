@@ -1,0 +1,68 @@
+$delimiter_text_width: 150px;
+$delimiter_text_offset: 12px;
+/* Умножаем на 2, так как отступы считаем с двух сторон */
+$delimiter_text_width-full: $delimiter_text_width + 2 * $delimiter_text_offset;
+
+.heading {
+    font-size: var(--fs_l);
+    font-weight: 600;
+    color: var(--color_main);
+}
+
+.delimiter {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 36px;
+    color: var(--color_secodary);
+    text-align: center;
+
+    &::after,
+    &::before {
+        position: absolute;
+        top: 50%;
+        content: '';
+        width: calc(50% - $delimiter_text_width-full / 2);
+        height: 1px;
+        background: currentcolor;
+        transform: translateY(-50%);
+    }
+
+    &::before {
+        left: 0;
+    }
+
+    &::after {
+        right: 0;
+    }
+}
+
+.delimiter-text {
+    width: $delimiter_text_width;
+}
+
+.oauth-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 36px;
+}
+
+.oauth-button {
+    height: 64px;
+    font-size: var(--fs_m);
+}
+
+.oauth-icon {
+    margin-right: 12px;
+}
+
+.without-account-container {
+    margin-top: 24px;
+    color: var(--color_secodary);
+    text-align: center;
+}
+
+.text-primary {
+    color: var(--color_primary);
+    font-weight: 600;
+}

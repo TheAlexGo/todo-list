@@ -1,4 +1,4 @@
-@import 'variables.css';
+@import 'variables';
 
 *,
 *::before,
@@ -15,27 +15,6 @@ body {
     font-weight: 400;
 }
 
-/* Сбрасываем автокомплит у полей */
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill,
-input:autofill,
-textarea:autofill,
-select:autofill {
-    box-shadow: 0 0 0 1000px var(--color_background_light) inset !important;
-    -webkit-text-fill-color: var(--color_main) !important;
-    caret-color: var(--color_main) !important;
-
-    &::selection {
-        -webkit-text-fill-color: var(--color_black) !important;
-    }
-}
-
-*::selection {
-    color: var(--color_black) !important;
-    background: var(--color_primary) !important;
-}
-
 /* Системные теги */
 h1,
 h2,
@@ -48,5 +27,31 @@ h6 {
 
 h1 {
     font-size: 50px;
+}
+
+a {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+/* Сбрасываем автокомплит у полей */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    box-shadow: 0 0 0 1000px var(--color_background_light) inset !important;
+    -webkit-text-fill-color: var(--color_main) !important;
+    caret-color: var(--color_main) !important;
+
+    &::selection {
+        -webkit-text-fill-color: var(--color_black) !important;
+    }
+}
+
+*::selection {
+    color: var(--color_black) !important;
+    background: var(--color_primary) !important;
 }
 /* /Системные теги */

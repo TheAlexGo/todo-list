@@ -1,12 +1,13 @@
-import { Button } from '@components/Button/Button';
 import React, { FC, InputHTMLAttributes, JSX, useRef, useState } from 'react';
-import { Icon, Icons } from '@components/Icon/Icon';
 
 import cn from 'classnames';
 
+import { Button } from '@components/Button/Button';
+import { Icon, Icons } from '@components/Icon/Icon';
+
 import classes from './Input.module.scss';
 
-interface IInput extends InputHTMLAttributes<HTMLInputElement> {
+export interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     icon: Icons;
     title: string;
 }
@@ -17,13 +18,9 @@ export const Input: FC<IInput> = ({ className, type: _type, icon, title, ...prop
 
     const isPasswordInput = _type === 'password';
 
-    const rootClasses = cn(
-        classes['input'],
-        {
-            [classes['__is-password']]: isPasswordInput,
-        },
-        className,
-    );
+    const rootClasses = cn(classes['input'], {
+        [classes['__is-password']]: isPasswordInput,
+    });
 
     const leftIconClasses = cn(classes['icon'], classes['__is-left']);
 
@@ -50,17 +47,17 @@ export const Input: FC<IInput> = ({ className, type: _type, icon, title, ...prop
             return null;
         }
         const isPasswordType = type === 'password';
-        const icon = isPasswordType ? Icons.Eye : Icons.EyeSlash;
+        const icon = isPasswordType ? Icons.EYE : Icons.EYE_SLASH;
         const title = isPasswordType ? 'Показать пароль' : 'Скрыть пароль';
         return (
-            <Button className={rightIconClasses} title={title}>
-                <Icon icon={icon} onClick={clickEyeHandler} />
+            <Button className={rightIconClasses} title={title} onClick={clickEyeHandler}>
+                <Icon icon={icon} />
             </Button>
         );
     };
 
     return (
-        <label>
+        <label className={className}>
             {renderTitle()}
             <div className={classes['wrapper']}>
                 <Icon className={leftIconClasses} icon={icon} />

@@ -1,13 +1,17 @@
+import { Pages } from '@types';
 import React, { FC, JSX } from 'react';
 
-import { Icons } from '@components/Icon/Icon';
-import { Input } from '@components/Input/Input';
+import { LoginContainer } from '@features/auth/login/LoginContainer/LoginContainer';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { AuthLayout } from './layouts/AuthLayout/AuthLayout';
 
 export const App: FC = (): JSX.Element => {
     return (
-        <div>
-            <Input type="email" title="Email" icon={Icons.UserTag} />
-            <Input type="password" title="Password" icon={Icons.Lock} />
-        </div>
+        <Routes>
+            <Route path={Pages.LOGIN} element={<AuthLayout />}>
+                <Route index element={<LoginContainer />} />
+            </Route>
+            <Route path="*" element={<Navigate to={Pages.INDEX} />} />
+        </Routes>
     );
 };

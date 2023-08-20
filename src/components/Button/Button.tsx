@@ -4,15 +4,21 @@ import cn from 'classnames';
 
 import classes from './Button.module.scss';
 
-interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-    isClean?: boolean;
+export enum Buttons {
+    CLEAN = 'clean',
+    PRIMARY = 'primary',
+    OUTLINE = 'outline',
 }
 
-export const Button: FC<IButton> = ({ type = 'button', className, isClean = true, ...props }): JSX.Element => {
+interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+    variant?: Buttons;
+}
+
+export const Button: FC<IButton> = ({ type = 'button', className, variant = Buttons.CLEAN, ...props }): JSX.Element => {
     const rootClasses = cn(
         classes['button'],
         {
-            [classes['__is-clean']]: isClean,
+            [classes[`__is-${variant}`]]: variant && variant !== Buttons.CLEAN,
         },
         className,
     );

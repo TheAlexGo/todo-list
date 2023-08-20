@@ -12,7 +12,8 @@
             "@features/*": ["features/*"],
             "@static/*": ["static/*"],
             "@icons/*": ["static/icons/*"],
-            "@fonts/*": ["static/fonts/*"]
+            "@fonts/*": ["static/fonts/*"],
+            "@types": ["types.ts"]
         }
     },
     "include": ["src"],

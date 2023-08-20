@@ -1,0 +1,27 @@
+/*
+Динамику будем хранить в css-переменных, а статику - в scss.
+css-переменные позволят нам влиять на их значения с помощью классов-модификаторов,
+что может быть полезно для разработки новых тем приложения.
+*/
+
+:root {
+    /* Цвета */
+    --color_white: #fff;
+    --color_black: #000;
+
+    /* Цвета проекта */
+    --color_main: #fff;
+    --color_secodary: #8caab9;
+    --color_background_light: #455a64;
+    --color_background_dark: #212832;
+    --color_primary: #fed36a;
+    --color_dark: #263238;
+
+    /* Шрифты */
+    --fs_s: 16px;
+    --fs_m: 18px;
+    --fs_l: 26px;
+}
+
+// Размеры
+$button_height_m: 64px;

@@ -1,8 +1,21 @@
 .button {
-    &.__is-clean {
-        padding: 0;
-        border: 0;
-        background: none;
-        cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+
+    &.__is-primary {
+        color: var(--color_black);
+        font-weight: 600;
+        background: var(--color_primary);
+    }
+
+    &.__is-outline {
+        box-shadow: inset 0 0 0 2px var(--color_main);
+        font-weight: 500;
+        color: var(--color_main);
     }
 }
