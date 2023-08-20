@@ -1,0 +1,47 @@
+.wrapper {
+    position: relative;
+    color: var(--color_main);
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 56px;
+    padding-right: 16px;
+    padding-left: 56px;
+    border: 0;
+    color: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: var(--fs_m);
+    background: var(--color_background_light);
+
+    &.__is-password {
+        padding-right: 56px;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color_primary);
+    }
+}
+
+.icon {
+    position: absolute;
+    color: inherit;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.__is-left {
+        left: 16px;
+    }
+
+    &.__is-right {
+        right: 16px;
+    }
+}
+
+.title {
+    margin-bottom: 16px;
+    color: var(--color_secodary);
+}

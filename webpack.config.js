@@ -23,8 +23,26 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.svg$/,
-                type: 'asset/resource',
+                test: /\.s[ac]ss$/i,
+                use: [
+                    // Creates `style` nodes from JS strings
+                    'style-loader',
+                    // Translates CSS into CommonJS
+                    'css-loader',
+                    // Compiles Sass to CSS
+                    'sass-loader',
+                ],
+            },
+            {
+                test: /\.svg$/i,
+                type: 'asset',
+                resourceQuery: /url/, // *.svg?url
+            },
+            {
+                test: /\.svg$/i,
+                issuer: /\.[jt]sx?$/,
+                resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
+                use: ['@svgr/webpack'],
             },
             {
                 test: /\.(ts|tsx)$/,
@@ -53,7 +71,7 @@ module.exports = {
             files: '{**/*,*}.{tsx,ts,js}',
         }),
         new StylelintWebpackPlugin({
-            files: '{**/*,*}.css',
+            files: '{**/*,*}.[s]css',
         }),
     ],
     devServer: {
