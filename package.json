@@ -1,7 +1,7 @@
 {
-    "name": "react-template",
+    "name": "todo-list",
     "version": "1.0.0",
-    "description": "Шаблон для создания react-приложений на стеке (react + ts + webpack + firebase + eslint + stylelint + prettier)",
+    "description": "МИНИ-ПРОЕКТ № 3 \"TO DO LIST\" с курсов по frontend - karpov.courses",
     "author": "Alexander Gordeev",
     "license": "ISC",
     "scripts": {

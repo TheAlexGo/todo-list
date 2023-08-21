@@ -49,6 +49,7 @@
 
 .error {
     display: block;
-    color: var(--color_dangerous);
     margin-top: 8px;
+    color: var(--color_dangerous);
+    font-weight: 600;
 }
