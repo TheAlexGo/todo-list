@@ -1,6 +1,6 @@
-import { ProviderIdUnion } from '@providers/AuthProvider';
 import { FC, SVGProps } from 'react';
-import { User, UserCredential } from 'firebase/auth';
+
+import { ProviderIdUnion } from '@providers/AuthProvider';
 
 export enum Pages {
     INDEX = '/',
@@ -8,15 +8,20 @@ export enum Pages {
     REGISTRATION = '/registration',
 }
 
-export type TAuthResult = Promise<UserCredential>;
+export type TAuthResult = Promise<IUserData | null>;
 
 export type TSvgComponent = FC<SVGProps<SVGSVGElement>>;
 
 export interface IAuthContext {
     isAuthenticate: boolean | null;
-    user: User | null;
+    user: IUserData | null;
     signUpWithCredentials: (name: string, email: string, password: string) => TAuthResult;
     logInWithEmailAndPassword: (email: string, password: string) => TAuthResult;
     logInWithPopup: (providerId: ProviderIdUnion) => TAuthResult;
     logOut: () => void;
+}
+
+export interface IUserData {
+    email: string;
+    name: string;
 }

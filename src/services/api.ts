@@ -1,5 +1,13 @@
 import { FirebaseApp, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { addDoc, getDocs, collection, getFirestore, query, where, limit } from 'firebase/firestore';
+
+import { Logger } from '@services/logger';
+import { IUserData } from '@types';
+
+enum DocsId {
+    USERS = 'users',
+}
 
 export const initializeAPI = (): FirebaseApp => {
     const firebaseApp = initializeApp({
@@ -12,6 +20,49 @@ export const initializeAPI = (): FirebaseApp => {
     });
 
     getAuth(firebaseApp);
+    getFirestore(firebaseApp);
 
     return firebaseApp;
+};
+
+export const readUserDataByRef = async (userId: string): Promise<IUserData | null> => {
+    const db = getFirestore();
+    let userData: IUserData | null = null;
+
+    try {
+        const q = query(collection(db, DocsId.USERS), where('userId', '==', userId), limit(1));
+        const querySnapshot = await getDocs(q);
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data() as IUserData;
+
+            userData = {
+                ...data,
+            };
+        });
+    } catch (e) {
+        return Promise.reject(e);
+    }
+
+    return userData;
+};
+
+export const readUserData = async (userId: string): Promise<IUserData | null> => {
+    return readUserDataByRef(userId);
+};
+
+export const writeUserData = async (userId: string, name: string, email: string): Promise<IUserData | null> => {
+    const db = getFirestore();
+    try {
+        await addDoc(collection(db, DocsId.USERS), {
+            userId,
+            name,
+            email,
+        });
+        return readUserDataByRef(userId);
+    } catch (_e) {
+        const e = _e as Error;
+        Logger.error(e);
+        return Promise.reject(e);
+    }
 };

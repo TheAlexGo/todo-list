@@ -1,5 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, JSX, useEffect } from 'react';
+
+import { useAuth } from '@providers/AuthProvider';
+
+import classes from './General.module.scss';
 
 export const General: FC = (): JSX.Element => {
-    return <div>Главная</div>;
+    const { user } = useAuth();
+    useEffect(() => {
+        if (!user) {
+            return;
+        }
+    }, []);
+
+    return <div className={classes['general']}>Привет, {user?.name}!</div>;
 };
