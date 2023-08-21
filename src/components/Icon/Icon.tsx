@@ -7,6 +7,7 @@ import EyeSlashIcon from '@icons/icon_eye-slash.svg';
 import EyeIcon from '@icons/icon_eye.svg';
 import LockIcon from '@icons/icon_lock.svg';
 import GoogleIcon from '@icons/icon_google.svg';
+import GithubIcon from '@icons/icon_github.svg';
 import { TSvgComponent } from '@types';
 
 export enum Icons {
@@ -17,6 +18,7 @@ export enum Icons {
     EYE_SLASH = 'EyeSlash',
     LOCK = 'Lock',
     GOOGLE = 'Google',
+    GITHUB = 'Github',
 }
 
 const icons: Record<Icons, TSvgComponent> = {
@@ -27,6 +29,7 @@ const icons: Record<Icons, TSvgComponent> = {
     EyeSlash: EyeSlashIcon,
     Lock: LockIcon,
     Google: GoogleIcon,
+    Github: GithubIcon,
 };
 
 interface IIcon extends SVGProps<SVGSVGElement> {

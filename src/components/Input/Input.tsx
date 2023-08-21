@@ -10,9 +10,11 @@ import classes from './Input.module.scss';
 export interface IInput extends InputHTMLAttributes<HTMLInputElement> {
     icon: Icons;
     title: string;
+    value: string;
+    error: string;
 }
 
-export const Input: FC<IInput> = ({ className, type: _type, icon, title, ...props }): JSX.Element => {
+export const Input: FC<IInput> = ({ className, type: _type, icon, title, error, ...props }): JSX.Element => {
     const [type, setType] = useState(_type);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -64,6 +66,7 @@ export const Input: FC<IInput> = ({ className, type: _type, icon, title, ...prop
                 <input {...props} className={rootClasses} type={type} ref={inputRef} />
                 {renderEyeIcon()}
             </div>
+            {error && <strong className={classes['error']}>{error}</strong>}
         </label>
     );
 };

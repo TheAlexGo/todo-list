@@ -44,6 +44,7 @@ $delimiter_text_width-full: $delimiter_text_width + 2 * $delimiter_text_offset;
 .oauth-container {
     display: flex;
     flex-direction: column;
+    gap: 12px;
     margin-top: 36px;
 }
 
@@ -54,6 +55,7 @@ $delimiter_text_width-full: $delimiter_text_width + 2 * $delimiter_text_offset;
 
 .oauth-icon {
     margin-right: 12px;
+    pointer-events: none;
 }
 
 .without-account-container {
