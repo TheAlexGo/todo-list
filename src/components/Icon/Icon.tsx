@@ -2,6 +2,7 @@ import React, { FC, SVGProps } from 'react';
 
 import LogoIcon from '@icons/logo.svg';
 import LogoTextIcon from '@icons/logo_title.svg';
+import UserIcon from '@icons/icon_user.svg';
 import UserTagIcon from '@icons/icon_usertag.svg';
 import EyeSlashIcon from '@icons/icon_eye-slash.svg';
 import EyeIcon from '@icons/icon_eye.svg';
@@ -13,6 +14,7 @@ import { TSvgComponent } from '@types';
 export enum Icons {
     LOGO = 'Logo',
     LOGO_TEXT = 'LogoText',
+    USER = 'User',
     USER_TAG = 'UserTag',
     EYE = 'Eye',
     EYE_SLASH = 'EyeSlash',
@@ -24,6 +26,7 @@ export enum Icons {
 const icons: Record<Icons, TSvgComponent> = {
     Logo: LogoIcon,
     LogoText: LogoTextIcon,
+    User: UserIcon,
     UserTag: UserTagIcon,
     Eye: EyeIcon,
     EyeSlash: EyeSlashIcon,

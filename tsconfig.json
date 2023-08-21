@@ -17,6 +17,7 @@
             "@providers/*": ["providers/*"],
             "@services/*": ["services/*"],
             "@pages/*": ["pages/*"],
+            "@utils/*": ["utils/*"],
             "@types": ["types.ts"]
         }
     },

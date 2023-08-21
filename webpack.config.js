@@ -63,6 +63,7 @@ module.exports = {
             '@providers': path.resolve('./src/providers'),
             '@services': path.resolve('./src/services'),
             '@pages': path.resolve('./src/pages'),
+            '@utils': path.resolve('./src/utils'),
             '@types': path.resolve('./src/types.ts'),
         },
     },

@@ -41,24 +41,7 @@ $delimiter_text_width-full: $delimiter_text_width + 2 * $delimiter_text_offset;
     width: $delimiter_text_width;
 }
 
-.oauth-container {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 36px;
-}
-
-.oauth-button {
-    height: 64px;
-    font-size: var(--fs_m);
-}
-
-.oauth-icon {
-    margin-right: 12px;
-    pointer-events: none;
-}
-
-.without-account-container {
+.additional-container {
     margin-top: 24px;
     color: var(--color_secodary);
     text-align: center;

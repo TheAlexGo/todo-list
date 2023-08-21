@@ -4,6 +4,7 @@ import { FirebaseApp } from 'firebase/app';
 import {
     User,
     UserCredential,
+    createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
@@ -16,7 +17,7 @@ import {
 } from 'firebase/auth';
 
 import { Logger } from '@services/logger';
-import { IAuthContext, TLoginResult } from '@types';
+import { IAuthContext, TAuthResult } from '@types';
 
 interface IAuthProvider {
     firebaseApp: FirebaseApp;
@@ -25,6 +26,7 @@ interface IAuthProvider {
 const AuthContext = createContext<IAuthContext>({
     isAuthenticate: null,
     user: null,
+    signUpWithCredentials: () => Promise.reject({}),
     logInWithEmailAndPassword: () => Promise.reject({}),
     logInWithPopup: () => Promise.reject({}),
     logOut: () => void 0,
@@ -45,17 +47,17 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
     const [isAuthenticate, setIsAuthenticate] = useState<IAuthContext['isAuthenticate']>(null);
     const [user, setUser] = useState<User | null>(null);
 
-    const beforeLogin = () => {
+    const beforeAuth = () => {
         setIsAuthenticate(null);
         setUser(null);
     };
 
-    const processLogin = (promise: Promise<UserCredential>): TLoginResult => {
-        beforeLogin();
+    const processAuth = (promise: Promise<UserCredential>): TAuthResult => {
+        beforeAuth();
 
         return promise
             .then((result) => {
-                Logger.info('AuthProvider, processLogin complete:', result);
+                Logger.info('AuthProvider, processAuth complete:', result);
                 return result;
             })
             .catch((error) => {
@@ -66,18 +68,22 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
             });
     };
 
+    const signUpWithCredentials = (name: string, email: string, password: string) => {
+        return processAuth(createUserWithEmailAndPassword(auth, email, password));
+    };
+
     const logInWithEmailAndPassword: IAuthContext['logInWithEmailAndPassword'] = (
         email: string,
         password: string,
-    ): TLoginResult => {
-        return processLogin(signInWithEmailAndPassword(auth, email, password));
+    ): TAuthResult => {
+        return processAuth(signInWithEmailAndPassword(auth, email, password));
     };
 
-    const logInWithPopup: IAuthContext['logInWithPopup'] = (providerId: ProviderIdUnion): TLoginResult => {
+    const logInWithPopup: IAuthContext['logInWithPopup'] = (providerId: ProviderIdUnion): TAuthResult => {
         const currentProvider = ALLOWED_OAUTH_PROVIDERS[providerId];
 
         if (currentProvider) {
-            return processLogin(signInWithPopup(auth, currentProvider));
+            return processAuth(signInWithPopup(auth, currentProvider));
         }
 
         Logger.error(new Error(`Провайдер ${providerId} не реализован!`));
@@ -106,6 +112,7 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
             value={{
                 isAuthenticate,
                 user,
+                signUpWithCredentials,
                 logInWithEmailAndPassword,
                 logInWithPopup,
                 logOut,

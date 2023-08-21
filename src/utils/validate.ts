@@ -5,3 +5,8 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export const validatePassword = (password: string): boolean => password.length >= 8;
+
+export const validateName = (name: string): boolean => {
+    const regexp = /^[\p{L}'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/u;
+    return regexp.test(String(name).toLowerCase());
+};

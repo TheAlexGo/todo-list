@@ -1,0 +1,12 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    margin-top: 28px;
+
+    &:first-child {
+        margin-top: 24px;
+    }
+}

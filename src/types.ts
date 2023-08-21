@@ -8,14 +8,15 @@ export enum Pages {
     REGISTRATION = '/registration',
 }
 
-export type TLoginResult = Promise<UserCredential>;
+export type TAuthResult = Promise<UserCredential>;
 
 export type TSvgComponent = FC<SVGProps<SVGSVGElement>>;
 
 export interface IAuthContext {
     isAuthenticate: boolean | null;
     user: User | null;
-    logInWithEmailAndPassword: (email: string, password: string) => TLoginResult;
-    logInWithPopup: (providerId: ProviderIdUnion) => TLoginResult;
+    signUpWithCredentials: (name: string, email: string, password: string) => TAuthResult;
+    logInWithEmailAndPassword: (email: string, password: string) => TAuthResult;
+    logInWithPopup: (providerId: ProviderIdUnion) => TAuthResult;
     logOut: () => void;
 }
