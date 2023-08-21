@@ -10,3 +10,5 @@ export const validateName = (name: string): boolean => {
     const regexp = /^[\p{L}'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/u;
     return regexp.test(String(name).toLowerCase());
 };
+
+export const validatePrivacy = (isSelected: boolean): boolean => isSelected;

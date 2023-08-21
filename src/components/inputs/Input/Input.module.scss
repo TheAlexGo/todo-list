@@ -11,6 +11,7 @@
     padding-right: 16px;
     padding-left: 56px;
     border: 0;
+    border-radius: 0;
     color: inherit;
     font-family: inherit;
     font-weight: inherit;
@@ -47,6 +48,7 @@
 }
 
 .error {
+    display: block;
     color: var(--color_dangerous);
     margin-top: 8px;
 }

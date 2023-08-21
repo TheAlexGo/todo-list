@@ -1,7 +1,7 @@
 import { useReducer, Reducer, ChangeEvent, Dispatch } from 'react';
 
 import { Icons } from '@components/Icon/Icon';
-import { IInput } from '@components/Input/Input';
+import { IInput } from '@components/inputs/Input/Input';
 import { Actions } from './types';
 
 type TReducer = Reducer<IInput, IAction>;

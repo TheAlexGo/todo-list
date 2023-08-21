@@ -1,9 +1,10 @@
 import React, { FC, InputHTMLAttributes, JSX, useRef, useState } from 'react';
 
-import cn from 'classnames';
-
 import { Button } from '@components/Button/Button';
 import { Icon, Icons } from '@components/Icon/Icon';
+import { Checkbox } from '../Checkbox/Checkbox';
+
+import cn from 'classnames';
 
 import classes from './Input.module.scss';
 
@@ -19,6 +20,7 @@ export const Input: FC<IInput> = ({ className, type: _type, icon, title, error, 
     const inputRef = useRef<HTMLInputElement>(null);
 
     const isPasswordInput = _type === 'password';
+    const isCheckboxInput = _type === 'checkbox';
 
     const rootClasses = cn(classes['input'], {
         [classes['__is-password']]: isPasswordInput,
@@ -37,13 +39,6 @@ export const Input: FC<IInput> = ({ className, type: _type, icon, title, error, 
         });
     };
 
-    const renderTitle = (): JSX.Element | null => {
-        if (!title) {
-            return null;
-        }
-        return <div className={classes['title']}>{title}</div>;
-    };
-
     const renderEyeIcon = (): JSX.Element | null => {
         if (!isPasswordInput) {
             return null;
@@ -58,9 +53,13 @@ export const Input: FC<IInput> = ({ className, type: _type, icon, title, error, 
         );
     };
 
+    if (isCheckboxInput) {
+        return <Checkbox {...props} title={title} />;
+    }
+
     return (
         <label className={className}>
-            {renderTitle()}
+            {title && <div className={classes['title']}>{title}</div>}
             <div className={classes['wrapper']}>
                 <Icon className={leftIconClasses} icon={icon} />
                 <input {...props} className={rootClasses} type={type} ref={inputRef} />

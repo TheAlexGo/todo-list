@@ -4,7 +4,7 @@ import { AuthProvider as IOAuthProvider } from '@firebase/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { ALLOWED_OAUTH_PROVIDERS, ProviderIdUnion, useAuth } from '@providers/AuthProvider';
-import { validateEmail, validateName, validatePassword } from '@utils/validate';
+import { validateEmail, validateName, validatePassword, validatePrivacy } from '@utils/validate';
 import { Icons } from '@components/Icon/Icon';
 import { OAuthLoginForm } from '@components/OAuthLoginForm/OAuthLoginForm';
 import { RegistrationForm } from '@components/forms/RegistrationForm/RegistrationForm';
@@ -19,6 +19,7 @@ export const RegistrationContainer: FC = (): JSX.Element => {
     const [nameState, dispatchName, nameChangeHandler] = useFieldReducer('Имя', Icons.USER_TAG);
     const [emailState, dispatchEmail, emailChangeHandler] = useFieldReducer('Email', Icons.USER_TAG);
     const [passwordState, dispatchPassword, passwordChangeHandler] = useFieldReducer('Пароль', Icons.LOCK);
+    const [isPrivacySelected, setIsPrivacySelected] = useState(false);
 
     const [authError, setAuthError] = useState('');
 
@@ -36,6 +37,11 @@ export const RegistrationContainer: FC = (): JSX.Element => {
 
     const oauthButtonClickHandler = (providerId: ProviderIdUnion) => {
         processRegistration(logInWithPopup(providerId));
+    };
+
+    const privacyChangeHandler = () => {
+        setIsPrivacySelected(!isPrivacySelected);
+        setAuthError('');
     };
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
@@ -66,6 +72,10 @@ export const RegistrationContainer: FC = (): JSX.Element => {
                 value: 'Пароль должен быть не менее 8-ми символов',
             });
         }
+        if (!validatePrivacy(isPrivacySelected)) {
+            isValid = false;
+            setAuthError('Подвердите обработку персональных данных!');
+        }
 
         if (isValid) {
             processRegistration(signUpWithCredentials(name, email, password));
@@ -87,6 +97,11 @@ export const RegistrationContainer: FC = (): JSX.Element => {
                 password={{
                     ...passwordState,
                     onChange: passwordChangeHandler,
+                }}
+                privacy={{
+                    checked: isPrivacySelected,
+                    title: 'Ставя галочку, вы даёте согласие на обработку ваших персональных данных',
+                    onChange: privacyChangeHandler,
                 }}
                 error={authError}
                 onSubmit={submitHandler}

@@ -9,6 +9,8 @@ import EyeIcon from '@icons/icon_eye.svg';
 import LockIcon from '@icons/icon_lock.svg';
 import GoogleIcon from '@icons/icon_google.svg';
 import GithubIcon from '@icons/icon_github.svg';
+import CheckboxEmptyIcon from '@icons/icon_checkbox-empty.svg';
+import CheckboxFillIcon from '@icons/icon_checkbox-fill.svg';
 import { TSvgComponent } from '@types';
 
 export enum Icons {
@@ -21,6 +23,8 @@ export enum Icons {
     LOCK = 'Lock',
     GOOGLE = 'Google',
     GITHUB = 'Github',
+    CHECKBOX_EMPTY = 'CheckboxEmpty',
+    CHECKBOX_FILL = 'CheckboxFill',
 }
 
 const icons: Record<Icons, TSvgComponent> = {
@@ -33,6 +37,8 @@ const icons: Record<Icons, TSvgComponent> = {
     Lock: LockIcon,
     Google: GoogleIcon,
     Github: GithubIcon,
+    CheckboxEmpty: CheckboxEmptyIcon,
+    CheckboxFill: CheckboxFillIcon,
 };
 
 interface IIcon extends SVGProps<SVGSVGElement> {

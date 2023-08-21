@@ -1,7 +1,7 @@
 import React, { FC, FormEvent, JSX } from 'react';
 
 import { Button, Buttons } from '@components/Button/Button';
-import { IInput, Input } from '@components/Input/Input';
+import { IInput, Input } from '@components/inputs/Input/Input';
 
 import classes from '../base/Base.module.scss';
 
