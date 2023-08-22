@@ -1,7 +1,8 @@
-import { Loader } from '@components/Loader/Loader';
 import React, { FC, JSX, lazy, Suspense } from 'react';
 
 import { Navigate, Route, Routes } from 'react-router-dom';
+
+import { Loader, LoaderSizes } from '@components/Loader/Loader';
 import { AuthLayout } from './layouts/AuthLayout/AuthLayout';
 import { ProtectedLayout } from './layouts/ProtectedLayout/ProtectedLayout';
 import { Pages } from '@types';
@@ -14,7 +15,7 @@ const Registration = lazy(() =>
 
 export const App: FC = (): JSX.Element => {
     return (
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loader size={LoaderSizes.XL} isFixedOnCenter />}>
             <Routes>
                 <Route path={Pages.INDEX} element={<ProtectedLayout />}>
                     <Route index element={<General />} />

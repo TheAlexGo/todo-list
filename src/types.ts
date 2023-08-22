@@ -12,6 +12,8 @@ export type TAuthResult = Promise<IUserData | null>;
 
 export type TSvgComponent = FC<SVGProps<SVGSVGElement>>;
 
+export type PropsWithClassname<T> = T & { className?: string };
+
 export interface IAuthContext {
     isAuthenticate: boolean | null;
     user: IUserData | null;
