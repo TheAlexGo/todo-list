@@ -6,6 +6,7 @@ export enum Pages {
     INDEX = '/',
     LOGIN = '/login',
     REGISTRATION = '/registration',
+    SETTINGS = '/settings',
 }
 
 export type TAuthResult = Promise<IUserData | null>;

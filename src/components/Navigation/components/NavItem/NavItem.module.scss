@@ -1,0 +1,22 @@
+.wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.item {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 52px;
+    color: var(--color_inactive);
+    font-size: var(--fs_xxs);
+
+    &.__is-active {
+        color: var(--color_primary);
+    }
+}
+
+.icon {
+    margin-bottom: 4px;
+}

@@ -16,7 +16,7 @@ import { Actions } from '../base/types';
 import classes from '../base/Base.modules.scss';
 
 export const RegistrationContainer: FC = (): JSX.Element => {
-    const [nameState, dispatchName, nameChangeHandler] = useFieldReducer('Имя', Icons.USER_TAG);
+    const [nameState, dispatchName, nameChangeHandler] = useFieldReducer('Имя', Icons.USER);
     const [emailState, dispatchEmail, emailChangeHandler] = useFieldReducer('Email', Icons.USER_TAG);
     const [passwordState, dispatchPassword, passwordChangeHandler] = useFieldReducer('Пароль', Icons.LOCK);
     const [isPrivacySelected, setIsPrivacySelected] = useState(false);

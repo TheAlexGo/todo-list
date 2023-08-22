@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+/* Устанавливаем свой outline на элементы с фокусом */
+*:focus-visible {
+    outline: 2px solid var(--color_primary);
+}
+
 html,
 body {
     margin: 0;

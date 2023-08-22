@@ -6,6 +6,8 @@ import { useAuth } from '@providers/AuthProvider';
 import { Loader, LoaderSizes } from '@components/Loader/Loader';
 import { Pages } from '@types';
 
+import classes from './ProtectedLayout.module.scss';
+
 export const ProtectedLayout: FC = (): JSX.Element => {
     const location = useLocation();
     const { isAuthenticate } = useAuth();
@@ -18,5 +20,9 @@ export const ProtectedLayout: FC = (): JSX.Element => {
         return <Navigate to={Pages.LOGIN} state={{ from: location }} />;
     }
 
-    return <Outlet />;
+    return (
+        <div className={classes['layout']}>
+            <Outlet />
+        </div>
+    );
 };

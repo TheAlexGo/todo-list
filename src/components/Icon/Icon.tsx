@@ -11,6 +11,9 @@ import GoogleIcon from '@icons/icon_google.svg';
 import GithubIcon from '@icons/icon_github.svg';
 import CheckboxEmptyIcon from '@icons/icon_checkbox-empty.svg';
 import CheckboxFillIcon from '@icons/icon_checkbox-fill.svg';
+import HomeIcon from '@icons/icon_home.svg';
+import AddIcon from '@icons/icon_add.svg';
+import SettingsIcon from '@icons/icon_settings.svg';
 import { TSvgComponent } from '@types';
 
 export enum Icons {
@@ -25,6 +28,9 @@ export enum Icons {
     GITHUB = 'Github',
     CHECKBOX_EMPTY = 'CheckboxEmpty',
     CHECKBOX_FILL = 'CheckboxFill',
+    HOME = 'Home',
+    ADD = 'Add',
+    SETTINGS = 'Settings',
 }
 
 const icons: Record<Icons, TSvgComponent> = {
@@ -39,6 +45,9 @@ const icons: Record<Icons, TSvgComponent> = {
     Github: GithubIcon,
     CheckboxEmpty: CheckboxEmptyIcon,
     CheckboxFill: CheckboxFillIcon,
+    Home: HomeIcon,
+    Add: AddIcon,
+    Settings: SettingsIcon,
 };
 
 interface IIcon extends SVGProps<SVGSVGElement> {
