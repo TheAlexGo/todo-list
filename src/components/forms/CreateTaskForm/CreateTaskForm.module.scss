@@ -1,0 +1,26 @@
+.title {
+    font-size: var(--fs_l);
+    font-weight: 600;
+    color: var(--color_main);
+}
+
+.input {
+    margin-top: 40px;
+}
+
+.textarea {
+    margin-top: 28px;
+}
+
+.container-time {
+    display: flex;
+    gap: 8px;
+}
+
+.time {
+    margin-top: 28px;
+}
+
+.time-title {
+    margin-bottom: 16px;
+}

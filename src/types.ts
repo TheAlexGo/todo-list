@@ -7,6 +7,7 @@ export enum Pages {
     LOGIN = '/login',
     REGISTRATION = '/registration',
     SETTINGS = '/settings',
+    CREATE_TASK = '/task/create',
 }
 
 export type TAuthResult = Promise<IUserData | null>;

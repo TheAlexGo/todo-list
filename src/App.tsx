@@ -12,13 +12,19 @@ const Login = lazy(() => import('@pages/Login/Login').then(({ Login }) => ({ def
 const Registration = lazy(() =>
     import('@pages/Registration/Registration').then(({ Registration }) => ({ default: Registration })),
 );
+const CreateTask = lazy(() =>
+    import('@pages/CreateTask/CreateTask').then(({ CreateTask }) => ({ default: CreateTask })),
+);
 
 export const App: FC = (): JSX.Element => {
     return (
         <Suspense fallback={<Loader size={LoaderSizes.XL} isFixedOnCenter />}>
             <Routes>
-                <Route path={Pages.INDEX} element={<ProtectedLayout />}>
+                <Route path={Pages.INDEX} element={<ProtectedLayout withNavigation />}>
                     <Route index element={<General />} />
+                </Route>
+                <Route path={Pages.CREATE_TASK} element={<ProtectedLayout />}>
+                    <Route index element={<CreateTask />} />
                 </Route>
                 <Route path={Pages.LOGIN} element={<AuthLayout />}>
                     <Route index element={<Login />} />

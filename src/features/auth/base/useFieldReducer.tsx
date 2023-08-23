@@ -1,19 +1,21 @@
-import { useReducer, Reducer, ChangeEvent, Dispatch } from 'react';
+import { useReducer, Reducer, ChangeEvent } from 'react';
 
 import { Icons } from '@components/Icon/Icon';
-import { IInput } from '@components/inputs/Input/Input';
 import { Actions } from './types';
 
-type TReducer = Reducer<IInput, IAction>;
+type TReducer<TFieldProps extends object> = Reducer<TFieldProps, IAction>;
 
-type TChangeCallback = (e: ChangeEvent<HTMLInputElement>) => void;
+type HTMLElementWithValue = HTMLElement & { value: string };
+
+type TChangeCallback<TFieldElement extends HTMLElementWithValue> = (e: ChangeEvent<TFieldElement>) => void;
+type TErrorCallback = (error: string) => void;
 
 interface IAction {
     type: Actions;
     value: string;
 }
 
-const reducer = (state: IInput, { type, value }: IAction) => {
+const reducer = <TFieldProps extends object>(state: TFieldProps, { type, value }: IAction) => {
     switch (type) {
         case Actions.CHANGE:
             return {
@@ -31,20 +33,35 @@ const reducer = (state: IInput, { type, value }: IAction) => {
     }
 };
 
-export const useFieldReducer = (title: string, icon: Icons): [IInput, Dispatch<IAction>, TChangeCallback] => {
-    const [fieldState, dispatchField] = useReducer<TReducer>(reducer, {
+interface IHook {
+    title?: string;
+    icon?: Icons;
+}
+
+export const useFieldReducer = <TFieldProps extends object, TFieldElement extends HTMLElementWithValue>({
+    title,
+    icon,
+}: IHook): [TFieldProps, TChangeCallback<TFieldElement>, TErrorCallback] => {
+    const [fieldState, dispatchField] = useReducer<TReducer<TFieldProps>>(reducer, {
         title: title,
         value: '',
         error: '',
         icon: icon,
-    });
+    } as TFieldProps);
 
-    const changeFieldHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const changeFieldHandler = (e: ChangeEvent<TFieldElement>) => {
         dispatchField({
             type: Actions.CHANGE,
             value: e.target.value,
         });
     };
 
-    return [fieldState, dispatchField, changeFieldHandler];
+    const errorFieldHandler = (error: string) => {
+        dispatchField({
+            type: Actions.ERROR,
+            value: error,
+        });
+    };
+
+    return [fieldState, changeFieldHandler, errorFieldHandler];
 };

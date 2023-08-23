@@ -1,29 +1,49 @@
 import React, { FC, InputHTMLAttributes, JSX, useRef, useState } from 'react';
 
+import cn from 'classnames';
+
 import { Button } from '@components/Button/Button';
 import { Icon, Icons } from '@components/Icon/Icon';
 import { Checkbox } from '../Checkbox/Checkbox';
 
-import cn from 'classnames';
-
 import classes from './Input.module.scss';
+import baseClasses from '../Base.module.scss';
 
-export interface IInput extends InputHTMLAttributes<HTMLInputElement> {
-    icon: Icons;
+type TInput = InputHTMLAttributes<HTMLInputElement>;
+
+export interface IInput {
+    icon?: Icons;
     title: string;
     value: string;
     error: string;
+    onChange?: TInput['onChange'];
+    wrapperClassname?: string;
 }
 
-export const Input: FC<IInput> = ({ className, type: _type, icon, title, error, ...props }): JSX.Element => {
+type TInputProps = IInput & TInput;
+
+export const Input: FC<TInputProps> = ({
+    className,
+    type: _type,
+    icon,
+    title,
+    error,
+    wrapperClassname,
+    ...props
+}): JSX.Element => {
     const [type, setType] = useState(_type);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const isPasswordInput = _type === 'password';
     const isCheckboxInput = _type === 'checkbox';
 
+    const wrapperClasses = cn(classes['wrapper'], wrapperClassname);
+
+    const containerClasses = cn(classes['container-content'], className);
+
     const rootClasses = cn(classes['input'], {
         [classes['__is-password']]: isPasswordInput,
+        [classes['__with-icon']]: icon,
     });
 
     const leftIconClasses = cn(classes['icon'], classes['__is-left']);
@@ -58,14 +78,14 @@ export const Input: FC<IInput> = ({ className, type: _type, icon, title, error, 
     }
 
     return (
-        <label className={className}>
+        <label className={wrapperClasses}>
             {title && <div className={classes['title']}>{title}</div>}
-            <div className={classes['wrapper']}>
-                <Icon className={leftIconClasses} icon={icon} />
+            <div className={containerClasses}>
+                {icon && <Icon className={leftIconClasses} icon={icon} />}
                 <input {...props} className={rootClasses} type={type} ref={inputRef} />
                 {renderEyeIcon()}
             </div>
-            {error && <strong className={classes['error']}>{error}</strong>}
+            {error && <strong className={baseClasses['error']}>{error}</strong>}
         </label>
     );
 };

@@ -1,6 +1,6 @@
 import React, { FC, JSX, ButtonHTMLAttributes } from 'react';
 
-import { NavLink, NavLinkProps } from 'react-router-dom';
+import { NavLink, NavLinkProps, useLocation } from 'react-router-dom';
 
 import { Icon, Icons } from '@components/Icon/Icon';
 
@@ -31,7 +31,16 @@ const isLink = (props: TCoreProps): props is NavLinkProps => {
 export const NavItem: FC<INavItem> = ({ icon, title, ..._props }): JSX.Element => {
     const props = _props as TCoreProps;
 
+    const location = useLocation();
+
     const rootClasses = cn(classes['item'], props.className);
+
+    const renderContent = () => (
+        <>
+            <Icon className={classes['icon']} icon={icon} size={24} />
+            {title}
+        </>
+    );
 
     const renderElement = () => {
         if (isLink(props)) {
@@ -43,14 +52,18 @@ export const NavItem: FC<INavItem> = ({ icon, title, ..._props }): JSX.Element =
                             [classes['__is-active']]: isActive,
                         });
                     }}
+                    state={{ from: location }}
                 >
-                    <Icon className={classes['icon']} icon={icon} size={24} />
-                    {title}
+                    {renderContent()}
                 </NavLink>
             );
         }
 
-        return <Button {...props} className={rootClasses}></Button>;
+        return (
+            <Button {...props} className={rootClasses}>
+                {renderContent()}
+            </Button>
+        );
     };
     return <li className={classes['wrapper']}>{renderElement()}</li>;
 };

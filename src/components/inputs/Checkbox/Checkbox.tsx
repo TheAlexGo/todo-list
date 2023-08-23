@@ -1,4 +1,4 @@
-import React, { FC, JSX } from 'react';
+import React, { FC, InputHTMLAttributes, JSX } from 'react';
 
 import cn from 'classnames';
 
@@ -7,9 +7,13 @@ import { Icon, Icons } from '@components/Icon/Icon';
 
 import classes from './Checkbox.module.scss';
 
-export interface ICheckbox extends Omit<IInput, 'icon' | 'error' | 'value'> {}
+export interface ICheckbox extends Omit<IInput, 'icon' | 'error' | 'value'> {
+    isSelected?: boolean;
+}
 
-export const Checkbox: FC<ICheckbox> = ({ title, className, checked: isSelected, ...props }): JSX.Element => {
+type TCheckboxProps = ICheckbox & InputHTMLAttributes<HTMLInputElement>;
+
+export const Checkbox: FC<TCheckboxProps> = ({ title, className, isSelected, ...props }): JSX.Element => {
     const icon = isSelected ? Icons.CHECKBOX_FILL : Icons.CHECKBOX_EMPTY;
 
     const rootClasses = cn(

@@ -1,0 +1,12 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color_main);
+    font-size: var(--fs_m);
+    font-weight: 500;
+}
+
+.container-action {
+    width: 24px;
+    height: 24px;
+}

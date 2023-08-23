@@ -10,15 +10,24 @@ import { OAuthLoginForm } from '@components/OAuthLoginForm/OAuthLoginForm';
 import { RegistrationForm } from '@components/forms/RegistrationForm/RegistrationForm';
 import { useFieldReducer } from '../base/useFieldReducer';
 import { OAuthProviderIcons, OAuthProviderTitles } from '../base/constants';
+import { IInput } from '@components/inputs/Input/Input';
 import { Pages, TAuthResult } from '@types';
-import { Actions } from '../base/types';
 
 import classes from '../base/Base.modules.scss';
 
 export const RegistrationContainer: FC = (): JSX.Element => {
-    const [nameState, dispatchName, nameChangeHandler] = useFieldReducer('Имя', Icons.USER);
-    const [emailState, dispatchEmail, emailChangeHandler] = useFieldReducer('Email', Icons.USER_TAG);
-    const [passwordState, dispatchPassword, passwordChangeHandler] = useFieldReducer('Пароль', Icons.LOCK);
+    const [nameState, nameChangeHandler, nameErrorHandler] = useFieldReducer<IInput, HTMLInputElement>({
+        title: 'Имя',
+        icon: Icons.USER,
+    });
+    const [emailState, emailChangeHandler, emailErrorHandler] = useFieldReducer<IInput, HTMLInputElement>({
+        title: 'Email',
+        icon: Icons.USER_TAG,
+    });
+    const [passwordState, passwordChangeHandler, passwordErrorHandler] = useFieldReducer<IInput, HTMLInputElement>({
+        title: 'Пароль',
+        icon: Icons.LOCK,
+    });
     const [isPrivacySelected, setIsPrivacySelected] = useState(false);
 
     const [authError, setAuthError] = useState('');
@@ -53,24 +62,15 @@ export const RegistrationContainer: FC = (): JSX.Element => {
         let isValid = true;
         if (!validateName(name)) {
             isValid = false;
-            dispatchName({
-                type: Actions.ERROR,
-                value: 'Некорректное имя',
-            });
+            nameErrorHandler('Некорректное имя');
         }
         if (!validateEmail(email)) {
             isValid = false;
-            dispatchEmail({
-                type: Actions.ERROR,
-                value: 'Некорректный email',
-            });
+            emailErrorHandler('Некорректный email');
         }
         if (!validatePassword(password)) {
             isValid = false;
-            dispatchPassword({
-                type: Actions.ERROR,
-                value: 'Пароль должен быть не менее 8-ми символов',
-            });
+            passwordErrorHandler('Пароль должен быть не менее 8-ми символов');
         }
         if (!validatePrivacy(isPrivacySelected)) {
             isValid = false;
@@ -99,7 +99,7 @@ export const RegistrationContainer: FC = (): JSX.Element => {
                     onChange: passwordChangeHandler,
                 }}
                 privacy={{
-                    checked: isPrivacySelected,
+                    isSelected: isPrivacySelected,
                     title: 'Ставя галочку, вы даёте согласие на обработку ваших персональных данных',
                     onChange: privacyChangeHandler,
                 }}

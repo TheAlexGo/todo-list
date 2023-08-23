@@ -14,6 +14,9 @@ import CheckboxFillIcon from '@icons/icon_checkbox-fill.svg';
 import HomeIcon from '@icons/icon_home.svg';
 import AddIcon from '@icons/icon_add.svg';
 import SettingsIcon from '@icons/icon_settings.svg';
+import ArrowLeftIcon from '@icons/icon_arrow-left.svg';
+import ClockIcon from '@icons/icon_clock.svg';
+import CalendarIcon from '@icons/icon_calendar.svg';
 import { TSvgComponent } from '@types';
 
 export enum Icons {
@@ -31,6 +34,9 @@ export enum Icons {
     HOME = 'Home',
     ADD = 'Add',
     SETTINGS = 'Settings',
+    ARROW_LEFT = 'ArrowLeft',
+    CLOCK = 'Clock',
+    CALENDAR = 'Calendar',
 }
 
 const icons: Record<Icons, TSvgComponent> = {
@@ -48,6 +54,9 @@ const icons: Record<Icons, TSvgComponent> = {
     Home: HomeIcon,
     Add: AddIcon,
     Settings: SettingsIcon,
+    ArrowLeft: ArrowLeftIcon,
+    Clock: ClockIcon,
+    Calendar: CalendarIcon,
 };
 
 interface IIcon extends SVGProps<SVGSVGElement> {

@@ -5,9 +5,9 @@ import { Button, Buttons } from '@components/Button/Button';
 import { IInput, Input } from '@components/inputs/Input/Input';
 
 import classesBase from '../base/Base.module.scss';
+import { PropsWithClassname } from '@types';
 
 interface IRegistrationForm {
-    className?: string;
     name: IInput;
     email: IInput;
     password: IInput;
@@ -16,7 +16,7 @@ interface IRegistrationForm {
     onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-export const RegistrationForm: FC<IRegistrationForm> = ({
+export const RegistrationForm: FC<PropsWithClassname<IRegistrationForm>> = ({
     name,
     email,
     password,
@@ -26,9 +26,9 @@ export const RegistrationForm: FC<IRegistrationForm> = ({
 }): JSX.Element => {
     return (
         <form className={classesBase['form']} onSubmit={onSubmit} method="POST">
-            <Input {...name} type="text" className={classesBase['input']} />
-            <Input {...email} type="email" className={classesBase['input']} />
-            <Input {...password} type="password" className={classesBase['input']} />
+            <Input {...name} type="text" wrapperClassname={classesBase['wrapper-input']} />
+            <Input {...email} type="email" wrapperClassname={classesBase['wrapper-input']} />
+            <Input {...password} type="password" wrapperClassname={classesBase['wrapper-input']} />
             <Checkbox {...privacy} type="checkbox" className={classesBase['checkbox']} />
             {error && <strong className={classesBase['error']}>{error}</strong>}
             <Button className={classesBase['button']} type="submit" variant={Buttons.PRIMARY}>

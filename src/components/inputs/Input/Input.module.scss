@@ -1,4 +1,8 @@
 .wrapper {
+    color: var(--color_secodary);
+}
+
+.container-content {
     position: relative;
     color: var(--color_main);
 }
@@ -8,8 +12,7 @@
     align-items: center;
     width: 100%;
     height: 56px;
-    padding-right: 16px;
-    padding-left: 56px;
+    padding: 12px 24px;
     border: 0;
     border-radius: 0;
     color: inherit;
@@ -17,6 +20,10 @@
     font-weight: inherit;
     font-size: var(--fs_m);
     background: var(--color_background_light);
+
+    &.__with-icon {
+        padding-left: 56px;
+    }
 
     &.__is-password {
         padding-right: 56px;
@@ -40,12 +47,5 @@
 
 .title {
     margin-bottom: 16px;
-    color: var(--color_secodary);
-}
-
-.error {
-    display: block;
-    margin-top: 8px;
-    color: var(--color_dangerous);
-    font-weight: 600;
+    color: inherit;
 }
