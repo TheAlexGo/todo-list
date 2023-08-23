@@ -99,8 +99,9 @@ export const RegistrationContainer: FC = (): JSX.Element => {
                     onChange: passwordChangeHandler,
                 }}
                 privacy={{
-                    isSelected: isPrivacySelected,
+                    id: window.crypto.randomUUID(),
                     title: 'Ставя галочку, вы даёте согласие на обработку ваших персональных данных',
+                    isSelected: isPrivacySelected,
                     onChange: privacyChangeHandler,
                 }}
                 error={authError}

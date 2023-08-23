@@ -13,15 +13,15 @@ interface IDateTimePicker extends Pick<IInput, 'wrapperClassName' | 'title'> {
 }
 
 export const DateTimePicker: FC<IDateTimePicker> = ({ date, time, title, wrapperClassName }): JSX.Element => {
-    const rootClasses = cn(wrapperClassName);
+    const rootClasses = cn(classes['wrapper'], wrapperClassName);
 
     return (
-        <label className={rootClasses}>
-            <div className={classes['title']}>{title}</div>
+        <fieldset className={rootClasses}>
+            <legend className={classes['title']}>{title}</legend>
             <div className={classes['container']}>
-                <DatePicker {...date} />
-                <TimePicker {...time} />
+                <DatePicker {...date} isInvisibleTitle />
+                <TimePicker {...time} isInvisibleTitle />
             </div>
-        </label>
+        </fieldset>
     );
 };

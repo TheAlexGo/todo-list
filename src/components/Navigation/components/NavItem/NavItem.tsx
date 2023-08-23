@@ -53,6 +53,7 @@ export const NavItem: FC<INavItem> = ({ icon, title, ..._props }): JSX.Element =
                         });
                     }}
                     state={{ from: location }}
+                    title={`Перейти на страницу ${title}`}
                 >
                     {renderContent()}
                 </NavLink>

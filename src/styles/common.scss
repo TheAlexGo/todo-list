@@ -47,6 +47,10 @@ label {
     display: block;
 }
 
+label[hidden] {
+    display: none;
+}
+
 input,
 textarea,
 select {

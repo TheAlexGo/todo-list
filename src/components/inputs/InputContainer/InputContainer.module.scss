@@ -1,0 +1,21 @@
+.wrapper {
+    color: var(--color_secodary);
+}
+
+.container-content {
+    position: relative;
+    color: var(--color_main);
+}
+
+.label {
+    margin-bottom: 16px;
+    color: inherit;
+}
+
+.error {
+    display: block;
+    margin-top: 8px;
+    color: var(--color_dangerous);
+    font-weight: 600;
+    font-size: var(--fs_s);
+}

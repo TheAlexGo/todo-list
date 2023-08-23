@@ -1,12 +1,3 @@
-.wrapper {
-    color: var(--color_secodary);
-}
-
-.container-content {
-    position: relative;
-    color: var(--color_main);
-}
-
 .input {
     height: 56px;
     padding: 12px 24px;
@@ -33,9 +24,4 @@
     &.__is-right {
         right: 16px;
     }
-}
-
-.title {
-    margin-bottom: 16px;
-    color: inherit;
 }

@@ -1,10 +1,12 @@
 import React, { FC, InputHTMLAttributes, JSX } from 'react';
 
+import cn from 'classnames';
+
 import { IInput } from '@components/inputs/Input/Input';
 import { Icon, Icons } from '@components/Icon/Icon';
 
 import classes from './BasePicker.module.scss';
-import baseClasses from '../Base.module.scss';
+import { InputContainer } from '@components/inputs/InputContainer/InputContainer';
 
 type TInput = InputHTMLAttributes<HTMLInputElement>;
 
@@ -12,21 +14,36 @@ export interface IBasePicker extends Omit<IInput, 'onChange'> {
     icon: Icons;
     onChange: TInput['onChange'];
     type: 'date' | 'time';
-    labelId?: string;
 }
 
 export type TTBasePickerProps = IBasePicker & TInput;
 
-export const BasePicker: FC<TTBasePickerProps> = ({ icon, error, labelId, ...props }): JSX.Element => {
+export const BasePicker: FC<TTBasePickerProps> = ({
+    id,
+    icon,
+    error,
+    title,
+    isInvisibleTitle,
+    wrapperClassName,
+    containerClassName,
+    ...props
+}): JSX.Element => {
+    const wrapperClasses = cn(classes['wrapper'], wrapperClassName);
+    const containerClasses = cn(classes['container-content'], containerClassName);
+
     return (
-        <label className={classes['wrapper']} htmlFor={labelId}>
-            <div className={classes['container-content']}>
-                <div className={classes['wrapper-icon']}>
-                    <Icon icon={icon} size={24} />
-                </div>
-                <input {...props} className={classes['field']} />
+        <InputContainer
+            id={id}
+            wrapperClassName={wrapperClasses}
+            containerClassName={containerClasses}
+            title={title}
+            isInvisibleTitle={isInvisibleTitle}
+            error={error}
+        >
+            <div className={classes['wrapper-icon']}>
+                <Icon icon={icon} size={24} />
             </div>
-            {error && <strong className={baseClasses['error']}>{error}</strong>}
-        </label>
+            <input {...props} id={id} className={classes['field']} />
+        </InputContainer>
     );
 };

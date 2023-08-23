@@ -3,9 +3,9 @@ import React, { FC, JSX, TextareaHTMLAttributes } from 'react';
 import cn from 'classnames';
 
 import { IInput } from '@components/inputs/Input/Input';
+import { InputContainer } from '@components/inputs/InputContainer/InputContainer';
 
 import classes from './Textarea.module.scss';
-import baseClasses from '../Base.module.scss';
 
 type TTextarea = TextareaHTMLAttributes<HTMLTextAreaElement>;
 
@@ -16,9 +16,12 @@ export interface ITextarea extends Omit<IInput, 'icon' | 'onChange'> {
 type TTextareaProps = ITextarea & TTextarea;
 
 export const Textarea: FC<TTextareaProps> = ({
-    wrapperClassName,
+    id,
     className,
+    wrapperClassName,
+    containerClassName,
     title,
+    isInvisibleTitle,
     error,
     rows = 3,
     ...props
@@ -26,10 +29,15 @@ export const Textarea: FC<TTextareaProps> = ({
     const wrapperClasses = cn(classes['wrapper'], wrapperClassName);
 
     return (
-        <label className={wrapperClasses}>
-            {title && <div className={classes['title']}>{title}</div>}
-            <textarea {...props} rows={rows} className={cn(classes['textarea'], className)} />
-            {error && <strong className={baseClasses['error']}>{error}</strong>}
-        </label>
+        <InputContainer
+            id={id}
+            wrapperClassName={wrapperClasses}
+            containerClassName={containerClassName}
+            title={title}
+            isInvisibleTitle={isInvisibleTitle}
+            error={error}
+        >
+            <textarea {...props} id={id} rows={rows} className={cn(classes['textarea'], className)} />
+        </InputContainer>
     );
 };
