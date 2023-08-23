@@ -3,11 +3,13 @@
     "plugins": ["stylelint-prettier", "stylelint-scss"],
     "rules": {
         "at-rule-no-unknown": null,
+        "property-no-vendor-prefix": null,
         "scss/at-rule-no-unknown": true,
         "prettier/prettier": true,
         "selector-class-pattern": null,
         "custom-property-pattern": "^[a-zA-Z]+(_[a-zA-Z]+)*",
         "scss/dollar-variable-pattern": "^[a-zA-Z]+(_[a-zA-Z]+)*",
+        "scss/at-mixin-pattern": null,
         "comment-empty-line-before": null
     }
 }

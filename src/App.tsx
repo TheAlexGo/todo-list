@@ -15,6 +15,7 @@ const CreateTask = lazy(() =>
     import('@pages/CreateTask/CreateTask').then(({ CreateTask }) => ({ default: CreateTask })),
 );
 const Settings = lazy(() => import('@pages/Settings/Settings').then(({ Settings }) => ({ default: Settings })));
+const ReadTask = lazy(() => import('@pages/ReadTask/ReadTask').then(({ ReadTask }) => ({ default: ReadTask })));
 
 export const App: FC = (): JSX.Element => {
     return (
@@ -23,8 +24,9 @@ export const App: FC = (): JSX.Element => {
                 <Route index element={<General />} />
                 <Route path={Pages.SETTINGS} element={<Settings />} />
             </Route>
-            <Route path={Pages.CREATE_TASK} element={<ProtectedLayout />}>
-                <Route index element={<CreateTask />} />
+            <Route path={Pages.TASK} element={<ProtectedLayout />}>
+                <Route path=":id" element={<ReadTask />} />
+                <Route path="create" element={<CreateTask />} />
             </Route>
             <Route path={Pages.LOGIN} element={<AuthLayout />}>
                 <Route index element={<Login />} />

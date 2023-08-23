@@ -19,6 +19,7 @@
     "rules": {
         "prettier/prettier": "error",
         "@typescript-eslint/no-non-null-assertion": "off",
+        "react/no-unknown-property": "off",
         "no-console": "warn"
     }
 }

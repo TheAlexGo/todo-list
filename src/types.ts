@@ -7,6 +7,7 @@ export enum Pages {
     LOGIN = '/login',
     REGISTRATION = '/registration',
     SETTINGS = '/settings',
+    TASK = 'task',
     CREATE_TASK = '/task/create',
 }
 
@@ -28,4 +29,8 @@ export interface IAuthContext {
 export interface IUserData {
     email: string;
     name: string;
+}
+
+export interface RouteParams {
+    id: string;
 }

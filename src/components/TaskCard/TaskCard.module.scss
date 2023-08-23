@@ -1,0 +1,33 @@
+@import '~@styles/mixins';
+
+.card {
+    position: relative;
+    display: grid;
+    grid-template:
+        'h h h' minmax(28px, auto)
+        'd d p' 60px / 1fr 1fr 60px;
+    grid-gap: 8px;
+    width: 100%;
+    max-height: 156px;
+    padding: 12px 16px;
+    color: var(--color_main);
+    background-color: var(--color_background_light);
+}
+
+.heading {
+    grid-area: h;
+    font-family: Unbounded, sans-serif;
+    font-size: var(--fs_xl);
+    font-weight: 600;
+
+    @include multieEllip(2, 28px);
+}
+
+.date {
+    grid-area: d;
+    align-self: end;
+}
+
+.progress {
+    grid-area: p;
+}
