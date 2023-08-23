@@ -3,19 +3,22 @@
     display: flex;
     gap: 12px;
     color: var(--color_secodary);
-    cursor: pointer;
 }
 
 .checkbox {
     position: absolute;
-    width: 0;
-    height: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    margin: 0;
     overflow: hidden;
     opacity: 0;
+    cursor: pointer;
 }
 
 .icon {
     flex-shrink: 0;
+    pointer-events: none;
 
     .__is-checked & {
         color: var(--color_primary);

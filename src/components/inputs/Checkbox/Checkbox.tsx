@@ -33,7 +33,6 @@ export const Checkbox: FC<TCheckboxProps> = ({
 
     return (
         <div className={rootClasses}>
-            <label htmlFor={id}>{title}</label>
             <div>
                 <Icon className={classes['icon']} icon={icon} size={24} />
                 <input
@@ -43,8 +42,8 @@ export const Checkbox: FC<TCheckboxProps> = ({
                     className={cn(classes['checkbox'], className)}
                     checked={isSelected}
                 />
-                {title}
             </div>
+            <label htmlFor={id}>{title}</label>
         </div>
     );
 };

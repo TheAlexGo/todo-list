@@ -65,7 +65,7 @@ export const LoginContainer: FC = (): JSX.Element => {
 
     return (
         <div>
-            <h3 className={classes['heading']}>Добро пожаловать!</h3>
+            <h1 className={classes['heading']}>Добро пожаловать!</h1>
             <LoginForm
                 email={{
                     ...emailState,

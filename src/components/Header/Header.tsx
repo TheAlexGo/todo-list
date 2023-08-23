@@ -42,7 +42,7 @@ export const Header: FC<IHeader> = ({ title, action }): JSX.Element => {
             <Button onClick={backClickHandler} title="Вернуться назад">
                 <Icon icon={Icons.ARROW_LEFT} size={24} />
             </Button>
-            {title}
+            <h1 className={classes['heading']}>{title}</h1>
             <div className={classes['container-action']}>{renderAction()}</div>
         </header>
     );

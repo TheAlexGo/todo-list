@@ -84,7 +84,7 @@ export const RegistrationContainer: FC = (): JSX.Element => {
 
     return (
         <div>
-            <h3 className={classes['heading']}>Создайте свой аккаунт</h3>
+            <h1 className={classes['heading']}>Создайте свой аккаунт</h1>
             <RegistrationForm
                 name={{
                     ...nameState,
