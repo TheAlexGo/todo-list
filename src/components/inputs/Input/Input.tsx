@@ -17,7 +17,7 @@ export interface IInput {
     value: string;
     error: string;
     onChange?: TInput['onChange'];
-    wrapperClassname?: string;
+    wrapperClassName?: string;
 }
 
 type TInputProps = IInput & TInput;
@@ -28,7 +28,7 @@ export const Input: FC<TInputProps> = ({
     icon,
     title,
     error,
-    wrapperClassname,
+    wrapperClassName,
     ...props
 }): JSX.Element => {
     const [type, setType] = useState(_type);
@@ -37,7 +37,7 @@ export const Input: FC<TInputProps> = ({
     const isPasswordInput = _type === 'password';
     const isCheckboxInput = _type === 'checkbox';
 
-    const wrapperClasses = cn(classes['wrapper'], wrapperClassname);
+    const wrapperClasses = cn(classes['wrapper'], wrapperClassName);
 
     const containerClasses = cn(classes['container-content'], className);
 

@@ -15,13 +15,20 @@ export interface ITextarea extends Omit<IInput, 'icon' | 'onChange'> {
 
 type TTextareaProps = ITextarea & TTextarea;
 
-export const Textarea: FC<TTextareaProps> = ({ className, title, error, rows = 3, ...props }): JSX.Element => {
-    const wrapperClasses = cn(classes['wrapper'], className);
+export const Textarea: FC<TTextareaProps> = ({
+    wrapperClassName,
+    className,
+    title,
+    error,
+    rows = 3,
+    ...props
+}): JSX.Element => {
+    const wrapperClasses = cn(classes['wrapper'], wrapperClassName);
 
     return (
         <label className={wrapperClasses}>
             {title && <div className={classes['title']}>{title}</div>}
-            <textarea {...props} rows={rows} className={classes['textarea']} />
+            <textarea {...props} rows={rows} className={cn(classes['textarea'], className)} />
             {error && <strong className={baseClasses['error']}>{error}</strong>}
         </label>
     );

@@ -7,9 +7,11 @@ interface ICreateTask {}
 
 export const CreateTask: FC<ICreateTask> = (): JSX.Element => {
     return (
-        <div>
+        <>
             <Header title="Создать задачу" />
-            <CreateTaskContainer />
-        </div>
+            <main>
+                <CreateTaskContainer />
+            </main>
+        </>
     );
 };

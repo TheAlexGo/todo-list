@@ -13,7 +13,13 @@ export interface ICheckbox extends Omit<IInput, 'icon' | 'error' | 'value'> {
 
 type TCheckboxProps = ICheckbox & InputHTMLAttributes<HTMLInputElement>;
 
-export const Checkbox: FC<TCheckboxProps> = ({ title, className, isSelected, ...props }): JSX.Element => {
+export const Checkbox: FC<TCheckboxProps> = ({
+    title,
+    wrapperClassName,
+    className,
+    isSelected,
+    ...props
+}): JSX.Element => {
     const icon = isSelected ? Icons.CHECKBOX_FILL : Icons.CHECKBOX_EMPTY;
 
     const rootClasses = cn(
@@ -21,13 +27,13 @@ export const Checkbox: FC<TCheckboxProps> = ({ title, className, isSelected, ...
         {
             [classes['__is-checked']]: isSelected,
         },
-        className,
+        wrapperClassName,
     );
 
     return (
         <label className={rootClasses}>
             <Icon className={classes['icon']} icon={icon} size={24} />
-            <input {...props} type="checkbox" className={classes['checkbox']} checked={isSelected} />
+            <input {...props} type="checkbox" className={cn(classes['checkbox'], className)} checked={isSelected} />
             {title}
         </label>
     );

@@ -1,12 +1,9 @@
-.form {
-    display: flex;
-    flex-direction: column;
+.wrapper-name {
+    margin-top: 24px;
 }
 
-.input {
+.wrapper-email,
+.wrapper-password,
+.wrapper-checkbox {
     margin-top: 28px;
-
-    &:first-child {
-        margin-top: 24px;
-    }
 }

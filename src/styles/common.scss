@@ -43,15 +43,30 @@ a {
 }
 
 /* Сбрасываем автокомплит у полей */
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-    box-shadow: 0 0 0 1000px var(--color_background_light) inset !important;
-    -webkit-text-fill-color: var(--color_main) !important;
-    caret-color: var(--color_main) !important;
+label {
+    display: block;
+}
 
-    &::selection {
-        -webkit-text-fill-color: var(--color_black) !important;
+input,
+textarea,
+select {
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: var(--fs_m);
+    background: var(--color_background_light);
+
+    &:-webkit-autofill {
+        box-shadow: 0 0 0 1000px var(--color_background_light) inset !important;
+        -webkit-text-fill-color: var(--color_main) !important;
+        caret-color: var(--color_main) !important;
+
+        &::selection {
+            -webkit-text-fill-color: var(--color_black) !important;
+        }
     }
 }
 
@@ -59,4 +74,18 @@ select:-webkit-autofill {
     color: var(--color_black) !important;
     background: var(--color_primary) !important;
 }
+
+form {
+    margin: 0;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 /* /Системные теги */
+
+#root {
+    height: 100vh;
+}

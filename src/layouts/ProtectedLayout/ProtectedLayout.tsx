@@ -1,4 +1,4 @@
-import React, { FC, JSX } from 'react';
+import React, { FC, JSX, Suspense } from 'react';
 
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
@@ -53,7 +53,9 @@ export const ProtectedLayout: FC<IProtectedLayout> = ({ withNavigation = false }
 
     return (
         <div className={classes['layout']}>
-            <Outlet />
+            <Suspense fallback={<Loader size={LoaderSizes.XL} isFixedOnCenter />}>
+                <Outlet />
+            </Suspense>
             {withNavigation && <Navigation elements={navs} />}
         </div>
     );

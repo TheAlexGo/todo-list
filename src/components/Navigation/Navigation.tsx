@@ -10,7 +10,7 @@ interface INavigation {
 
 export const Navigation: FC<INavigation> = ({ elements }): JSX.Element => {
     return (
-        <nav>
+        <nav className={classes['wrapper']}>
             <ul className={classes['navigation']}>
                 {elements.map((el) => (
                     <NavItem key={el.to} {...el} />
