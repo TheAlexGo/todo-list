@@ -52,11 +52,11 @@ export const ProtectedLayout: FC<IProtectedLayout> = ({ withNavigation = false }
     ];
 
     return (
-        <div className={classes['layout']}>
+        <div className={classes.layout}>
             <Suspense fallback={<Loader size={LoaderSizes.XL} isFixedOnCenter />}>
                 <Outlet />
             </Suspense>
-            {withNavigation && <Navigation elements={navs} />}
+            {withNavigation && <Navigation elements={navs} title="Основное меню" />}
         </div>
     );
 };

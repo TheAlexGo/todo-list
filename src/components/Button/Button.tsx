@@ -1,4 +1,4 @@
-import React, { FC, ButtonHTMLAttributes } from 'react';
+import React, { FC, JSX, ButtonHTMLAttributes } from 'react';
 
 import cn from 'classnames';
 
@@ -10,13 +10,20 @@ export enum Buttons {
     OUTLINE = 'outline',
 }
 
-interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IButton {
     variant?: Buttons;
 }
 
-export const Button: FC<IButton> = ({ type = 'button', className, variant = Buttons.CLEAN, ...props }): JSX.Element => {
+interface ButtonProps extends IButton, ButtonHTMLAttributes<HTMLButtonElement> {}
+
+export const Button: FC<ButtonProps> = ({
+    type = 'button',
+    className,
+    variant = Buttons.CLEAN,
+    ...props
+}): JSX.Element => {
     const rootClasses = cn(
-        classes['button'],
+        classes.button,
         {
             [classes[`__is-${variant}`]]: variant && variant !== Buttons.CLEAN,
         },

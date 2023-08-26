@@ -14,15 +14,13 @@ interface ILoginForm {
     onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-export const LoginForm: FC<PropsWithClassname<ILoginForm>> = ({ onSubmit, email, password, error }): JSX.Element => {
-    return (
-        <form className={baseClasses['form']} onSubmit={onSubmit} method="POST">
-            <Input {...email} type="email" wrapperClassName={classes['wrapper-email']} />
-            <Input {...password} type="password" wrapperClassName={classes['wrapper-password']} />
-            {error && <strong className={baseClasses['error']}>{error}</strong>}
-            <Button className={baseClasses['button']} type="submit" variant={Buttons.PRIMARY}>
-                Войти
-            </Button>
-        </form>
-    );
-};
+export const LoginForm: FC<PropsWithClassname<ILoginForm>> = ({ onSubmit, email, password, error }): JSX.Element => (
+    <form className={baseClasses.form} onSubmit={onSubmit} method="POST">
+        <Input {...email} type="email" wrapperClassName={classes['wrapper-email']} />
+        <Input {...password} type="password" wrapperClassName={classes['wrapper-password']} />
+        {error && <strong className={baseClasses.error}>{error}</strong>}
+        <Button className={baseClasses.button} type="submit" variant={Buttons.PRIMARY}>
+            Войти
+        </Button>
+    </form>
+);

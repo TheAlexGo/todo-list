@@ -1,4 +1,4 @@
-import React, { FC, JSX } from 'react';
+import React, { FC, HTMLAttributes, JSX } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -13,11 +13,13 @@ export interface IAction {
 }
 
 interface IHeader {
-    title: string;
+    text: string;
     action?: IAction;
 }
 
-export const Header: FC<IHeader> = ({ title, action }): JSX.Element => {
+interface HeaderProps extends IHeader, HTMLAttributes<HTMLElement> {}
+
+export const Header: FC<HeaderProps> = ({ text, action, ...props }): JSX.Element => {
     const navigate = useNavigate();
     const { state } = useLocation();
 
@@ -38,11 +40,11 @@ export const Header: FC<IHeader> = ({ title, action }): JSX.Element => {
     };
 
     return (
-        <header className={classes['header']}>
+        <header className={classes.header} {...props}>
             <Button onClick={backClickHandler} title="Вернуться назад">
                 <Icon icon={Icons.ARROW_LEFT} size={24} />
             </Button>
-            <h1 className={classes['heading']}>{title}</h1>
+            <h1 className={classes.heading}>{text}</h1>
             <div className={classes['container-action']}>{renderAction()}</div>
         </header>
     );

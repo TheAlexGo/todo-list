@@ -24,7 +24,7 @@ export const Checkbox: FC<TCheckboxProps> = ({
     const icon = isSelected ? Icons.CHECKBOX_FILL : Icons.CHECKBOX_EMPTY;
 
     const rootClasses = cn(
-        classes['wrapper'],
+        classes.wrapper,
         {
             [classes['__is-checked']]: isSelected,
         },
@@ -34,12 +34,12 @@ export const Checkbox: FC<TCheckboxProps> = ({
     return (
         <div className={rootClasses}>
             <div>
-                <Icon className={classes['icon']} icon={icon} size={24} />
+                <Icon className={classes.icon} icon={icon} size={24} />
                 <input
                     {...props}
                     id={id}
                     type="checkbox"
-                    className={cn(classes['checkbox'], className)}
+                    className={cn(classes.checkbox, className)}
                     checked={isSelected}
                 />
             </div>

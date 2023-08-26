@@ -7,6 +7,6 @@ export interface ITimePicker extends IBasePicker {}
 
 type TTimePickerProps = ITimePicker & TTBasePickerProps;
 
-export const TimePicker: FC<TTimePickerProps> = ({ ...props }): JSX.Element => {
-    return <BasePicker {...props} type="time" icon={Icons.CLOCK} title="Выберите время" />;
-};
+export const TimePicker: FC<TTimePickerProps> = ({ ...props }): JSX.Element => (
+    <BasePicker {...props} type="time" icon={Icons.CLOCK} title="Выберите время" />
+);

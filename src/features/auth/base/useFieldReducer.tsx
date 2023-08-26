@@ -44,10 +44,10 @@ export const useFieldReducer = <TFieldProps extends object, TFieldElement extend
 }: IHook): [TFieldProps, TChangeCallback<TFieldElement>, TErrorCallback] => {
     const [fieldState, dispatchField] = useReducer<TReducer<TFieldProps>>(reducer, {
         id: window.crypto.randomUUID(),
-        title: title,
+        title,
         value: '',
         error: '',
-        icon: icon,
+        icon,
     } as TFieldProps);
 
     const changeFieldHandler = (e: ChangeEvent<TFieldElement>) => {

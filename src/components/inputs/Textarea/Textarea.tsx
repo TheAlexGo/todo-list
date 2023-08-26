@@ -26,7 +26,7 @@ export const Textarea: FC<TTextareaProps> = ({
     rows = 3,
     ...props
 }): JSX.Element => {
-    const wrapperClasses = cn(classes['wrapper'], wrapperClassName);
+    const wrapperClasses = cn(classes.wrapper, wrapperClassName);
 
     return (
         <InputContainer
@@ -37,7 +37,7 @@ export const Textarea: FC<TTextareaProps> = ({
             isInvisibleTitle={isInvisibleTitle}
             error={error}
         >
-            <textarea {...props} id={id} rows={rows} className={cn(classes['textarea'], className)} />
+            <textarea {...props} id={id} rows={rows} className={cn(classes.textarea, className)} />
         </InputContainer>
     );
 };

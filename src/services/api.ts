@@ -47,9 +47,7 @@ export const readUserDataByRef = async (userId: string): Promise<IUserData | nul
     return userData;
 };
 
-export const readUserData = async (userId: string): Promise<IUserData | null> => {
-    return readUserDataByRef(userId);
-};
+export const readUserData = async (userId: string): Promise<IUserData | null> => readUserDataByRef(userId);
 
 export const writeUserData = async (userId: string, name: string, email: string): Promise<IUserData | null> => {
     const db = getFirestore();
@@ -59,7 +57,7 @@ export const writeUserData = async (userId: string, name: string, email: string)
             name,
             email,
         });
-        return readUserDataByRef(userId);
+        return await readUserDataByRef(userId);
     } catch (_e) {
         const e = _e as Error;
         Logger.error(e);

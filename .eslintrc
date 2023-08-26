@@ -2,7 +2,9 @@
     "root": true,
     "parserOptions": {
         "ecmaVersion": 2022,
-        "sourceType": "module"
+        "sourceType": "module",
+        "tsconfigRootDir": ".",
+        "project": "tsconfig.json"
     },
     "extends": ["eslint:recommended", "prettier"],
     "plugins": ["prettier"],

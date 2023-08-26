@@ -36,7 +36,7 @@ export const Input: FC<TInputProps> = ({
     const isPasswordInput = _type === 'password';
 
     const rootClasses = cn(
-        classes['input'],
+        classes.input,
         {
             [classes['__is-password']]: isPasswordInput,
             [classes['__with-icon']]: icon,
@@ -44,9 +44,9 @@ export const Input: FC<TInputProps> = ({
         className,
     );
 
-    const leftIconClasses = cn(classes['icon'], classes['__is-left']);
+    const leftIconClasses = cn(classes.icon, classes['__is-left']);
 
-    const rightIconClasses = cn(classes['icon'], classes['__is-right']);
+    const rightIconClasses = cn(classes.icon, classes['__is-right']);
 
     const clickEyeHandler = (): void => {
         setType((prevType) => {
@@ -62,11 +62,11 @@ export const Input: FC<TInputProps> = ({
             return null;
         }
         const isPasswordType = type === 'password';
-        const icon = isPasswordType ? Icons.EYE : Icons.EYE_SLASH;
-        const title = isPasswordType ? 'Показать пароль' : 'Скрыть пароль';
+        const eyeIcon = isPasswordType ? Icons.EYE : Icons.EYE_SLASH;
+        const eyeTitle = isPasswordType ? 'Показать пароль' : 'Скрыть пароль';
         return (
-            <Button className={rightIconClasses} title={title} onClick={clickEyeHandler}>
-                <Icon icon={icon} />
+            <Button className={rightIconClasses} title={eyeTitle} onClick={clickEyeHandler}>
+                <Icon icon={eyeIcon} />
             </Button>
         );
     };

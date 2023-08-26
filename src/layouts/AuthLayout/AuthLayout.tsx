@@ -19,7 +19,7 @@ export const AuthLayout: FC<IAuthLayout> = (): JSX.Element => {
     }
 
     return (
-        <div className={classes['wrapper']}>
+        <div className={classes.wrapper}>
             <header className={classes['logo-container']}>
                 <Icon icon={Icons.LOGO} width={92} isCustomSize />
                 <Icon icon={Icons.LOGO_TEXT} width={140} isCustomSize />

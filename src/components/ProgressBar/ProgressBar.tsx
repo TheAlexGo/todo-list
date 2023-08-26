@@ -21,7 +21,7 @@ export const ProgressBar: FC<IProgressBar> = ({ percentage, size = ProgressBarSi
         '--current_percentage': percentage,
     };
 
-    const wrapperClasses = cn(classes['wrapper'], {
+    const wrapperClasses = cn(classes.wrapper, {
         [classes[`__is-size_${size}`]]: size,
     });
 
@@ -36,7 +36,7 @@ export const ProgressBar: FC<IProgressBar> = ({ percentage, size = ProgressBarSi
                 aria-valuemax={100}
                 aria-labelledby="progressBar-label"
             />
-            <div id="progressBar-label" className={classes['label']}>
+            <div id="progressBar-label" className={classes.label}>
                 {percentage}%
             </div>
         </div>

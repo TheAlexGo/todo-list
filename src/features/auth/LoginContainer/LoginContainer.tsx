@@ -3,15 +3,15 @@ import React, { FC, FormEvent, JSX, useState } from 'react';
 import { AuthProvider as IOAuthProvider } from '@firebase/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { ALLOWED_OAUTH_PROVIDERS, ProviderIdUnion, useAuth } from '@providers/AuthProvider';
+import { ALLOWED_OAUTH_PROVIDERS, useAuth } from '@providers/AuthProvider';
 import { validateEmail, validatePassword } from '@utils/validate';
 import { Icons } from '@components/Icon/Icon';
 import { OAuthLoginForm } from '@components/OAuthLoginForm/OAuthLoginForm';
 import { LoginForm } from '@components/forms/LoginForm/LoginForm';
+import { IInput } from '@components/inputs/Input/Input';
+import { Pages, ProviderIdUnion, TAuthResult } from '@types';
 import { useFieldReducer } from '../base/useFieldReducer';
 import { OAuthProviderIcons, OAuthProviderTitles } from '../base/constants';
-import { IInput } from '@components/inputs/Input/Input';
-import { Pages, TAuthResult } from '@types';
 
 import classes from '../base/Base.modules.scss';
 
@@ -65,7 +65,7 @@ export const LoginContainer: FC = (): JSX.Element => {
 
     return (
         <div>
-            <h1 className={classes['heading']}>Добро пожаловать!</h1>
+            <h1 className={classes.heading}>Добро пожаловать!</h1>
             <LoginForm
                 email={{
                     ...emailState,
@@ -78,7 +78,7 @@ export const LoginContainer: FC = (): JSX.Element => {
                 error={authError}
                 onSubmit={submitHandler}
             />
-            <div className={classes['delimiter']}>
+            <div className={classes.delimiter}>
                 <div className={classes['delimiter-text']}>Или войдите через</div>
             </div>
             <OAuthLoginForm<ProviderIdUnion, IOAuthProvider>

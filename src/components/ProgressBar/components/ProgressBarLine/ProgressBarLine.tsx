@@ -17,12 +17,12 @@ export const ProgressBarLine: FC<IProgressBarLine> = ({ percentage, ...props }):
 
     return (
         <div>
-            <div className={classes['values']}>
+            <div className={classes.values}>
                 <div className={classes['status-text']}>{percentage !== 100 ? 'В процессе...' : 'Завершено!'}</div>
                 <div className={classes['status-value']}>{percentage}%</div>
             </div>
-            <div className={classes['container']} style={progressStyles}>
-                <progress {...props} className={classes['progress']} max={100} value={100} />
+            <div className={classes.container} style={progressStyles}>
+                <progress {...props} className={classes.progress} max={100} value={100} />
             </div>
         </div>
     );

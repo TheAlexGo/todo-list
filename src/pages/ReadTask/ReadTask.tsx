@@ -10,7 +10,7 @@ export const ReadTask: FC = (): JSX.Element => {
 
     return (
         <>
-            <Header title="Подробности" />
+            <Header text="Подробности" />
             <main>Таска с id {id}</main>
         </>
     );

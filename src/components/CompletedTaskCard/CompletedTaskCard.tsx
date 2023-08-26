@@ -12,7 +12,7 @@ interface ICompletedTaskCard extends PropsWithClassname {
 }
 
 export const CompletedTaskCard: FC<ICompletedTaskCard> = ({ title, className }): JSX.Element => {
-    const rootClasses = cn(classes['card'], className);
+    const rootClasses = cn(classes.card, className);
 
     return (
         <article className={rootClasses}>

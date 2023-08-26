@@ -5,13 +5,11 @@ import { CreateTaskContainer } from '@features/task/CreateTaskContainer/CreateTa
 
 interface ICreateTask {}
 
-export const CreateTask: FC<ICreateTask> = (): JSX.Element => {
-    return (
-        <>
-            <Header title="Создать задачу" />
-            <main>
-                <CreateTaskContainer />
-            </main>
-        </>
-    );
-};
+export const CreateTask: FC<ICreateTask> = (): JSX.Element => (
+    <>
+        <Header text="Создать задачу" />
+        <main>
+            <CreateTaskContainer />
+        </main>
+    </>
+);

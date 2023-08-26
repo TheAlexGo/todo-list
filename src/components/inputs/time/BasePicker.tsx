@@ -5,8 +5,8 @@ import cn from 'classnames';
 import { IInput } from '@components/inputs/Input/Input';
 import { Icon, Icons } from '@components/Icon/Icon';
 
-import classes from './BasePicker.module.scss';
 import { InputContainer } from '@components/inputs/InputContainer/InputContainer';
+import classes from './BasePicker.module.scss';
 
 type TInput = InputHTMLAttributes<HTMLInputElement>;
 
@@ -28,7 +28,7 @@ export const BasePicker: FC<TTBasePickerProps> = ({
     containerClassName,
     ...props
 }): JSX.Element => {
-    const wrapperClasses = cn(classes['wrapper'], wrapperClassName);
+    const wrapperClasses = cn(classes.wrapper, wrapperClassName);
     const containerClasses = cn(classes['container-content'], containerClassName);
 
     return (
@@ -43,7 +43,7 @@ export const BasePicker: FC<TTBasePickerProps> = ({
             <div className={classes['wrapper-icon']}>
                 <Icon icon={icon} size={24} />
             </div>
-            <input {...props} id={id} className={classes['field']} />
+            <input {...props} id={id} className={classes.field} />
         </InputContainer>
     );
 };

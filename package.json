@@ -7,17 +7,20 @@
     "scripts": {
         "start": "NODE_ENV=development webpack serve",
         "build": "webpack",
-        "eslint": "npx eslint --ext .ts,.tsx,.js ./",
-        "eslint:fix": "npx eslint --ext .ts,.tsx,.js ./ --fix",
+        "eslint": "npx eslint --ext .ts,.tsx ./",
+        "eslint:fix": "npx eslint --ext .ts,.tsx ./ --fix",
         "prettier": "prettier --check ./",
         "prettier:fix": "prettier --write ./",
         "stylelint": "npx stylelint \"src/{**/*,*}.[s]css\"",
         "stylelint:fix": "npx stylelint \"src/{**/*,*}.[s]css\" --fix"
     },
     "dependencies": {
+        "@firebase/auth": "^1.3.0",
+        "classnames": "^2.3.2",
         "firebase": "^10.2.0",
         "react": "18.2.0",
-        "react-dom": "18.2.0"
+        "react-dom": "18.2.0",
+        "react-router-dom": "^6.15.0"
     },
     "devDependencies": {
         "@babel/cli": "7.22.10",
@@ -29,9 +32,10 @@
         "@typescript-eslint/eslint-plugin": "^6.4.0",
         "@typescript-eslint/parser": "^6.4.0",
         "babel-loader": "9.1.3",
-        "classnames": "^2.3.2",
         "css-loader": "6.8.1",
         "eslint": "^8.47.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-airbnb-typescript": "^17.1.0",
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-prettier": "^5.0.0",
         "eslint-plugin-react": "^7.33.2",
@@ -39,7 +43,6 @@
         "html-webpack-plugin": "5.5.3",
         "pre-commit": "^1.2.2",
         "prettier": "^3.0.2",
-        "react-router-dom": "^6.15.0",
         "sass": "^1.66.1",
         "sass-loader": "^13.3.2",
         "style-loader": "3.3.3",

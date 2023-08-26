@@ -4,9 +4,9 @@ import { NavLink, NavLinkProps, useLocation } from 'react-router-dom';
 
 import { Icon, Icons } from '@components/Icon/Icon';
 
-import classes from './NavItem.module.scss';
 import cn from 'classnames';
 import { Button } from '@components/Button/Button';
+import classes from './NavItem.module.scss';
 
 type TCoreProps = NavLinkProps | TButtonProps;
 
@@ -24,20 +24,18 @@ type TNavPropsButton = TButtonProps & INavItemCore;
 
 export type INavItem = TNavPropsLink | TNavPropsButton;
 
-const isLink = (props: TCoreProps): props is NavLinkProps => {
-    return (props as NavLinkProps).to !== undefined;
-};
+const isLink = (props: TCoreProps): props is NavLinkProps => (props as NavLinkProps).to !== undefined;
 
 export const NavItem: FC<INavItem> = ({ icon, title, ..._props }): JSX.Element => {
     const props = _props as TCoreProps;
 
     const location = useLocation();
 
-    const rootClasses = cn(classes['item'], props.className);
+    const rootClasses = cn(classes.item, props.className);
 
     const renderContent = () => (
         <>
-            <Icon className={classes['icon']} icon={icon} size={24} />
+            <Icon className={classes.icon} icon={icon} size={24} />
             {title}
         </>
     );
@@ -47,11 +45,11 @@ export const NavItem: FC<INavItem> = ({ icon, title, ..._props }): JSX.Element =
             return (
                 <NavLink
                     {...props}
-                    className={({ isActive }) => {
-                        return cn(rootClasses, {
+                    className={({ isActive }) =>
+                        cn(rootClasses, {
                             [classes['__is-active']]: isActive,
-                        });
-                    }}
+                        })
+                    }
                     state={{ from: location }}
                     title={`Перейти на страницу ${title}`}
                 >
@@ -66,5 +64,5 @@ export const NavItem: FC<INavItem> = ({ icon, title, ..._props }): JSX.Element =
             </Button>
         );
     };
-    return <li className={classes['wrapper']}>{renderElement()}</li>;
+    return <li className={classes.wrapper}>{renderElement()}</li>;
 };

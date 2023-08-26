@@ -1,6 +1,6 @@
 import { FC, SVGProps } from 'react';
 
-import { ProviderIdUnion } from '@providers/AuthProvider';
+import { ProviderId } from 'firebase/auth';
 
 export enum Pages {
     INDEX = '/',
@@ -16,6 +16,8 @@ export type TAuthResult = Promise<IUserData | null>;
 export type TSvgComponent = FC<SVGProps<SVGSVGElement>>;
 
 export type PropsWithClassname<T = unknown> = T & { className?: string };
+
+export type ProviderIdUnion = (typeof ProviderId)[keyof typeof ProviderId];
 
 export interface IAuthContext {
     isAuthenticate: boolean | null;

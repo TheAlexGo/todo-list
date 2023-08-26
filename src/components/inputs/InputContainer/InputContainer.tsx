@@ -22,18 +22,18 @@ export const InputContainer: FC<IInputCore> = ({
     wrapperClassName,
     containerClassName,
 }): JSX.Element => {
-    const wrapperClasses = cn(classes['wrapper'], wrapperClassName);
+    const wrapperClasses = cn(classes.wrapper, wrapperClassName);
 
     const containerClasses = cn(classes['container-content'], containerClassName);
 
     return (
         <div className={wrapperClasses}>
-            <label htmlFor={id} className={classes['label']} hidden={isInvisibleTitle}>
+            <label htmlFor={id} className={classes.label} hidden={isInvisibleTitle}>
                 {title}
             </label>
             <div>
                 <div className={containerClasses}>{children}</div>
-                {error && <strong className={classes['error']}>{error}</strong>}
+                {error && <strong className={classes.error}>{error}</strong>}
             </div>
         </div>
     );

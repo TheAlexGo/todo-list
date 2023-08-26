@@ -1,4 +1,14 @@
-import React, { createContext, FC, JSX, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+    createContext,
+    FC,
+    JSX,
+    PropsWithChildren,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 
 import { FirebaseApp } from 'firebase/app';
 import {
@@ -17,7 +27,7 @@ import {
 
 import { readUserData, writeUserData } from '@services/api';
 import { Logger } from '@services/logger';
-import { IAuthContext, IUserData, TAuthResult } from '@types';
+import { IAuthContext, IUserData, ProviderIdUnion, TAuthResult } from '@types';
 
 interface IAuthProvider {
     firebaseApp: FirebaseApp;
@@ -26,15 +36,13 @@ interface IAuthProvider {
 const AuthContext = createContext<IAuthContext>({
     isAuthenticate: null,
     user: null,
-    signUpWithCredentials: () => Promise.reject({}),
-    logInWithEmailAndPassword: () => Promise.reject({}),
-    logInWithPopup: () => Promise.reject({}),
-    logOut: () => void 0,
+    signUpWithCredentials: () => Promise.resolve(null),
+    logInWithEmailAndPassword: () => Promise.resolve(null),
+    logInWithPopup: () => Promise.resolve(null),
+    logOut: () => undefined,
 });
 
 export const useAuth = () => useContext(AuthContext);
-
-export type ProviderIdUnion = (typeof ProviderId)[keyof typeof ProviderId];
 
 export const ALLOWED_OAUTH_PROVIDERS: Partial<Record<ProviderIdUnion, IOAuthProvider>> = {
     [ProviderId.GOOGLE]: new GoogleAuthProvider(),
@@ -52,7 +60,7 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
         setUser(null);
     };
 
-    const processSignIn = (promise: Promise<UserCredential>): TAuthResult => {
+    const processSignIn = useCallback((promise: Promise<UserCredential>): TAuthResult => {
         beforeAuth();
 
         return promise
@@ -60,9 +68,7 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
                 Logger.info('AuthProvider, processAuth complete:', result);
                 return result;
             })
-            .then(({ user }) => {
-                return readUserData(user.uid);
-            })
+            .then(({ user: responseUser }) => readUserData(responseUser.uid))
             .then((result) => {
                 Logger.info(result);
                 return result;
@@ -73,9 +79,9 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
                 setIsAuthenticate(false);
                 throw error;
             });
-    };
+    }, []);
 
-    const processSignUp = (promise: Promise<UserCredential>): Promise<UserCredential> => {
+    const processSignUp = useCallback((promise: Promise<UserCredential>): Promise<UserCredential> => {
         beforeAuth();
 
         return promise
@@ -89,33 +95,50 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
                 setIsAuthenticate(false);
                 throw error;
             });
-    };
+    }, []);
 
-    const signUpWithCredentials = (name: string, email: string, password: string) => {
-        return processSignUp(createUserWithEmailAndPassword(auth, email, password)).then(({ user }) => {
-            return writeUserData(user.uid, name, email);
-        });
-    };
+    const signUpWithCredentials = useCallback(
+        (name: string, email: string, password: string) =>
+            processSignUp(createUserWithEmailAndPassword(auth, email, password)).then(({ user: responseUser }) =>
+                writeUserData(responseUser.uid, name, email),
+            ),
+        [auth, processSignUp],
+    );
 
-    const logInWithEmailAndPassword: IAuthContext['logInWithEmailAndPassword'] = (
-        email: string,
-        password: string,
-    ): TAuthResult => {
-        return processSignIn(signInWithEmailAndPassword(auth, email, password));
-    };
+    const logInWithEmailAndPassword: IAuthContext['logInWithEmailAndPassword'] = useCallback(
+        (email: string, password: string): TAuthResult =>
+            processSignIn(signInWithEmailAndPassword(auth, email, password)),
+        [auth, processSignIn],
+    );
 
-    const logInWithPopup: IAuthContext['logInWithPopup'] = (providerId: ProviderIdUnion): TAuthResult => {
-        const currentProvider = ALLOWED_OAUTH_PROVIDERS[providerId];
+    const logInWithPopup: IAuthContext['logInWithPopup'] = useCallback(
+        (providerId: ProviderIdUnion): TAuthResult => {
+            const currentProvider = ALLOWED_OAUTH_PROVIDERS[providerId];
 
-        if (currentProvider) {
-            return processSignIn(signInWithPopup(auth, currentProvider));
-        }
+            if (currentProvider) {
+                return processSignIn(signInWithPopup(auth, currentProvider));
+            }
 
-        Logger.error(new Error(`Провайдер ${providerId} не реализован!`));
-        return Promise.reject({});
-    };
+            const error = new Error(`Провайдер ${providerId} не реализован!`);
+            Logger.error(error);
+            return Promise.reject(error);
+        },
+        [auth, processSignIn],
+    );
 
-    const logOut: IAuthContext['logOut'] = () => signOut(auth);
+    const logOut: IAuthContext['logOut'] = useCallback(() => signOut(auth), [auth]);
+
+    const providerValue = useMemo(
+        () => ({
+            isAuthenticate,
+            user,
+            signUpWithCredentials,
+            logInWithEmailAndPassword,
+            logInWithPopup,
+            logOut,
+        }),
+        [isAuthenticate, logInWithEmailAndPassword, logInWithPopup, logOut, signUpWithCredentials, user],
+    );
 
     useEffect(() => {
         /**
@@ -126,9 +149,9 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
         /**
          * Подписываемся на событие изменения состояния аворизации пользователя
          */
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                readUserData(user.uid)
+        auth.onAuthStateChanged((responseUser) => {
+            if (responseUser) {
+                readUserData(responseUser.uid)
                     .then((userData) => {
                         setUser(userData);
                         setIsAuthenticate(true);
@@ -145,18 +168,5 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
         });
     }, [auth]);
 
-    return (
-        <AuthContext.Provider
-            value={{
-                isAuthenticate,
-                user,
-                signUpWithCredentials,
-                logInWithEmailAndPassword,
-                logInWithPopup,
-                logOut,
-            }}
-        >
-            {children}
-        </AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={providerValue}>{children}</AuthContext.Provider>;
 };
