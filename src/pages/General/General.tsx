@@ -9,18 +9,20 @@ import classes from './General.module.scss';
 export const General: FC = (): JSX.Element => (
     <>
         <Greetings />
-        <ol className={classes.slider}>
-            {Array.from(Array(10).keys()).map((i) => (
-                <li className={classes['task-completed']} key={i}>
-                    <CompletedTaskCard className={classes['task-card']} title="Real Estate Website Design" />
-                </li>
-            ))}
-        </ol>
-        <TaskCard
-            id={window.crypto.randomUUID()}
-            title="Сделать проект DayTask"
-            date={new Date(Date.now())}
-            progress={25}
-        />
+        <main>
+            <ol className={classes.slider}>
+                {Array.from(Array(10).keys()).map((i) => (
+                    <li className={classes['task-completed']} key={i}>
+                        <CompletedTaskCard className={classes['task-card']} title="Real Estate Website Design" />
+                    </li>
+                ))}
+            </ol>
+            <TaskCard
+                id={window.crypto.randomUUID()}
+                title="Сделать проект DayTask"
+                date={new Date(Date.now())}
+                progress={25}
+            />
+        </main>
     </>
 );

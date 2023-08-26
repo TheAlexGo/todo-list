@@ -1,4 +1,4 @@
-import React, { FC, JSX, ButtonHTMLAttributes } from 'react';
+import React, { JSX, ButtonHTMLAttributes, forwardRef } from 'react';
 
 import cn from 'classnames';
 
@@ -16,18 +16,15 @@ interface IButton {
 
 interface ButtonProps extends IButton, ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const Button: FC<ButtonProps> = ({
-    type = 'button',
-    className,
-    variant = Buttons.CLEAN,
-    ...props
-}): JSX.Element => {
-    const rootClasses = cn(
-        classes.button,
-        {
-            [classes[`__is-${variant}`]]: variant && variant !== Buttons.CLEAN,
-        },
-        className,
-    );
-    return <button {...props} className={rootClasses} type={type} />;
-};
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+    ({ type = 'button', className, variant = Buttons.CLEAN, ...props }, ref): JSX.Element => {
+        const rootClasses = cn(
+            classes.button,
+            {
+                [classes[`__is-${variant}`]]: variant && variant !== Buttons.CLEAN,
+            },
+            className,
+        );
+        return <button {...props} className={rootClasses} type={type} ref={ref} />;
+    },
+);

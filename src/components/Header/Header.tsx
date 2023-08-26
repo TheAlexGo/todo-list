@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, JSX } from 'react';
+import React, { FC, HTMLAttributes, JSX, useEffect, useRef } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -23,6 +23,8 @@ export const Header: FC<HeaderProps> = ({ text, action, ...props }): JSX.Element
     const navigate = useNavigate();
     const { state } = useLocation();
 
+    const returnButtonRef = useRef<HTMLButtonElement>(null);
+
     const backClickHandler = () => {
         navigate(state?.from || -1);
     };
@@ -39,9 +41,13 @@ export const Header: FC<HeaderProps> = ({ text, action, ...props }): JSX.Element
         );
     };
 
+    useEffect(() => {
+        returnButtonRef.current?.focus();
+    }, []);
+
     return (
         <header className={classes.header} {...props}>
-            <Button onClick={backClickHandler} title="Вернуться назад">
+            <Button onClick={backClickHandler} title="Вернуться назад" ref={returnButtonRef}>
                 <Icon icon={Icons.ARROW_LEFT} size={24} />
             </Button>
             <h1 className={classes.heading}>{text}</h1>
