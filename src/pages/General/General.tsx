@@ -13,13 +13,13 @@ import classes from './General.module.scss';
 export const General: FC = (): JSX.Element => (
     <>
         <Greetings title="Приветствие" />
-        <main>
+        <main className={classes.content}>
             <Slider
                 heading="Завершённые задачи"
                 items={Array.from(Array(10).keys()).map((item) => ({ id: item }))}
                 itemClassName={classes['task-completed']}
                 renderItem={({ id }) => (
-                    <RoutingLink to="#">
+                    <RoutingLink to={`#${id}`}>
                         <CompletedTaskCard
                             className={classes['task-card']}
                             title="Real Estate Website Design"
@@ -27,13 +27,22 @@ export const General: FC = (): JSX.Element => (
                         />
                     </RoutingLink>
                 )}
-                moreLink={{ href: Pages.COMPLETED_TASKS, title: 'Больше' }}
+                moreLink={{ href: Pages.COMPLETED_TASKS, title: 'Все' }}
+                axis="x"
             />
-            <TaskCard
-                id={window.crypto.randomUUID()}
-                title="Сделать проект DayTask"
-                date={new Date(Date.now())}
-                progress={25}
+            <Slider
+                heading="В процессе"
+                items={Array.from(Array(10).keys()).map((item) => ({ id: item }))}
+                renderItem={() => (
+                    <TaskCard
+                        id={window.crypto.randomUUID()}
+                        title="Сделать проект DayTask"
+                        date={new Date(Date.now())}
+                        progress={25}
+                    />
+                )}
+                moreLink={{ href: Pages.IN_PROGRESS_TASKS, title: 'Все' }}
+                axis="y"
             />
         </main>
     </>

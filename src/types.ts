@@ -10,6 +10,7 @@ export enum Pages {
     TASK = 'task',
     CREATE_TASK = '/task/create',
     COMPLETED_TASKS = '/tasks/completed',
+    IN_PROGRESS_TASKS = '/tasks/in_progress',
 }
 
 export type TAuthResult = Promise<IUserData | null>;

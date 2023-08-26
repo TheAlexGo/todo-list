@@ -8,6 +8,7 @@ export enum ProgressBarSizes {
     M = '60',
 }
 interface IProgressBar {
+    id: string;
     percentage: number;
     size?: ProgressBarSizes;
 }
@@ -16,7 +17,9 @@ type ProgressBarCSSProperties = CSSProperties & {
     '--current_percentage': number;
 };
 
-export const ProgressBarCircle: FC<IProgressBar> = ({ percentage, size = ProgressBarSizes.M }): JSX.Element => {
+export const ProgressBarCircle: FC<IProgressBar> = ({ id, percentage, size = ProgressBarSizes.M }): JSX.Element => {
+    const barId = `progressBar-label_${id}`;
+
     const rootStyles: ProgressBarCSSProperties = {
         '--current_percentage': percentage,
     };
@@ -34,9 +37,9 @@ export const ProgressBarCircle: FC<IProgressBar> = ({ percentage, size = Progres
                 aria-valuenow={percentage}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-labelledby="progressBar-label"
+                aria-labelledby={barId}
             />
-            <div id="progressBar-label" className={classes.label}>
+            <div id={barId} className={classes.label}>
                 {percentage}%
             </div>
         </div>

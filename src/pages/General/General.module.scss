@@ -1,3 +1,10 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    padding: 34px 0;
+}
+
 .task-completed {
     color: var(--color_white);
     background-color: var(--color_background_light);

@@ -1,8 +1,12 @@
 .layout {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    padding: 28px 24px;
+    min-height: 100%;
+    padding: 28px 0;
+
+    &.__with-navigation {
+        padding-bottom: 80px;
+    }
 }
 
 .add-button {

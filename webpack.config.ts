@@ -2,7 +2,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const EslintWebpackPlugin = require('eslint-webpack-plugin');
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { main, styles, types } = require('./config/aliases.js');
+
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 module.exports = {
     mode: process.env.NODE_ENV || 'production',
@@ -24,14 +27,44 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.module\.s[ac]ss$/i,
                 use: [
                     // Creates `style` nodes from JS strings
-                    'style-loader',
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    // Translates CSS into CommonJS
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[name]__[local]--[hash:base64:5]',
+                            },
+                            sourceMap: isDevelopment,
+                        },
+                    },
+                    // Compiles SCSS to CSS
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: isDevelopment,
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.scss$/,
+                exclude: /\.module\.scss$/,
+                use: [
+                    // Creates `style` nodes from JS strings
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
                     // Translates CSS into CommonJS
                     'css-loader',
-                    // Compiles Sass to CSS
-                    'sass-loader',
+                    // Compiles SCSS to CSS
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: isDevelopment,
+                        },
+                    },
                 ],
             },
             {
@@ -53,7 +86,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.js', '.ts', '.tsx'],
+        extensions: ['.js', '.ts', '.tsx', '.scss'],
         alias: {
             ...main,
             ...styles,
@@ -70,6 +103,10 @@ module.exports = {
         }),
         new StylelintWebpackPlugin({
             files: '{**/*,*}.[s]css',
+        }),
+        new MiniCssExtractPlugin({
+            filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+            chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css',
         }),
     ],
     devServer: {

@@ -1,5 +1,6 @@
 import React, { Suspense, type FC, type JSX } from 'react';
 
+import cn from 'classnames';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import { Icons } from '@components/Icon/Icon';
@@ -21,6 +22,10 @@ interface IProtectedLayout {
 export const ProtectedLayout: FC<IProtectedLayout> = ({ withNavigation = false }): JSX.Element => {
     const location = useLocation();
     const { isAuthenticate } = useAuth();
+
+    const rootClasses = cn(classes.layout, {
+        [classes['__with-navigation']]: withNavigation,
+    });
 
     if (isAuthenticate === null) {
         return <Loader size={LoaderSizes.XL} isFixedOnCenter />;
@@ -56,7 +61,7 @@ export const ProtectedLayout: FC<IProtectedLayout> = ({ withNavigation = false }
     ];
 
     return (
-        <div className={classes.layout}>
+        <div className={rootClasses}>
             <Suspense fallback={<Loader size={LoaderSizes.XL} isFixedOnCenter />}>
                 <Outlet />
             </Suspense>

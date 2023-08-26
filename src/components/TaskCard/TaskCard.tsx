@@ -31,7 +31,7 @@ export const TaskCard: FC<TTaskProps> = ({ id, title, date, progress, className,
                     Сделать до: <br /> <time>{date.toLocaleString()}</time>
                 </div>
                 <div className={classes.progress}>
-                    <ProgressBarCircle percentage={progress} />
+                    <ProgressBarCircle id={window.crypto.randomUUID()} percentage={progress} />
                 </div>
             </article>
         </RoutingLink>

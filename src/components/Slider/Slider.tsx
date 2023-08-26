@@ -22,6 +22,7 @@ interface ISlider<TItem extends ISliderItemCore> {
         title: string;
         href: string;
     };
+    axis?: 'x' | 'y';
 }
 
 type SliderProps<TItem> = ISlider<TScrollItem<TItem>> & Omit<HTMLAttributes<HTMLUListElement>, 'children'>;
@@ -34,9 +35,16 @@ export function Slider<TItem>({
     renderItem,
     itemClassName,
     className,
+    axis = 'x',
     ...props
 }: SliderProps<TItem>): JSX.Element {
-    const rootClasses = cn(classes.slider, className);
+    const rootClasses = cn(
+        classes.slider,
+        {
+            [classes[`__is-axis_${axis}`]]: axis,
+        },
+        className,
+    );
     const headerClasses = cn(classes.header, {
         [classes['__is-invisible']]: isInvisibleHeading,
     });
