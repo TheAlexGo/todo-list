@@ -5,7 +5,7 @@
         "esModuleInterop": true,
         "jsx": "react",
         "target": "ESNext",
-        "module": "ESNext",
+        "module": "NodeNext",
         "moduleResolution": "NodeNext",
         "paths": {
             "@components/*": ["components/*"],

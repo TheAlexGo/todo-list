@@ -10,6 +10,7 @@ import { initializeAPI } from '@services/api';
 import { App } from './App';
 
 if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line import/no-extraneous-dependencies
     import('@axe-core/react').then(({ default: axe }) => {
         setTimeout(() => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
