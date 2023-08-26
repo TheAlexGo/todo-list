@@ -1,8 +1,9 @@
-import React, { FC, JSX } from 'react';
-
-import { PropsWithClassname } from '@types';
+import React, { type FC, type JSX } from 'react';
 
 import cn from 'classnames';
+
+import type { PropsWithClassname } from '@types';
+
 import classes from './Loader.module.scss';
 
 export enum LoaderSizes {

@@ -1,4 +1,4 @@
-import React, { FC, JSX } from 'react';
+import React, { type FC, type JSX, type HTMLAttributes } from 'react';
 
 import { useAuth } from '@providers/AuthProvider';
 
@@ -6,10 +6,12 @@ import classes from './Greetings.module.scss';
 
 interface IGreetings {}
 
-export const Greetings: FC<IGreetings> = (): JSX.Element => {
+type GreetingsProps = IGreetings & HTMLAttributes<HTMLElement>;
+
+export const Greetings: FC<GreetingsProps> = ({ ...props }): JSX.Element => {
     const { user } = useAuth();
     return (
-        <header>
+        <header {...props}>
             <h1 className={classes.greetings}>
                 Добро пожаловать!
                 <br />

@@ -1,4 +1,4 @@
-import React, { FC, JSX } from 'react';
+import React, { type FC, type JSX } from 'react';
 
 import { LoginContainer } from '@features/auth/LoginContainer/LoginContainer';
 

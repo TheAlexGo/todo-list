@@ -1,13 +1,15 @@
-import React, { FC, FormEvent, JSX, useState } from 'react';
+import React, { useState, type FC, type FormEvent, type JSX } from 'react';
 
-import { Logger } from '@services/logger';
-import { useFieldReducer } from '@features/auth/base/useFieldReducer';
-import { CreateTaskForm } from '@components/forms/CreateTaskForm/CreateTaskForm';
-import { ITextarea } from '@components/inputs/Textarea/Textarea';
-import { IInput } from '@components/inputs/Input/Input';
-import { IDatePicker } from '@components/inputs/time/DatePicker/DatePicker';
-import { ITimePicker } from '@components/inputs/time/TimePicker/TimePicker';
 import { validateNotEmpty } from '@utils/validate';
+
+import { CreateTaskForm } from '@components/forms/CreateTaskForm/CreateTaskForm';
+import { useFieldReducer } from '@features/auth/base/useFieldReducer';
+import { Logger } from '@services/logger';
+
+import type { IInput } from '@components/inputs/Input/Input';
+import type { ITextarea } from '@components/inputs/Textarea/Textarea';
+import type { IDatePicker } from '@components/inputs/time/DatePicker/DatePicker';
+import type { ITimePicker } from '@components/inputs/time/TimePicker/TimePicker';
 
 export const CreateTaskContainer: FC = (): JSX.Element => {
     const [titleState, titleChangeHandler, titleErrorHandler] = useFieldReducer<IInput, HTMLInputElement>({

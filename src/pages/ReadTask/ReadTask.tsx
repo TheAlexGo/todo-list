@@ -1,9 +1,10 @@
-import React, { FC, JSX } from 'react';
+import React, { type FC, type JSX } from 'react';
 
 import { useParams } from 'react-router-dom';
 
 import { Header } from '@components/Header/Header';
-import { RouteParams } from '@types';
+
+import type { RouteParams } from '@types';
 
 export const ReadTask: FC = (): JSX.Element => {
     const { id } = useParams<Pick<RouteParams, 'id'>>();

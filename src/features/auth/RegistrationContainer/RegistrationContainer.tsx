@@ -1,19 +1,23 @@
-import React, { FC, FormEvent, JSX, useState } from 'react';
+import React, { useState, type FC, type FormEvent, type JSX } from 'react';
 
-import { AuthProvider as IOAuthProvider } from '@firebase/auth';
+import { validateEmail, validateName, validatePassword, validatePrivacy } from '@utils/validate';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { ALLOWED_OAUTH_PROVIDERS, useAuth } from '@providers/AuthProvider';
-import { validateEmail, validateName, validatePassword, validatePrivacy } from '@utils/validate';
 import { Icons } from '@components/Icon/Icon';
 import { OAuthLoginForm } from '@components/OAuthLoginForm/OAuthLoginForm';
 import { RegistrationForm } from '@components/forms/RegistrationForm/RegistrationForm';
-import { IInput } from '@components/inputs/Input/Input';
-import { Pages, ProviderIdUnion, TAuthResult } from '@types';
-import { useFieldReducer } from '../base/useFieldReducer';
-import { OAuthProviderIcons, OAuthProviderTitles } from '../base/constants';
+import { ALLOWED_OAUTH_PROVIDERS, useAuth } from '@providers/AuthProvider';
+
+import { Pages } from '@types';
+import type { ProviderIdUnion, TAuthResult } from '@types';
+
+import type { IInput } from '@components/inputs/Input/Input';
+import type { AuthProvider as IOAuthProvider } from '@firebase/auth';
 
 import classes from '../base/Base.modules.scss';
+
+import { OAuthProviderIcons, OAuthProviderTitles } from '../base/constants';
+import { useFieldReducer } from '../base/useFieldReducer';
 
 export const RegistrationContainer: FC = (): JSX.Element => {
     const [nameState, nameChangeHandler, nameErrorHandler] = useFieldReducer<IInput, HTMLInputElement>({

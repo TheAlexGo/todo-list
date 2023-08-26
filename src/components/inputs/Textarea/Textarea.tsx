@@ -1,9 +1,10 @@
-import React, { FC, JSX, TextareaHTMLAttributes } from 'react';
+import React, { type FC, type JSX, type TextareaHTMLAttributes } from 'react';
 
 import cn from 'classnames';
 
-import { IInput } from '@components/inputs/Input/Input';
 import { InputContainer } from '@components/inputs/InputContainer/InputContainer';
+
+import type { IInput } from '@components/inputs/Input/Input';
 
 import classes from './Textarea.module.scss';
 

@@ -1,8 +1,11 @@
-import React, { FC, FormEvent, JSX } from 'react';
+import React, { type FC, type FormEvent, type JSX } from 'react';
 
 import { Button, Buttons } from '@components/Button/Button';
-import { IInput, Input } from '@components/inputs/Input/Input';
-import { PropsWithClassname } from '@types';
+import { Input } from '@components/inputs/Input/Input';
+
+import type { PropsWithClassname } from '@types';
+
+import type { IInput } from '@components/inputs/Input/Input';
 
 import classes from './LoginForm.module.scss';
 import baseClasses from '../base/Base.module.scss';

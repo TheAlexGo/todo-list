@@ -1,12 +1,15 @@
-import React, { FC, InputHTMLAttributes, JSX, useRef, useState } from 'react';
+import React, { useRef, useState, type FC, type InputHTMLAttributes, type JSX } from 'react';
 
 import cn from 'classnames';
 
 import { Button } from '@components/Button/Button';
 import { Icon, Icons } from '@components/Icon/Icon';
-import { IInputCore, InputContainer } from '../InputContainer/InputContainer';
+
+import type { IInputCore } from '../InputContainer/InputContainer';
 
 import classes from './Input.module.scss';
+
+import { InputContainer } from '../InputContainer/InputContainer';
 
 type TInput = InputHTMLAttributes<HTMLInputElement>;
 

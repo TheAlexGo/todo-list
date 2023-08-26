@@ -1,14 +1,19 @@
-import React, { FC, FormEvent, JSX } from 'react';
-
-import { IInput, Input } from '@components/inputs/Input/Input';
-import { Button, Buttons } from '@components/Button/Button';
-import { ITextarea, Textarea } from '@components/inputs/Textarea/Textarea';
-import { IDatePicker } from '@components/inputs/time/DatePicker/DatePicker';
-import { ITimePicker } from '@components/inputs/time/TimePicker/TimePicker';
-import { PropsWithClassname } from '@types';
+import React, { type FC, type FormEvent, type JSX } from 'react';
 
 import cn from 'classnames';
+
+import { Button, Buttons } from '@components/Button/Button';
+import { Input } from '@components/inputs/Input/Input';
+import { Textarea } from '@components/inputs/Textarea/Textarea';
 import { DateTimePicker } from '@components/inputs/time/DateTimePicker/DateTimePicker';
+
+import type { PropsWithClassname } from '@types';
+
+import type { IInput } from '@components/inputs/Input/Input';
+import type { ITextarea } from '@components/inputs/Textarea/Textarea';
+import type { IDatePicker } from '@components/inputs/time/DatePicker/DatePicker';
+import type { ITimePicker } from '@components/inputs/time/TimePicker/TimePicker';
+
 import classes from './CreateTaskForm.module.scss';
 import baseClasses from '../base/Base.module.scss';
 

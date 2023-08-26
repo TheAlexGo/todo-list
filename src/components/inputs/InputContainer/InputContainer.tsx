@@ -1,4 +1,4 @@
-import React, { FC, JSX, PropsWithChildren } from 'react';
+import React, { type FC, type JSX, type PropsWithChildren } from 'react';
 
 import cn from 'classnames';
 

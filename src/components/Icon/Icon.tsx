@@ -1,23 +1,24 @@
-import React, { FC, SVGProps } from 'react';
+import React, { type FC, type SVGProps } from 'react';
 
-import LogoIcon from '@icons/logo.svg';
-import LogoTextIcon from '@icons/logo_title.svg';
-import UserIcon from '@icons/icon_user.svg';
-import UserTagIcon from '@icons/icon_usertag.svg';
-import EyeSlashIcon from '@icons/icon_eye-slash.svg';
-import EyeIcon from '@icons/icon_eye.svg';
-import LockIcon from '@icons/icon_lock.svg';
-import GoogleIcon from '@icons/icon_google.svg';
-import GithubIcon from '@icons/icon_github.svg';
+import type { TSvgComponent } from '@types';
+
+import AddIcon from '@icons/icon_add.svg';
+import ArrowLeftIcon from '@icons/icon_arrow-left.svg';
+import CalendarIcon from '@icons/icon_calendar.svg';
 import CheckboxEmptyIcon from '@icons/icon_checkbox-empty.svg';
 import CheckboxFillIcon from '@icons/icon_checkbox-fill.svg';
-import HomeIcon from '@icons/icon_home.svg';
-import AddIcon from '@icons/icon_add.svg';
-import SettingsIcon from '@icons/icon_settings.svg';
-import ArrowLeftIcon from '@icons/icon_arrow-left.svg';
 import ClockIcon from '@icons/icon_clock.svg';
-import CalendarIcon from '@icons/icon_calendar.svg';
-import { TSvgComponent } from '@types';
+import EyeSlashIcon from '@icons/icon_eye-slash.svg';
+import EyeIcon from '@icons/icon_eye.svg';
+import GithubIcon from '@icons/icon_github.svg';
+import GoogleIcon from '@icons/icon_google.svg';
+import HomeIcon from '@icons/icon_home.svg';
+import LockIcon from '@icons/icon_lock.svg';
+import SettingsIcon from '@icons/icon_settings.svg';
+import UserIcon from '@icons/icon_user.svg';
+import UserTagIcon from '@icons/icon_usertag.svg';
+import LogoIcon from '@icons/logo.svg';
+import LogoTextIcon from '@icons/logo_title.svg';
 
 export enum Icons {
     LOGO = 'Logo',

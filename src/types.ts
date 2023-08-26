@@ -1,6 +1,6 @@
-import { FC, SVGProps } from 'react';
+import type { FC, SVGProps } from 'react';
 
-import { ProviderId } from 'firebase/auth';
+import type { ProviderId } from 'firebase/auth';
 
 export enum Pages {
     INDEX = '/',
@@ -9,6 +9,7 @@ export enum Pages {
     SETTINGS = '/settings',
     TASK = 'task',
     CREATE_TASK = '/task/create',
+    COMPLETED_TASKS = '/tasks/completed',
 }
 
 export type TAuthResult = Promise<IUserData | null>;

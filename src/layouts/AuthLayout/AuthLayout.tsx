@@ -1,10 +1,11 @@
-import React, { FC, JSX, Suspense } from 'react';
+import React, { Suspense, type FC, type JSX } from 'react';
 
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { useAuth } from '@providers/AuthProvider';
 import { Icon, Icons } from '@components/Icon/Icon';
 import { Loader, LoaderSizes } from '@components/Loader/Loader';
+import { useAuth } from '@providers/AuthProvider';
+
 import { Pages } from '@types';
 
 import classes from './AuthLayout.module.scss';

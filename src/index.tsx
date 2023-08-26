@@ -1,12 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 
+import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import './styles/common.scss';
 
 import { AuthProvider } from '@providers/AuthProvider';
 import { initializeAPI } from '@services/api';
+
 import { App } from './App';
 
 if (process.env.NODE_ENV !== 'production') {

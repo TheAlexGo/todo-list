@@ -1,5 +1,8 @@
 .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 184px;
     height: 176px;
-    padding: 8px;
+    padding: 8px 8px 16px;
 }

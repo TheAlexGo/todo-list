@@ -1,9 +1,9 @@
-import React, { FC, HTMLAttributes, JSX, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, type FC, type HTMLAttributes, type JSX } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Icon, Icons } from '@components/Icon/Icon';
 import { Button } from '@components/Button/Button';
+import { Icon, Icons } from '@components/Icon/Icon';
 
 import classes from './Header.module.scss';
 

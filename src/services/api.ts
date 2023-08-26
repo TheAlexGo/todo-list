@@ -1,9 +1,12 @@
-import { FirebaseApp, initializeApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { addDoc, getDocs, collection, getFirestore, query, where, limit } from 'firebase/firestore';
 
 import { Logger } from '@services/logger';
-import { IUserData } from '@types';
+
+import type { IUserData } from '@types';
+
+import type { FirebaseApp } from 'firebase/app';
 
 enum DocsId {
     USERS = 'users',

@@ -1,8 +1,8 @@
-import React, { FC, JSX, CSSProperties } from 'react';
+import React, { type FC, type JSX, type CSSProperties } from 'react';
 
 import cn from 'classnames';
 
-import classes from './ProgressBar.module.scss';
+import classes from './ProgressBarCircle.module.scss';
 
 export enum ProgressBarSizes {
     M = '60',
@@ -16,7 +16,7 @@ type ProgressBarCSSProperties = CSSProperties & {
     '--current_percentage': number;
 };
 
-export const ProgressBar: FC<IProgressBar> = ({ percentage, size = ProgressBarSizes.M }): JSX.Element => {
+export const ProgressBarCircle: FC<IProgressBar> = ({ percentage, size = ProgressBarSizes.M }): JSX.Element => {
     const rootStyles: ProgressBarCSSProperties = {
         '--current_percentage': percentage,
     };

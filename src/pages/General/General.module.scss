@@ -1,16 +1,3 @@
-.slider {
-    display: flex;
-    gap: 8px;
-    margin: 0 0 34px;
-    padding: 0;
-    list-style: none;
-    overflow-x: scroll;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-}
-
 .task-completed {
     color: var(--color_white);
     background-color: var(--color_background_light);

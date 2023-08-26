@@ -1,8 +1,10 @@
-import React, { FC, HTMLAttributes } from 'react';
+import React, { type FC, type HTMLAttributes } from 'react';
 
-import { INavItem, NavItem } from './components/NavItem/NavItem';
+import type { INavItem } from './components/NavItem/NavItem';
 
 import classes from './Navigation.module.scss';
+
+import { NavItem } from './components/NavItem/NavItem';
 
 interface INavigation {
     elements: INavItem[];

@@ -1,9 +1,13 @@
-import { Checkbox, ICheckbox } from '@components/inputs/Checkbox/Checkbox';
-import React, { FC, FormEvent, JSX } from 'react';
+import React, { type FC, type FormEvent, type JSX } from 'react';
 
 import { Button, Buttons } from '@components/Button/Button';
-import { IInput, Input } from '@components/inputs/Input/Input';
-import { PropsWithClassname } from '@types';
+import { Checkbox } from '@components/inputs/Checkbox/Checkbox';
+import { Input } from '@components/inputs/Input/Input';
+
+import type { PropsWithClassname } from '@types';
+
+import type { ICheckbox } from '@components/inputs/Checkbox/Checkbox';
+import type { IInput } from '@components/inputs/Input/Input';
 
 import classes from './RegistrationForm.module.scss';
 import classesBase from '../base/Base.module.scss';

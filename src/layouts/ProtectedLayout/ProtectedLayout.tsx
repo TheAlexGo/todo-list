@@ -1,14 +1,16 @@
-import React, { FC, JSX, Suspense } from 'react';
+import React, { Suspense, type FC, type JSX } from 'react';
 
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-import { useAuth } from '@providers/AuthProvider';
+import { Icons } from '@components/Icon/Icon';
 import { Loader, LoaderSizes } from '@components/Loader/Loader';
 import { Navigation } from '@components/Navigation/Navigation';
+import { useAuth } from '@providers/AuthProvider';
 import { Logger } from '@services/logger';
-import { INavItem } from '@components/Navigation/components/NavItem/NavItem';
-import { Icons } from '@components/Icon/Icon';
+
 import { Pages } from '@types';
+
+import type { INavItem } from '@components/Navigation/components/NavItem/NavItem';
 
 import classes from './ProtectedLayout.module.scss';
 
@@ -40,9 +42,11 @@ export const ProtectedLayout: FC<IProtectedLayout> = ({ withNavigation = false }
         },
         {
             icon: Icons.ADD,
+            title: 'Создание задачи',
             to: Pages.CREATE_TASK,
             className: classes['add-button'],
             onClick: createTask,
+            isInvisibleTitle: true,
         },
         {
             icon: Icons.SETTINGS,

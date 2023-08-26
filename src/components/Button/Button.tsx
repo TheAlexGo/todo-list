@@ -1,4 +1,5 @@
-import React, { JSX, ButtonHTMLAttributes, forwardRef } from 'react';
+import type { JSX, ButtonHTMLAttributes } from 'react';
+import React, { forwardRef } from 'react';
 
 import cn from 'classnames';
 

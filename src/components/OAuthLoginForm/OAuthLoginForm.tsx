@@ -1,7 +1,10 @@
-import React, { JSX, MouseEvent } from 'react';
+import type { JSX, MouseEvent } from 'react';
+import React from 'react';
 
 import { Button, Buttons } from '@components/Button/Button';
-import { Icon, Icons } from '@components/Icon/Icon';
+import { Icon } from '@components/Icon/Icon';
+
+import type { Icons } from '@components/Icon/Icon';
 
 import classes from './OAuthLoginForm.module.scss';
 

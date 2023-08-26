@@ -1,18 +1,16 @@
 import React, {
     createContext,
-    FC,
-    JSX,
-    PropsWithChildren,
     useCallback,
     useContext,
     useEffect,
     useMemo,
     useState,
+    type FC,
+    type JSX,
+    type PropsWithChildren,
 } from 'react';
 
-import { FirebaseApp } from 'firebase/app';
 import {
-    UserCredential,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signInWithPopup,
@@ -22,12 +20,15 @@ import {
     ProviderId,
     GoogleAuthProvider,
     GithubAuthProvider,
-    AuthProvider as IOAuthProvider,
 } from 'firebase/auth';
 
 import { readUserData, writeUserData } from '@services/api';
 import { Logger } from '@services/logger';
-import { IAuthContext, IUserData, ProviderIdUnion, TAuthResult } from '@types';
+
+import type { IAuthContext, IUserData, ProviderIdUnion, TAuthResult } from '@types';
+
+import type { FirebaseApp } from 'firebase/app';
+import type { UserCredential, AuthProvider as IOAuthProvider } from 'firebase/auth';
 
 interface IAuthProvider {
     firebaseApp: FirebaseApp;

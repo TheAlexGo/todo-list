@@ -1,4 +1,4 @@
-import React, { FC, JSX, ProgressHTMLAttributes, CSSProperties } from 'react';
+import React, { type FC, type JSX, type ProgressHTMLAttributes, type CSSProperties } from 'react';
 
 import classes from './ProgressBarLine.module.scss';
 

@@ -1,0 +1,41 @@
+@import '~@styles/mixins';
+
+.slider {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 34px;
+    padding: 0;
+    list-style: none;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+
+    &.__is-invisible {
+        @include invisible;
+    }
+}
+
+.heading {
+    color: var(--color_main);
+    font-size: var(--fs_l);
+    font-weight: 600;
+}
+
+.more-link {
+    color: var(--color_primary);
+    font-size: var(--fs_s);
+    font-weight: 400;
+}
+
+.item {
+    scroll-snap-align: center;
+}

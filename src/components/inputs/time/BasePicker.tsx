@@ -1,11 +1,13 @@
-import React, { FC, InputHTMLAttributes, JSX } from 'react';
+import React, { type FC, type InputHTMLAttributes, type JSX } from 'react';
 
 import cn from 'classnames';
 
-import { IInput } from '@components/inputs/Input/Input';
-import { Icon, Icons } from '@components/Icon/Icon';
-
+import { Icon } from '@components/Icon/Icon';
 import { InputContainer } from '@components/inputs/InputContainer/InputContainer';
+
+import type { Icons } from '@components/Icon/Icon';
+import type { IInput } from '@components/inputs/Input/Input';
+
 import classes from './BasePicker.module.scss';
 
 type TInput = InputHTMLAttributes<HTMLInputElement>;

@@ -1,3 +1,5 @@
+@import '~@styles/mixins';
+
 .wrapper {
     width: 100%;
     text-align: center;
@@ -10,13 +12,19 @@
     align-items: center;
     height: 52px;
     color: var(--color_inactive);
-    font-size: var(--fs_xxs);
 
     &.__is-active {
         color: var(--color_primary);
     }
 }
 
-.icon {
-    margin-bottom: 4px;
+.title {
+    margin-top: 4px;
+    font-size: var(--fs_xxs);
+
+    &.__is-invisible {
+        margin-top: -1px;
+
+        @include invisible;
+    }
 }

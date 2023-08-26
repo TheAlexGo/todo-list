@@ -1,6 +1,8 @@
-import { useReducer, Reducer, ChangeEvent } from 'react';
+import type { Reducer, ChangeEvent } from 'react';
+import { useReducer } from 'react';
 
-import { Icons } from '@components/Icon/Icon';
+import type { Icons } from '@components/Icon/Icon';
+
 import { Actions } from './types';
 
 type TReducer<TFieldProps extends object> = Reducer<TFieldProps, IAction>;

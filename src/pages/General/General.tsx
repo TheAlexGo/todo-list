@@ -1,22 +1,34 @@
-import React, { FC, JSX } from 'react';
+import React, { type FC, type JSX } from 'react';
 
-import { Greetings } from '@components/Greetings/Greetings';
-import { TaskCard } from '@components/TaskCard/TaskCard';
 import { CompletedTaskCard } from '@components/CompletedTaskCard/CompletedTaskCard';
+import { Greetings } from '@components/Greetings/Greetings';
+import { RoutingLink } from '@components/RoutingLink/RoutingLink';
+import { Slider } from '@components/Slider/Slider';
+import { TaskCard } from '@components/TaskCard/TaskCard';
+
+import { Pages } from '@types';
 
 import classes from './General.module.scss';
 
 export const General: FC = (): JSX.Element => (
     <>
-        <Greetings />
+        <Greetings title="Приветствие" />
         <main>
-            <ol className={classes.slider}>
-                {Array.from(Array(10).keys()).map((i) => (
-                    <li className={classes['task-completed']} key={i}>
-                        <CompletedTaskCard className={classes['task-card']} title="Real Estate Website Design" />
-                    </li>
-                ))}
-            </ol>
+            <Slider
+                heading="Завершённые задачи"
+                items={Array.from(Array(10).keys()).map((item) => ({ id: item }))}
+                itemClassName={classes['task-completed']}
+                renderItem={({ id }) => (
+                    <RoutingLink to="#">
+                        <CompletedTaskCard
+                            className={classes['task-card']}
+                            title="Real Estate Website Design"
+                            percentage={id * 10}
+                        />
+                    </RoutingLink>
+                )}
+                moreLink={{ href: Pages.COMPLETED_TASKS, title: 'Больше' }}
+            />
             <TaskCard
                 id={window.crypto.randomUUID()}
                 title="Сделать проект DayTask"

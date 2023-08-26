@@ -1,7 +1,8 @@
 import { ProviderId } from 'firebase/auth';
 
 import { Icons } from '@components/Icon/Icon';
-import { ProviderIdUnion } from '@types';
+
+import type { ProviderIdUnion } from '@types';
 
 type TOAuthProviderRecord<T> = Partial<Record<ProviderIdUnion, T>>;
 

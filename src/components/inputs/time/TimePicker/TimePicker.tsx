@@ -1,7 +1,10 @@
-import React, { FC, JSX } from 'react';
+import React, { type FC, type JSX } from 'react';
 
 import { Icons } from '@components/Icon/Icon';
-import { BasePicker, IBasePicker, TTBasePickerProps } from '../BasePicker';
+
+import type { IBasePicker, TTBasePickerProps } from '../BasePicker';
+
+import { BasePicker } from '../BasePicker';
 
 export interface ITimePicker extends IBasePicker {}
 

@@ -1,11 +1,14 @@
-import React, { FC, JSX, ButtonHTMLAttributes } from 'react';
-
-import { NavLink, NavLinkProps, useLocation } from 'react-router-dom';
-
-import { Icon, Icons } from '@components/Icon/Icon';
+import React, { type FC, type JSX, type ButtonHTMLAttributes } from 'react';
 
 import cn from 'classnames';
+import { NavLink, useLocation } from 'react-router-dom';
+
 import { Button } from '@components/Button/Button';
+import { Icon } from '@components/Icon/Icon';
+
+import type { Icons } from '@components/Icon/Icon';
+import type { NavLinkProps } from 'react-router-dom';
+
 import classes from './NavItem.module.scss';
 
 type TCoreProps = NavLinkProps | TButtonProps;
@@ -13,7 +16,8 @@ type TCoreProps = NavLinkProps | TButtonProps;
 export interface INavItemCore {
     icon: Icons;
     to?: string;
-    title?: string;
+    title: string;
+    isInvisibleTitle?: boolean;
 }
 
 type TButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
@@ -26,7 +30,7 @@ export type INavItem = TNavPropsLink | TNavPropsButton;
 
 const isLink = (props: TCoreProps): props is NavLinkProps => (props as NavLinkProps).to !== undefined;
 
-export const NavItem: FC<INavItem> = ({ icon, title, ..._props }): JSX.Element => {
+export const NavItem: FC<INavItem> = ({ icon, title, isInvisibleTitle = false, ..._props }): JSX.Element => {
     const props = _props as TCoreProps;
 
     const location = useLocation();
@@ -36,7 +40,13 @@ export const NavItem: FC<INavItem> = ({ icon, title, ..._props }): JSX.Element =
     const renderContent = () => (
         <>
             <Icon className={classes.icon} icon={icon} size={24} />
-            {title}
+            <span
+                className={cn(classes.title, {
+                    [classes['__is-invisible']]: isInvisibleTitle,
+                })}
+            >
+                {title}
+            </span>
         </>
     );
 

@@ -1,9 +1,10 @@
-import React, { FC, InputHTMLAttributes, JSX } from 'react';
+import React, { type FC, type InputHTMLAttributes, type JSX } from 'react';
 
 import cn from 'classnames';
 
-import { IInput } from '@components/inputs/Input/Input';
 import { Icon, Icons } from '@components/Icon/Icon';
+
+import type { IInput } from '@components/inputs/Input/Input';
 
 import classes from './Checkbox.module.scss';
 

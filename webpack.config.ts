@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const EslintWebpackPlugin = require('eslint-webpack-plugin');
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
+const { main, styles, types } = require('./config/aliases.js');
 
 module.exports = {
     mode: process.env.NODE_ENV || 'production',
@@ -54,17 +55,9 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],
         alias: {
-            '@components': path.resolve('./src/components'),
-            '@styles': path.resolve('./src/styles'),
-            '@features': path.resolve('./src/features'),
-            '@static': path.resolve('./src/static'),
-            '@icons': path.resolve('./src/static/icons'),
-            '@fonts': path.resolve('./src/static/fonts'),
-            '@providers': path.resolve('./src/providers'),
-            '@services': path.resolve('./src/services'),
-            '@pages': path.resolve('./src/pages'),
-            '@utils': path.resolve('./src/utils'),
-            '@types': path.resolve('./src/types.ts'),
+            ...main,
+            ...styles,
+            ...types,
         },
     },
     plugins: [

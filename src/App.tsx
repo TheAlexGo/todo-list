@@ -1,8 +1,9 @@
-import React, { FC, JSX, lazy } from 'react';
+import React, { lazy, type FC, type JSX } from 'react';
 
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { Pages } from '@types';
+
 import { AuthLayout } from './layouts/AuthLayout/AuthLayout';
 import { ProtectedLayout } from './layouts/ProtectedLayout/ProtectedLayout';
 

@@ -1,9 +1,13 @@
-import React, { FC, JSX } from 'react';
+import React, { type FC, type JSX } from 'react';
+
 import cn from 'classnames';
 
-import { DatePicker, IDatePicker } from '@components/inputs/time/DatePicker/DatePicker';
-import { ITimePicker, TimePicker } from '@components/inputs/time/TimePicker/TimePicker';
-import { IInput } from '@components/inputs/Input/Input';
+import { DatePicker } from '@components/inputs/time/DatePicker/DatePicker';
+import { TimePicker } from '@components/inputs/time/TimePicker/TimePicker';
+
+import type { IInput } from '@components/inputs/Input/Input';
+import type { IDatePicker } from '@components/inputs/time/DatePicker/DatePicker';
+import type { ITimePicker } from '@components/inputs/time/TimePicker/TimePicker';
 
 import classes from './DateTimePicker.module.scss';
 
