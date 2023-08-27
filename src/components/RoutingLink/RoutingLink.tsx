@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import type { LinkProps } from 'react-router-dom';
 
-interface ILink extends LinkProps {}
+export interface ILink extends LinkProps {}
 
 export const RoutingLink: FC<ILink> = ({ ...props }): JSX.Element => {
     const location = useLocation();

@@ -16,13 +16,13 @@ export enum ButtonSizes {
     AUTO = 'auto',
 }
 
-interface IButton {
+export interface IButton {
     view?: Buttons;
     size?: ButtonSizes;
     fullWidth?: boolean;
 }
 
-interface ButtonProps extends IButton, ButtonHTMLAttributes<HTMLButtonElement> {}
+type ButtonProps = IButton & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     (

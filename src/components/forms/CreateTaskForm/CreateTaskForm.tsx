@@ -49,7 +49,7 @@ export const CreateTaskForm: FC<PropsWithClassname<ICreateTaskForm>> = ({
                 />
                 {error && <strong className={baseClasses.error}>{error}</strong>}
             </div>
-            <Button className={baseClasses.button} type="submit" view={Buttons.PRIMARY} size={ButtonSizes.XL}>
+            <Button type="submit" view={Buttons.PRIMARY} size={ButtonSizes.XL}>
                 Создать
             </Button>
         </form>

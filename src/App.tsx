@@ -20,6 +20,9 @@ const CreateUpdateTaskPage = lazy(() =>
 const SettingsPage = lazy(() => import('@pages/Settings/Settings').then(({ Settings }) => ({ default: Settings })));
 const ReadTaskPage = lazy(() => import('@pages/ReadTask/ReadTask').then(({ ReadTask }) => ({ default: ReadTask })));
 const NotFoundPage = lazy(() => import('@pages/NotFound/NotFound').then(({ NotFound }) => ({ default: NotFound })));
+const CreateSubTaskPage = lazy(() =>
+    import('@pages/CreateSubTask/CreateSubTask').then(({ CreateSubTask }) => ({ default: CreateSubTask })),
+);
 
 export const App: FC = (): JSX.Element => (
     <RouterProvider
@@ -35,6 +38,9 @@ export const App: FC = (): JSX.Element => (
                         <Route path=":id" element={<ReadTaskPage />} loader={loadTask} />
                         <Route path=":id/update" element={<CreateUpdateTaskPage />} loader={loadTask} />
                         <Route path="create" element={<CreateUpdateTaskPage />} loader={loadTask} />
+                    </Route>
+                    <Route path={Pages.SUBTASK} element={<ProtectedLayout />}>
+                        <Route path="create" element={<CreateSubTaskPage />} />
                     </Route>
                     <Route path={Pages.LOGIN} element={<AuthLayout />}>
                         <Route index element={<LoginPage />} />

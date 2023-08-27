@@ -2,7 +2,8 @@ import React, { type FC, type JSX, useState } from 'react';
 
 import { Await, Navigate, useLoaderData, useParams } from 'react-router-dom';
 
-import { Button, Buttons, ButtonSizes } from '@components/Button/Button';
+import { Buttons, ButtonSizes } from '@components/Button/Button';
+import { ButtonLink } from '@components/ButtonLink/ButtonLink';
 import { Header } from '@components/Header/Header';
 import { Icon, Icons } from '@components/Icon/Icon';
 import { ProgressBarCircle } from '@components/ProgressBar/ProgressBarCircle/ProgressBarCircle';
@@ -98,9 +99,15 @@ const Component: FC<ITask> = (task): JSX.Element | null => {
                     </ol>
                 </div>
                 <div className={classes['create-container']}>
-                    <Button className={classes['create-button']} view={Buttons.PRIMARY} size={ButtonSizes.XL} fullWidth>
+                    <ButtonLink
+                        to={Pages.SUBTASK_CREATE}
+                        className={classes['create-button']}
+                        view={Buttons.PRIMARY}
+                        size={ButtonSizes.XL}
+                        fullWidth
+                    >
                         Добавить
-                    </Button>
+                    </ButtonLink>
                 </div>
             </main>
         </>

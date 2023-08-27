@@ -17,6 +17,8 @@ export enum Pages {
     UPDATE_TASK = '/task/:id/update',
     COMPLETED_TASKS = '/tasks/completed',
     IN_PROGRESS_TASKS = '/tasks/in_progress',
+    SUBTASK = '/subtask',
+    SUBTASK_CREATE = '/subtask/create',
     NOT_FOUND = '/404',
 }
 
