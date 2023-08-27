@@ -1,15 +1,29 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { addDoc, getDocs, collection, getFirestore, query, where, limit } from 'firebase/firestore';
+import {
+    addDoc,
+    getDocs,
+    collection,
+    getFirestore,
+    query,
+    where,
+    limit,
+    doc,
+    getDoc,
+    updateDoc,
+    type DocumentReference,
+} from 'firebase/firestore';
 
 import { Logger } from '@services/logger';
 
-import type { IUserData, ITask } from '@types';
+import type { IUserData, ITask, ISubTask } from '@types';
 
 import type { FirebaseApp } from 'firebase/app';
 
 enum DocsId {
     USERS = 'users',
+    TASKS = 'tasks',
+    SUBTASKS = 'subtasks',
 }
 
 export const initializeAPI = (): FirebaseApp => {
@@ -36,8 +50,8 @@ export const readUserDataByRef = async (userId: string): Promise<IUserData | nul
         const q = query(collection(db, DocsId.USERS), where('userId', '==', userId), limit(1));
         const querySnapshot = await getDocs(q);
 
-        querySnapshot.forEach((doc) => {
-            const data = doc.data() as IUserData;
+        querySnapshot.forEach((userDoc) => {
+            const data = userDoc.data() as IUserData;
 
             userData = {
                 ...data,
@@ -48,6 +62,11 @@ export const readUserDataByRef = async (userId: string): Promise<IUserData | nul
     }
 
     return userData;
+};
+
+const getTaskRef = (id: string): DocumentReference => {
+    const db = getFirestore();
+    return doc(db, DocsId.TASKS, id);
 };
 
 export const readUserData = async (userId: string): Promise<IUserData | null> => readUserDataByRef(userId);
@@ -68,45 +87,106 @@ export const writeUserData = async (userId: string, name: string, email: string)
     }
 };
 
-export const getTask = async (taskId: string): Promise<ITask> =>
-    new Promise((resolve) => {
-        setTimeout(
-            () =>
-                resolve({
-                    id: taskId,
-                    title: 'Hi-Fi Wireframe',
-                    description:
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\n",
-                    date: '2023-08-03',
-                    time: '02:42',
-                    subtasks: [
-                        {
-                            id: '1',
-                            title: 'User Interviews',
-                            isCompleted: true,
-                        },
-                        {
-                            id: '2',
-                            title: 'Wireframes',
-                            isCompleted: true,
-                        },
-                        {
-                            id: '3',
-                            title: 'Design System',
-                            isCompleted: true,
-                        },
-                        {
-                            id: '4',
-                            title: 'Icons',
-                            isCompleted: true,
-                        },
-                        {
-                            id: '5',
-                            title: 'Final Mockups',
-                            isCompleted: true,
-                        },
-                    ],
-                }),
-            1000,
-        );
-    });
+export const createTask = async (task: Omit<ITask, 'id' | 'subtasks'>, userId: string): Promise<string> => {
+    const db = getFirestore();
+    try {
+        const newDoc = await addDoc(collection(db, DocsId.TASKS), {
+            ...task,
+            userId,
+        });
+        return newDoc.id;
+    } catch (_e) {
+        const e = _e as Error;
+        Logger.error(e);
+        return Promise.reject(e);
+    }
+};
+
+export const getTasks = async (userId: string): Promise<ITask[]> => {
+    const db = getFirestore();
+    const q = query(collection(db, DocsId.TASKS), where('userId', '==', userId), limit(10));
+    const querySnapshot = await getDocs(q);
+
+    const tasks: ITask[] = [];
+
+    try {
+        querySnapshot.forEach((taskDoc) => {
+            const taskData = taskDoc.data() as Omit<ITask, 'id'> & { userId?: string };
+            delete taskData.userId;
+            tasks.push({
+                id: taskDoc.id,
+                ...taskData,
+            });
+        });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+
+    return tasks;
+};
+
+export const getSubTasks = async (taskId: string): Promise<ISubTask[]> => {
+    const db = getFirestore();
+    const q = query(collection(db, DocsId.SUBTASKS), where('taskId', '==', taskId), limit(10));
+
+    const tasks: ISubTask[] = [];
+
+    try {
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((taskDoc) => {
+            const taskData = taskDoc.data() as Omit<ISubTask, 'id'> & { userId?: string; taskId?: string };
+            delete taskData.userId;
+            delete taskData.taskId;
+            Logger.debug(taskData);
+            tasks.push({
+                id: taskDoc.id,
+                ...taskData,
+            });
+        });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+
+    return tasks;
+};
+
+export const getTask = async (taskId: string): Promise<ITask> => {
+    const db = getFirestore();
+    const taskDoc = await getDoc(doc(collection(db, DocsId.TASKS), taskId));
+    if (taskDoc.exists()) {
+        const taskData = taskDoc.data() as Omit<ITask, 'id' | 'subtasks'> & { userId?: string };
+        delete taskData.userId;
+        const subTasksData = await getSubTasks(taskId);
+        return {
+            ...taskData,
+            id: taskDoc.id,
+            subtasks: subTasksData,
+        };
+    }
+    return Promise.reject(new Error(`Задача с id ${taskId} не найдена!`));
+};
+
+export const createSubTask = async (task: Omit<ISubTask, 'id'>, taskId: string, userId: string): Promise<string> => {
+    const db = getFirestore();
+    try {
+        const newDoc = await addDoc(collection(db, DocsId.SUBTASKS), {
+            ...task,
+            taskId,
+            userId,
+        });
+        return newDoc.id;
+    } catch (_e) {
+        const e = _e as Error;
+        Logger.error(e);
+        return Promise.reject(e);
+    }
+};
+
+export const updateTask = async (id: string, task: Omit<ITask, 'id' | 'subtasks'>): Promise<boolean> => {
+    try {
+        await updateDoc(getTaskRef(id), task);
+        return true;
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};

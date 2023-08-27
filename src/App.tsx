@@ -36,11 +36,9 @@ export const App: FC = (): JSX.Element => (
                     <Route path={Pages.TASK} element={<ProtectedLayout />}>
                         <Route index element={<Navigate to={Pages.NOT_FOUND} />} />
                         <Route path=":id" element={<ReadTaskPage />} loader={loadTask} />
+                        <Route path=":id/create" loader={loadTask} element={<CreateSubTaskPage />} />
                         <Route path=":id/update" element={<CreateUpdateTaskPage />} loader={loadTask} />
                         <Route path="create" element={<CreateUpdateTaskPage />} loader={loadTask} />
-                    </Route>
-                    <Route path={Pages.SUBTASK} element={<ProtectedLayout />}>
-                        <Route path="create" element={<CreateSubTaskPage />} />
                     </Route>
                     <Route path={Pages.LOGIN} element={<AuthLayout />}>
                         <Route index element={<LoginPage />} />

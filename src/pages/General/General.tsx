@@ -1,49 +1,53 @@
-import React, { type FC, type JSX } from 'react';
+import React, { type FC, type JSX, useEffect, useState } from 'react';
 
 import { CompletedTaskCard } from '@components/CompletedTaskCard/CompletedTaskCard';
 import { Greetings } from '@components/Greetings/Greetings';
 import { RoutingLink } from '@components/RoutingLink/RoutingLink';
 import { Slider } from '@components/Slider/Slider';
 import { TaskCard } from '@components/TaskCard/TaskCard';
+import { useAuth } from '@providers/AuthProvider';
+import { getTasks } from '@services/api';
 
-import { Pages } from '@types';
+import { type ITask, Pages } from '@types';
 
 import classes from './General.module.scss';
 
-export const General: FC = (): JSX.Element => (
-    <>
-        <Greetings title="Приветствие" />
-        <main className={classes.content}>
-            <Slider
-                heading="Завершённые задачи"
-                items={Array.from(Array(10).keys()).map((item) => ({ id: item }))}
-                itemClassName={classes['task-completed']}
-                renderItem={({ id }) => (
-                    <RoutingLink to={`#${id}`}>
-                        <CompletedTaskCard
-                            className={classes['task-card']}
-                            title="Real Estate Website Design"
-                            percentage={id * 10}
-                        />
-                    </RoutingLink>
-                )}
-                moreLink={{ href: Pages.COMPLETED_TASKS, title: 'Все' }}
-                axis="x"
-            />
-            <Slider
-                heading="В процессе"
-                items={Array.from(Array(10).keys()).map((item) => ({ id: item }))}
-                renderItem={() => (
-                    <TaskCard
-                        id={window.crypto.randomUUID()}
-                        title="Сделать проект DayTask"
-                        date={new Date(Date.now())}
-                        progress={25}
-                    />
-                )}
-                moreLink={{ href: Pages.IN_PROGRESS_TASKS, title: 'Все' }}
-                axis="y"
-            />
-        </main>
-    </>
-);
+export const General: FC = (): JSX.Element => {
+    const [tasks, setTasks] = useState<ITask[]>([]);
+    const user = useAuth().user!;
+
+    useEffect(() => {
+        getTasks(user.userId).then(setTasks);
+    }, [user.userId]);
+
+    return (
+        <>
+            <Greetings title="Приветствие" />
+            <main className={classes.content}>
+                <Slider
+                    heading="Завершённые задачи"
+                    items={Array.from(Array(10).keys()).map((item) => ({ id: item }))}
+                    itemClassName={classes['task-completed']}
+                    renderItem={({ id }) => (
+                        <RoutingLink to={`#${id}`}>
+                            <CompletedTaskCard
+                                className={classes['task-card']}
+                                title="Real Estate Website Design"
+                                percentage={id * 10}
+                            />
+                        </RoutingLink>
+                    )}
+                    moreLink={{ href: Pages.COMPLETED_TASKS, title: 'Все' }}
+                    axis="x"
+                />
+                <Slider<ITask>
+                    heading="В процессе"
+                    items={tasks}
+                    renderItem={(task) => <TaskCard {...task} progress={25} />}
+                    moreLink={{ href: Pages.IN_PROGRESS_TASKS, title: 'Все' }}
+                    axis="y"
+                />
+            </main>
+        </>
+    );
+};

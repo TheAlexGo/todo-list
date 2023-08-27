@@ -1,9 +1,15 @@
 import React, { useState, type FC, type FormEvent, type JSX } from 'react';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { CreateTaskForm } from '@components/forms/CreateTaskForm/CreateTaskForm';
 import { useFieldReducer } from '@features/auth/base/useFieldReducer';
+import { useAuth } from '@providers/AuthProvider';
+import { createTask, updateTask } from '@services/api';
 import { Logger } from '@services/logger';
 import { validateNotEmpty } from '@utils/validate';
+
+import { Pages } from '@types';
 
 import type { IInput } from '@components/inputs/Input/Input';
 import type { ITextarea } from '@components/inputs/Textarea/Textarea';
@@ -11,13 +17,20 @@ import type { IDatePicker } from '@components/inputs/time/DatePicker/DatePicker'
 import type { ITimePicker } from '@components/inputs/time/TimePicker/TimePicker';
 
 interface ICreateTaskContainer {
+    taskId?: string;
     title?: string;
     description?: string;
     date?: string;
     time?: string;
 }
 
-export const CreateTaskContainer: FC<ICreateTaskContainer> = ({ title, description, date, time }): JSX.Element => {
+export const CreateTaskContainer: FC<ICreateTaskContainer> = ({
+    taskId,
+    title,
+    description,
+    date,
+    time,
+}): JSX.Element => {
     const [titleState, titleChangeHandler, titleErrorHandler] = useFieldReducer<IInput, HTMLInputElement>({
         title: 'Название задачи',
         value: title,
@@ -40,6 +53,9 @@ export const CreateTaskContainer: FC<ICreateTaskContainer> = ({ title, descripti
     });
 
     const [createError] = useState('');
+    const navigate = useNavigate();
+    const { state } = useLocation();
+    const user = useAuth().user!;
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -66,8 +82,23 @@ export const CreateTaskContainer: FC<ICreateTaskContainer> = ({ title, descripti
             timeErrorHandler('Обязательное поле!');
         }
         if (isValid) {
-            Logger.info('Создали задачу!');
-            Logger.info(currentTitle, currentDescription, currentDate, currentTime);
+            Logger.debug('Создали задачу!');
+            Logger.debug(currentTitle, currentDescription, currentDate, currentTime);
+            const task = {
+                title: currentTitle,
+                description: currentDescription,
+                date: currentDate,
+                time: currentTime,
+            };
+            new Promise((resolve) => {
+                if (taskId) {
+                    resolve(updateTask(taskId, task));
+                } else {
+                    resolve(createTask(task, user.userId));
+                }
+            }).then(() => {
+                navigate(state?.from || Pages.INDEX);
+            });
         }
     };
 

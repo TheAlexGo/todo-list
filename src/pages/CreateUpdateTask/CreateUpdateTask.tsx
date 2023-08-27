@@ -14,7 +14,7 @@ export const CreateUpdateTask: FC = (): JSX.Element => {
     const title = id ? 'Редактировать' : 'Создать';
     const page = id ? Pages.UPDATE_TASK : Pages.CREATE_TASK;
 
-    const renderComponent = (task: ITask) => <CreateTaskContainer {...task} />;
+    const renderComponent = (task: ITask) => <CreateTaskContainer {...task} taskId={id} />;
 
     return (
         <>

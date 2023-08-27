@@ -6,12 +6,11 @@ import { ProgressBarCircle } from '@components/ProgressBar/ProgressBarCircle/Pro
 import { RoutingLink } from '@components/RoutingLink/RoutingLink';
 import { getTaskLink } from '@utils/routing';
 
+import { type ITask } from '@types';
+
 import classes from './TaskCard.module.scss';
 
-interface ITaskCard {
-    id: string;
-    title: string;
-    date: Date;
+interface ITaskCard extends ITask {
     progress: number;
 }
 
@@ -27,10 +26,10 @@ export const TaskCard: FC<TTaskProps> = ({ id, title, date, progress, className,
             <article {...props} className={rootClasses}>
                 <h3 className={classes.heading}>{title}</h3>
                 <div className={classes.date}>
-                    Сделать до: <br /> <time>{date.toLocaleString()}</time>
+                    Сделать до: <br /> <time>{date}</time>
                 </div>
                 <div className={classes.progress}>
-                    <ProgressBarCircle id={window.crypto.randomUUID()} percentage={progress} />
+                    <ProgressBarCircle id={`progress-${id}`} percentage={progress} />
                 </div>
             </article>
         </RoutingLink>

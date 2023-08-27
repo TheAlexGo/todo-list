@@ -17,8 +17,7 @@ export enum Pages {
     UPDATE_TASK = '/task/:id/update',
     COMPLETED_TASKS = '/tasks/completed',
     IN_PROGRESS_TASKS = '/tasks/in_progress',
-    SUBTASK = '/subtask',
-    SUBTASK_CREATE = '/subtask/create',
+    SUBTASK_CREATE = '/task/:id/create',
     NOT_FOUND = '/404',
 }
 
@@ -44,6 +43,7 @@ export interface IAuthContext {
 }
 
 export interface IUserData {
+    userId: string;
     email: string;
     name: string;
 }

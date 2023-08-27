@@ -9,7 +9,7 @@ import { Icon, Icons } from '@components/Icon/Icon';
 import { ProgressBarCircle } from '@components/ProgressBar/ProgressBarCircle/ProgressBarCircle';
 import { SubTaskCard } from '@components/SubTaskCard/SubTaskCard';
 import { type LoadTaskResult } from '@services/routing';
-import { getUpdateTaskLink } from '@utils/routing';
+import { getCreateSubTaskLink, getUpdateTaskLink } from '@utils/routing';
 
 import type { ISubTask, ITask, ParamRequired } from '@types';
 import { Pages } from '@types';
@@ -100,7 +100,7 @@ const Component: FC<ITask> = (task): JSX.Element | null => {
                 </div>
                 <div className={classes['create-container']}>
                     <ButtonLink
-                        to={Pages.SUBTASK_CREATE}
+                        to={getCreateSubTaskLink(id)}
                         className={classes['create-button']}
                         view={Buttons.PRIMARY}
                         size={ButtonSizes.XL}

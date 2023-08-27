@@ -1,7 +1,7 @@
 import type { JSX, MouseEvent } from 'react';
 import React from 'react';
 
-import { Button, Buttons } from '@components/Button/Button';
+import { Button, Buttons, ButtonSizes } from '@components/Button/Button';
 import { Icon } from '@components/Icon/Icon';
 
 import type { Icons } from '@components/Icon/Icon';
@@ -36,6 +36,7 @@ export const OAuthLoginForm = <IProviderId extends string, IProvider extends obj
                     view={Buttons.OUTLINE}
                     onClick={clickHandler}
                     data-provider-id={providerId}
+                    size={ButtonSizes.XL}
                 >
                     <Icon className={classes['oauth-icon']} icon={icons[providerId]!} />
                     {titles[providerId]}
