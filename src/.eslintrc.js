@@ -94,5 +94,6 @@ module.exports = {
         ],
         'no-console': 'warn',
         'no-plusplus': 'off',
+        '@typescript-eslint/no-unnecessary-type-constraint': 'off',
     },
 };

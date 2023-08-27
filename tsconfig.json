@@ -18,6 +18,7 @@
             "@services/*": ["services/*"],
             "@pages/*": ["pages/*"],
             "@utils/*": ["utils/*"],
+            "@hooks/*": ["hooks/*"],
             "@types": ["types.ts"]
         }
     },

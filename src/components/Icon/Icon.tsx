@@ -8,8 +8,6 @@ import CalendarIcon from '@icons/icon_calendar.svg';
 import CalendarRemoveIcon from '@icons/icon_calendar_remove.svg';
 import CheckboxEmptyIcon from '@icons/icon_checkbox-empty.svg';
 import CheckboxFillIcon from '@icons/icon_checkbox-fill.svg';
-import CircleEmptyIcon from '@icons/icon_circle-empty.svg';
-import CircleIcon from '@icons/icon_circle.svg';
 import ClockIcon from '@icons/icon_clock.svg';
 import EditIcon from '@icons/icon_edit.svg';
 import EyeSlashIcon from '@icons/icon_eye-slash.svg';
@@ -18,6 +16,7 @@ import GithubIcon from '@icons/icon_github.svg';
 import GoogleIcon from '@icons/icon_google.svg';
 import HomeIcon from '@icons/icon_home.svg';
 import LockIcon from '@icons/icon_lock.svg';
+import MoreIcon from '@icons/icon_more.svg';
 import SettingsIcon from '@icons/icon_settings.svg';
 import UserIcon from '@icons/icon_user.svg';
 import UserTagIcon from '@icons/icon_usertag.svg';
@@ -44,8 +43,7 @@ export enum Icons {
     CALENDAR = 'Calendar',
     CALENDAR_REMOVE = 'CalendarRemove',
     EDIT = 'Edit',
-    CIRCLE = 'Circle',
-    CIRCLE_EMPTY = 'CircleEmpty',
+    MORE = 'More',
 }
 
 const icons: Record<Icons, TSvgComponent> = {
@@ -68,8 +66,7 @@ const icons: Record<Icons, TSvgComponent> = {
     Calendar: CalendarIcon,
     CalendarRemove: CalendarRemoveIcon,
     Edit: EditIcon,
-    Circle: CircleIcon,
-    CircleEmpty: CircleEmptyIcon,
+    More: MoreIcon,
 };
 
 interface IIcon extends SVGProps<SVGSVGElement> {

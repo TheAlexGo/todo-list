@@ -1,0 +1,24 @@
+.item {
+    position: relative;
+    display: flex;
+}
+
+.icon {
+    color: var(--color_main);
+    transform: rotate(90deg);
+}
+
+.list {
+    position: absolute;
+    top: 100%;
+    right: -16px;
+    margin: 0;
+    list-style: none;
+    padding: 16px;
+    border-radius: 16px;
+    background-color: var(--color_darkish);
+    color: var(--color_primary);
+    text-align: right;
+    transform: translateY(8px);
+    z-index: 1;
+}

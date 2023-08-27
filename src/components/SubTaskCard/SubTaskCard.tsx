@@ -2,6 +2,9 @@ import React, { type FC, type JSX, type HTMLAttributes } from 'react';
 
 import cn from 'classnames';
 
+import { Icons } from '@components/Icon/Icon';
+import { Menu } from '@components/Menu/Menu';
+
 import { type ISubTask } from '@types';
 
 import classes from './SubTaskCard.module.scss';
@@ -42,6 +45,28 @@ export const SubTaskCard: FC<SubTaskCardProps> = ({
                     />
                     <div className={classes['checkbox-custom']} />
                 </div>
+                <Menu
+                    id={`sub-task-card_more-${id}`}
+                    items={[
+                        {
+                            id: 'more',
+                            isSelected: false,
+                            icon: Icons.MORE,
+                            elements: [
+                                {
+                                    id: 'edit',
+                                    title: 'Редактировать',
+                                    isSelected: false,
+                                },
+                                {
+                                    id: 'delete',
+                                    title: 'Удалить',
+                                    isSelected: false,
+                                },
+                            ],
+                        },
+                    ]}
+                />
             </label>
         </article>
     );
