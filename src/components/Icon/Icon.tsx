@@ -5,9 +5,13 @@ import type { TSvgComponent } from '@types';
 import AddIcon from '@icons/icon_add.svg';
 import ArrowLeftIcon from '@icons/icon_arrow-left.svg';
 import CalendarIcon from '@icons/icon_calendar.svg';
+import CalendarRemoveIcon from '@icons/icon_calendar_remove.svg';
 import CheckboxEmptyIcon from '@icons/icon_checkbox-empty.svg';
 import CheckboxFillIcon from '@icons/icon_checkbox-fill.svg';
+import CircleEmptyIcon from '@icons/icon_circle-empty.svg';
+import CircleIcon from '@icons/icon_circle.svg';
 import ClockIcon from '@icons/icon_clock.svg';
+import EditIcon from '@icons/icon_edit.svg';
 import EyeSlashIcon from '@icons/icon_eye-slash.svg';
 import EyeIcon from '@icons/icon_eye.svg';
 import GithubIcon from '@icons/icon_github.svg';
@@ -38,6 +42,10 @@ export enum Icons {
     ARROW_LEFT = 'ArrowLeft',
     CLOCK = 'Clock',
     CALENDAR = 'Calendar',
+    CALENDAR_REMOVE = 'CalendarRemove',
+    EDIT = 'Edit',
+    CIRCLE = 'Circle',
+    CIRCLE_EMPTY = 'CircleEmpty',
 }
 
 const icons: Record<Icons, TSvgComponent> = {
@@ -58,6 +66,10 @@ const icons: Record<Icons, TSvgComponent> = {
     ArrowLeft: ArrowLeftIcon,
     Clock: ClockIcon,
     Calendar: CalendarIcon,
+    CalendarRemove: CalendarRemoveIcon,
+    Edit: EditIcon,
+    Circle: CircleIcon,
+    CircleEmpty: CircleEmptyIcon,
 };
 
 interface IIcon extends SVGProps<SVGSVGElement> {

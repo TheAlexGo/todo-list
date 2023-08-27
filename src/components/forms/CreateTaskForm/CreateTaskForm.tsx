@@ -2,7 +2,7 @@ import React, { type FC, type FormEvent, type JSX } from 'react';
 
 import cn from 'classnames';
 
-import { Button, Buttons } from '@components/Button/Button';
+import { Button, Buttons, ButtonSizes } from '@components/Button/Button';
 import { Input } from '@components/inputs/Input/Input';
 import { Textarea } from '@components/inputs/Textarea/Textarea';
 import { DateTimePicker } from '@components/inputs/time/DateTimePicker/DateTimePicker';
@@ -49,7 +49,7 @@ export const CreateTaskForm: FC<PropsWithClassname<ICreateTaskForm>> = ({
                 />
                 {error && <strong className={baseClasses.error}>{error}</strong>}
             </div>
-            <Button className={baseClasses.button} type="submit" variant={Buttons.PRIMARY}>
+            <Button className={baseClasses.button} type="submit" view={Buttons.PRIMARY} size={ButtonSizes.XL}>
                 Создать
             </Button>
         </form>

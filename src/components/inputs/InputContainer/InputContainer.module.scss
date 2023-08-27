@@ -1,3 +1,5 @@
+@import '~@styles/mixins';
+
 .wrapper {
     color: var(--color_secodary);
 }
@@ -10,6 +12,12 @@
 .label {
     margin-bottom: 16px;
     color: inherit;
+
+    &.__is-visible {
+        @include invisible;
+
+        margin-bottom: -1px;
+    }
 }
 
 .error {

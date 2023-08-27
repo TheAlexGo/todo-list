@@ -23,12 +23,14 @@ export const InputContainer: FC<IInputCore> = ({
     containerClassName,
 }): JSX.Element => {
     const wrapperClasses = cn(classes.wrapper, wrapperClassName);
-
     const containerClasses = cn(classes['container-content'], containerClassName);
+    const labelClasses = cn(classes.label, {
+        [classes['__is-visible']]: isInvisibleTitle,
+    });
 
     return (
         <div className={wrapperClasses}>
-            <label htmlFor={id} className={classes.label} hidden={isInvisibleTitle}>
+            <label htmlFor={id} className={labelClasses}>
                 {title}
             </label>
             <div>

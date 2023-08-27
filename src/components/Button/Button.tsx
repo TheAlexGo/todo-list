@@ -11,18 +11,30 @@ export enum Buttons {
     OUTLINE = 'outline',
 }
 
+export enum ButtonSizes {
+    XL = 'xl',
+    AUTO = 'auto',
+}
+
 interface IButton {
-    variant?: Buttons;
+    view?: Buttons;
+    size?: ButtonSizes;
+    fullWidth?: boolean;
 }
 
 interface ButtonProps extends IButton, ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ type = 'button', className, variant = Buttons.CLEAN, ...props }, ref): JSX.Element => {
+    (
+        { type = 'button', className, view = Buttons.CLEAN, size = ButtonSizes.AUTO, fullWidth = false, ...props },
+        ref,
+    ): JSX.Element => {
         const rootClasses = cn(
             classes.button,
             {
-                [classes[`__is-${variant}`]]: variant && variant !== Buttons.CLEAN,
+                [classes[`__view-${view}`]]: view !== Buttons.CLEAN,
+                [classes[`__size-${size}`]]: size,
+                [classes[`__is-full_width`]]: fullWidth,
             },
             className,
         );

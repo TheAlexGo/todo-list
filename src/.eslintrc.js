@@ -26,6 +26,7 @@ module.exports = {
         },
         // указываем пути для внутренних пакетов
         'import/internal-regex': main ? `(${Object.keys(main).join('|')})/` : undefined,
+        'import/external-module-folders': ['node_modules'],
     },
     env: {
         browser: true,
@@ -57,10 +58,10 @@ module.exports = {
         'import/order': [
             'error',
             {
-                groups: [['builtin', 'external'], 'internal', 'type'],
+                groups: [['builtin', 'external'], ['internal'], 'type'],
                 pathGroups: [
                     {
-                        pattern: 'react',
+                        pattern: '{react,react-dom/client}',
                         group: 'builtin',
                         position: 'before',
                         patternOptions: {

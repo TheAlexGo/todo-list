@@ -4,8 +4,7 @@ import cn from 'classnames';
 
 import { ProgressBarCircle } from '@components/ProgressBar/ProgressBarCircle/ProgressBarCircle';
 import { RoutingLink } from '@components/RoutingLink/RoutingLink';
-
-import { Pages } from '@types';
+import { getTaskLink } from '@utils/routing';
 
 import classes from './TaskCard.module.scss';
 
@@ -16,12 +15,12 @@ interface ITaskCard {
     progress: number;
 }
 
-type TTaskProps = ITaskCard & HTMLAttributes<HTMLDivElement>;
+type TTaskProps = ITaskCard & HTMLAttributes<HTMLElement>;
 
 export const TaskCard: FC<TTaskProps> = ({ id, title, date, progress, className, ...props }): JSX.Element => {
     const rootClasses = cn(classes.card, className);
 
-    const taskLink = `${Pages.TASK}/${id}`;
+    const taskLink = getTaskLink(id);
 
     return (
         <RoutingLink to={taskLink}>

@@ -1,0 +1,87 @@
+.wrapper {
+    padding: 60px 0 112px;
+}
+
+.heading {
+    color: var(--color_main);
+    font-family: Unbounded, sans-serif;
+    font-size: var(--fs_xl);
+    font-style: normal;
+    font-weight: 600;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--color_primary);
+}
+
+.date {
+    display: flex;
+    gap: 12px;
+    align-items: end;
+    margin-top: 28px;
+}
+
+.date-text {
+    color: var(--color_secodary);
+    font-size: var(--fs_xs);
+    font-weight: 500;
+}
+
+.date-value {
+    color: var(--color_main);
+    font-size: var(--fs_m);
+    font-weight: 600;
+}
+
+.heading-h3 {
+    color: var(--color_main);
+    font-size: var(--fs_m);
+    font-weight: 500;
+}
+
+.description {
+    margin-top: 32px;
+    color: var(--color_secodary);
+    font-size: var(--fs_xs);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.progress {
+    position: relative;
+    margin-top: 28px;
+    color: var(--color_main);
+}
+
+.progress-item {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.subtask-container {
+    margin-top: 38px;
+}
+
+.subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    list-style: none;
+}
+
+.create-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 16px;
+    background-color: var(--color_dark);
+}

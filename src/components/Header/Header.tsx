@@ -4,29 +4,47 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '@components/Button/Button';
 import { Icon, Icons } from '@components/Icon/Icon';
+import { RoutingLink } from '@components/RoutingLink/RoutingLink';
+import { back } from '@services/routing';
+
+import { type Pages } from '@types';
 
 import classes from './Header.module.scss';
 
-export interface IAction {
+type TActionCore = {
     icon: Icons;
+    title: string;
+};
+
+type TActionWithButton = TActionCore & {
     onClick: () => void;
-}
+};
+
+type TActionWithLink = TActionCore & {
+    href: string;
+};
+
+export type TAction = TActionWithButton | TActionWithLink;
+
+const isActionWithButton = (action: TAction): action is TActionWithButton =>
+    (action as TActionWithButton)?.onClick !== undefined;
 
 interface IHeader {
     text: string;
-    action?: IAction;
+    page: Pages;
+    action?: TAction;
 }
 
 interface HeaderProps extends IHeader, HTMLAttributes<HTMLElement> {}
 
-export const Header: FC<HeaderProps> = ({ text, action, ...props }): JSX.Element => {
+export const Header: FC<HeaderProps> = ({ text, page, action, ...props }): JSX.Element => {
     const navigate = useNavigate();
     const { state } = useLocation();
 
     const returnButtonRef = useRef<HTMLButtonElement>(null);
 
     const backClickHandler = () => {
-        navigate(state?.from || -1);
+        back(state, navigate, page);
     };
 
     const renderAction = (): JSX.Element | null => {
@@ -34,10 +52,18 @@ export const Header: FC<HeaderProps> = ({ text, action, ...props }): JSX.Element
             return null;
         }
 
+        if (isActionWithButton(action)) {
+            return (
+                <Button onClick={action.onClick} title={action.title}>
+                    <Icon icon={action.icon} size={24} />
+                </Button>
+            );
+        }
+
         return (
-            <Button onClick={action.onClick}>
+            <RoutingLink to={action.href} title={action.title}>
                 <Icon icon={action.icon} size={24} />
-            </Button>
+            </RoutingLink>
         );
     };
 

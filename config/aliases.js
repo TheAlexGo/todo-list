@@ -6,6 +6,7 @@ const main = {
     '@providers': path.resolve(__dirname, '../src/providers'),
     '@services': path.resolve(__dirname, '../src/services'),
     '@pages': path.resolve(__dirname, '../src/pages'),
+    '@utils': path.resolve(__dirname, '../src/utils'),
 };
 
 const styles = {
@@ -13,7 +14,6 @@ const styles = {
     '@static': path.resolve(__dirname, '../src/static'),
     '@icons': path.resolve(__dirname, '../src/static/icons'),
     '@fonts': path.resolve(__dirname, '../src/static/fonts'),
-    '@utils': path.resolve(__dirname, '../src/utils'),
 };
 
 const types = {

@@ -4,7 +4,7 @@ import { addDoc, getDocs, collection, getFirestore, query, where, limit } from '
 
 import { Logger } from '@services/logger';
 
-import type { IUserData } from '@types';
+import type { IUserData, ITask } from '@types';
 
 import type { FirebaseApp } from 'firebase/app';
 
@@ -67,3 +67,46 @@ export const writeUserData = async (userId: string, name: string, email: string)
         return Promise.reject(e);
     }
 };
+
+export const getTask = async (taskId: string): Promise<ITask> =>
+    new Promise((resolve) => {
+        setTimeout(
+            () =>
+                resolve({
+                    id: taskId,
+                    title: 'Hi-Fi Wireframe',
+                    description:
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\n",
+                    date: '2023-08-03',
+                    time: '02:42',
+                    subtasks: [
+                        {
+                            id: '1',
+                            title: 'User Interviews',
+                            isCompleted: true,
+                        },
+                        {
+                            id: '2',
+                            title: 'Wireframes',
+                            isCompleted: true,
+                        },
+                        {
+                            id: '3',
+                            title: 'Design System',
+                            isCompleted: true,
+                        },
+                        {
+                            id: '4',
+                            title: 'Icons',
+                            isCompleted: true,
+                        },
+                        {
+                            id: '5',
+                            title: 'Final Mockups',
+                            isCompleted: true,
+                        },
+                    ],
+                }),
+            1000,
+        );
+    });

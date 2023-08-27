@@ -1,6 +1,6 @@
 import React, { type FC, type FormEvent, type JSX } from 'react';
 
-import { Button, Buttons } from '@components/Button/Button';
+import { Button, Buttons, ButtonSizes } from '@components/Button/Button';
 import { Input } from '@components/inputs/Input/Input';
 
 import type { PropsWithClassname } from '@types';
@@ -22,7 +22,7 @@ export const LoginForm: FC<PropsWithClassname<ILoginForm>> = ({ onSubmit, email,
         <Input {...email} type="email" wrapperClassName={classes['wrapper-email']} />
         <Input {...password} type="password" wrapperClassName={classes['wrapper-password']} />
         {error && <strong className={baseClasses.error}>{error}</strong>}
-        <Button className={baseClasses.button} type="submit" variant={Buttons.PRIMARY}>
+        <Button className={baseClasses.button} type="submit" view={Buttons.PRIMARY} size={ButtonSizes.XL}>
             Войти
         </Button>
     </form>

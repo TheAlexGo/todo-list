@@ -33,7 +33,7 @@ export const OAuthLoginForm = <IProviderId extends string, IProvider extends obj
                 <Button
                     key={providerId}
                     className={classes['oauth-button']}
-                    variant={Buttons.OUTLINE}
+                    view={Buttons.OUTLINE}
                     onClick={clickHandler}
                     data-provider-id={providerId}
                 >

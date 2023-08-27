@@ -24,7 +24,7 @@ export const Textarea: FC<TTextareaProps> = ({
     title,
     isInvisibleTitle,
     error,
-    rows = 3,
+    rows = 6,
     ...props
 }): JSX.Element => {
     const wrapperClasses = cn(classes.wrapper, wrapperClassName);

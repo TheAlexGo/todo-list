@@ -1,6 +1,6 @@
 import React, { type FC, type FormEvent, type JSX } from 'react';
 
-import { Button, Buttons } from '@components/Button/Button';
+import { Button, Buttons, ButtonSizes } from '@components/Button/Button';
 import { Checkbox } from '@components/inputs/Checkbox/Checkbox';
 import { Input } from '@components/inputs/Input/Input';
 
@@ -35,7 +35,7 @@ export const RegistrationForm: FC<PropsWithClassname<IRegistrationForm>> = ({
         <Input {...password} type="password" wrapperClassName={classes['wrapper-password']} />
         <Checkbox {...privacy} type="checkbox" wrapperClassName={classes['wrapper-checkbox']} />
         {error && <strong className={classesBase.error}>{error}</strong>}
-        <Button className={classesBase.button} type="submit" variant={Buttons.PRIMARY}>
+        <Button className={classesBase.button} type="submit" view={Buttons.PRIMARY} size={ButtonSizes.XL}>
             Зарегистрироваться
         </Button>
     </form>
