@@ -12,19 +12,25 @@ export enum LoaderSizes {
     XL = '160',
 }
 
+export enum LoaderPositions {
+    FIXED_ON_CENTER = 'fixed_on-center',
+    STATIC_ON_CENTER = 'static_on-center',
+    DEFAULT = 'default',
+}
+
 interface ILoader {
     label?: string;
     size?: LoaderSizes;
-    isFixedOnCenter?: boolean;
+    position?: LoaderPositions;
 }
 
 export const Loader: FC<PropsWithClassname<ILoader>> = ({
     size = LoaderSizes.M,
-    label = 'Идёт загрузка. Пожалуйста, подождите',
-    isFixedOnCenter = false,
+    label = 'Идёт загрузка. Пожалуйста, подождите...',
+    position = LoaderPositions.DEFAULT,
 }): JSX.Element => {
     const rootClasses = cn(classes.loader, classes[`__is-size_${size}`], {
-        [classes['__is-fixed_on-center']]: isFixedOnCenter,
+        [classes[`__is-${position}`]]: position !== LoaderPositions.DEFAULT,
     });
 
     return (

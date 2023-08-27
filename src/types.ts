@@ -48,6 +48,10 @@ export interface IUserData {
     name: string;
 }
 
+export type TUserDataApi = Omit<IUserData, 'id'>;
+
+export type TUserDataApiRequest = TUserDataApi & { id?: string };
+
 export interface RouteParams {
     id: string;
 }
@@ -58,6 +62,10 @@ export interface ISubTask {
     isCompleted: boolean;
 }
 
+export type TSubTaskApi = Omit<ISubTask, 'id'>;
+
+export type TSubTaskApiRequest = TSubTaskApi & { userId?: string; taskId?: string };
+
 export interface ITask {
     id: string;
     title: string;
@@ -66,3 +74,7 @@ export interface ITask {
     time: string;
     subtasks: ISubTask[];
 }
+
+export type TTaskApi = Omit<ITask, 'id' | 'subtasks'>;
+
+export type TTaskApiRequest = TTaskApi & { userId?: string };

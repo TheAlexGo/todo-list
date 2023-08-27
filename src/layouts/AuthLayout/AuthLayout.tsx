@@ -1,9 +1,9 @@
-import React, { Suspense, type FC, type JSX } from 'react';
+import React, { type FC, type JSX, Suspense } from 'react';
 
 import { Navigate, Outlet } from 'react-router-dom';
 
 import { Icon, Icons } from '@components/Icon/Icon';
-import { Loader, LoaderSizes } from '@components/Loader/Loader';
+import { Loader, LoaderPositions, LoaderSizes } from '@components/Loader/Loader';
 import { useAuth } from '@providers/AuthProvider';
 
 import { Pages } from '@types';
@@ -26,7 +26,7 @@ export const AuthLayout: FC<IAuthLayout> = (): JSX.Element => {
                 <Icon icon={Icons.LOGO_TEXT} width={140} isCustomSize />
             </header>
 
-            <Suspense fallback={<Loader size={LoaderSizes.XL} isFixedOnCenter />}>
+            <Suspense fallback={<Loader size={LoaderSizes.XL} position={LoaderPositions.FIXED_ON_CENTER} />}>
                 <main>
                     <Outlet />
                 </main>

@@ -2,7 +2,7 @@ import { type Location } from '@remix-run/router';
 import { type NavigateFunction } from 'react-router/dist/lib/hooks';
 import { defer, type Params } from 'react-router-dom';
 
-import { getTask } from '@services/api';
+import { readTask } from '@services/api';
 import { getPreviousPage } from '@utils/routing';
 
 import { type ITask, type Pages } from '@types';
@@ -29,7 +29,7 @@ export const loadTask = async ({ params }: { params: Params<'id'> }) => {
             taskResponse: null,
         });
     }
-    const taskResponsePromise: Promise<ITask> = getTask(params.id!);
+    const taskResponsePromise: Promise<ITask> = readTask(params.id!);
     return defer({
         taskResponse: taskResponsePromise,
     });

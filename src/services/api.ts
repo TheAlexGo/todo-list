@@ -1,30 +1,17 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import {
-    addDoc,
-    getDocs,
-    collection,
-    getFirestore,
-    query,
-    where,
-    limit,
-    doc,
-    getDoc,
-    updateDoc,
-    type DocumentReference,
-} from 'firebase/firestore';
+import { getDocs, getFirestore, query, where, limit, updateDoc } from 'firebase/firestore';
 
+import { addSubTask, addTask, addUser } from '@services/api/adding';
+import { getSubTasksCollection, getTasksCollection, getUsersCollection } from '@services/api/collections';
+import { subTaskDataConvert, taskDataConvert, userDataConvert } from '@services/api/converts';
+import { getSubTaskDoc, getTaskDoc, getUserDoc } from '@services/api/docs';
+import { getSubTaskRef, getTaskRef, getUserRef } from '@services/api/refs';
 import { Logger } from '@services/logger';
 
-import type { IUserData, ITask, ISubTask } from '@types';
+import type { IUserData, ITask, ISubTask, TSubTaskApi, TTaskApi, TUserDataApi } from '@types';
 
 import type { FirebaseApp } from 'firebase/app';
-
-enum DocsId {
-    USERS = 'users',
-    TASKS = 'tasks',
-    SUBTASKS = 'subtasks',
-}
 
 export const initializeAPI = (): FirebaseApp => {
     const firebaseApp = initializeApp({
@@ -42,21 +29,17 @@ export const initializeAPI = (): FirebaseApp => {
     return firebaseApp;
 };
 
-export const readUserDataByRef = async (userId: string): Promise<IUserData | null> => {
-    const db = getFirestore();
+/**
+ * CRUD для пользовательских данных
+ */
+export const readUserDataByUserId = async (userId: string): Promise<IUserData | null> => {
+    const q = query(getUsersCollection(), where('userId', '==', userId), limit(1));
+    const querySnapshot = await getDocs(q);
+
     let userData: IUserData | null = null;
 
     try {
-        const q = query(collection(db, DocsId.USERS), where('userId', '==', userId), limit(1));
-        const querySnapshot = await getDocs(q);
-
-        querySnapshot.forEach((userDoc) => {
-            const data = userDoc.data() as IUserData;
-
-            userData = {
-                ...data,
-            };
-        });
+        userData = await userDataConvert(querySnapshot.docs[0]);
     } catch (e) {
         return Promise.reject(e);
     }
@@ -64,22 +47,18 @@ export const readUserDataByRef = async (userId: string): Promise<IUserData | nul
     return userData;
 };
 
-const getTaskRef = (id: string): DocumentReference => {
-    const db = getFirestore();
-    return doc(db, DocsId.TASKS, id);
+export const readUserData = async (userDataId: string): Promise<IUserData> => {
+    const userDataDoc = await getUserDoc(userDataId);
+    if (userDataDoc.exists()) {
+        return userDataConvert(userDataDoc);
+    }
+    return Promise.reject(new Error(`Пользователь с id ${userDataId} не найден!`));
 };
 
-export const readUserData = async (userId: string): Promise<IUserData | null> => readUserDataByRef(userId);
-
-export const writeUserData = async (userId: string, name: string, email: string): Promise<IUserData | null> => {
-    const db = getFirestore();
+export const createUserData = async (userData: IUserData): Promise<IUserData | null> => {
     try {
-        await addDoc(collection(db, DocsId.USERS), {
-            userId,
-            name,
-            email,
-        });
-        return await readUserDataByRef(userId);
+        await addUser(userData);
+        return await readUserData(userData.userId);
     } catch (_e) {
         const e = _e as Error;
         Logger.error(e);
@@ -87,13 +66,21 @@ export const writeUserData = async (userId: string, name: string, email: string)
     }
 };
 
-export const createTask = async (task: Omit<ITask, 'id' | 'subtasks'>, userId: string): Promise<string> => {
-    const db = getFirestore();
+export const updateUserData = async (userId: string, userData: TUserDataApi): Promise<boolean> => {
     try {
-        const newDoc = await addDoc(collection(db, DocsId.TASKS), {
-            ...task,
-            userId,
-        });
+        await updateDoc(getUserRef(userId), userData);
+        return true;
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
+/**
+ * CRUD для задач
+ */
+export const createTask = async (task: TTaskApi, userId: string): Promise<string> => {
+    try {
+        const newDoc = await addTask(task, userId);
         return newDoc.id;
     } catch (_e) {
         const e = _e as Error;
@@ -102,22 +89,17 @@ export const createTask = async (task: Omit<ITask, 'id' | 'subtasks'>, userId: s
     }
 };
 
-export const getTasks = async (userId: string): Promise<ITask[]> => {
-    const db = getFirestore();
-    const q = query(collection(db, DocsId.TASKS), where('userId', '==', userId), limit(10));
+export const readTasks = async (userId: string): Promise<ITask[]> => {
+    const q = query(getTasksCollection(), where('userId', '==', userId), limit(10));
     const querySnapshot = await getDocs(q);
 
     const tasks: ITask[] = [];
 
     try {
-        querySnapshot.forEach((taskDoc) => {
-            const taskData = taskDoc.data() as Omit<ITask, 'id'> & { userId?: string };
-            delete taskData.userId;
-            tasks.push({
-                id: taskDoc.id,
-                ...taskData,
-            });
-        });
+        for (let i = 0; i < querySnapshot.size; i++) {
+            // eslint-disable-next-line no-await-in-loop
+            tasks.push(await taskDataConvert(querySnapshot.docs[i]));
+        }
     } catch (error) {
         return Promise.reject(error);
     }
@@ -125,56 +107,30 @@ export const getTasks = async (userId: string): Promise<ITask[]> => {
     return tasks;
 };
 
-export const getSubTasks = async (taskId: string): Promise<ISubTask[]> => {
-    const db = getFirestore();
-    const q = query(collection(db, DocsId.SUBTASKS), where('taskId', '==', taskId), limit(10));
-
-    const tasks: ISubTask[] = [];
-
-    try {
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((taskDoc) => {
-            const taskData = taskDoc.data() as Omit<ISubTask, 'id'> & { userId?: string; taskId?: string };
-            delete taskData.userId;
-            delete taskData.taskId;
-            Logger.debug(taskData);
-            tasks.push({
-                id: taskDoc.id,
-                ...taskData,
-            });
-        });
-    } catch (error) {
-        return Promise.reject(error);
-    }
-
-    return tasks;
-};
-
-export const getTask = async (taskId: string): Promise<ITask> => {
-    const db = getFirestore();
-    const taskDoc = await getDoc(doc(collection(db, DocsId.TASKS), taskId));
+export const readTask = async (taskId: string): Promise<ITask> => {
+    const taskDoc = await getTaskDoc(taskId);
     if (taskDoc.exists()) {
-        const taskData = taskDoc.data() as Omit<ITask, 'id' | 'subtasks'> & { userId?: string };
-        delete taskData.userId;
-        const subTasksData = await getSubTasks(taskId);
-        return {
-            ...taskData,
-            id: taskDoc.id,
-            subtasks: subTasksData,
-        };
+        return taskDataConvert(taskDoc);
     }
     return Promise.reject(new Error(`Задача с id ${taskId} не найдена!`));
 };
 
-export const createSubTask = async (task: Omit<ISubTask, 'id'>, taskId: string, userId: string): Promise<string> => {
-    const db = getFirestore();
+export const updateTask = async (taskId: string, task: TTaskApi): Promise<boolean> => {
     try {
-        const newDoc = await addDoc(collection(db, DocsId.SUBTASKS), {
-            ...task,
-            taskId,
-            userId,
-        });
-        return newDoc.id;
+        await updateDoc(getTaskRef(taskId), task);
+        return true;
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
+/**
+ * CRUD для подзадач
+ */
+export const createSubTask = async (subTask: TSubTaskApi, taskId: string, userId: string): Promise<string> => {
+    try {
+        const newSubTaskDoc = await addSubTask(subTask, userId);
+        return newSubTaskDoc.id;
     } catch (_e) {
         const e = _e as Error;
         Logger.error(e);
@@ -182,9 +138,35 @@ export const createSubTask = async (task: Omit<ISubTask, 'id'>, taskId: string, 
     }
 };
 
-export const updateTask = async (id: string, task: Omit<ITask, 'id' | 'subtasks'>): Promise<boolean> => {
+export const readSubTasks = async (taskId: string): Promise<ISubTask[]> => {
+    const q = query(getSubTasksCollection(), where('taskId', '==', taskId), limit(10));
+    const querySnapshot = await getDocs(q);
+
+    const subTasks: ISubTask[] = [];
+
     try {
-        await updateDoc(getTaskRef(id), task);
+        for (let i = 0; i < querySnapshot.size; i++) {
+            // eslint-disable-next-line no-await-in-loop
+            subTasks.push(await subTaskDataConvert(querySnapshot.docs[i]));
+        }
+    } catch (error) {
+        return Promise.reject(error);
+    }
+
+    return subTasks;
+};
+
+export const readSubTask = async (subTaskId: string): Promise<ISubTask> => {
+    const subTaskDoc = await getSubTaskDoc(subTaskId);
+    if (subTaskDoc.exists()) {
+        return subTaskDataConvert(subTaskDoc);
+    }
+    return Promise.reject(new Error(`Задача с id ${subTaskId} не найдена!`));
+};
+
+export const updateSubTask = async (subTaskId: string, subTask: TSubTaskApi): Promise<boolean> => {
+    try {
+        await updateDoc(getSubTaskRef(subTaskId), subTask);
         return true;
     } catch (error) {
         return Promise.reject(error);

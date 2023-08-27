@@ -1,10 +1,10 @@
-import React, { Suspense, type FC, type JSX } from 'react';
+import React, { type FC, type JSX, Suspense } from 'react';
 
 import cn from 'classnames';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import { Icons } from '@components/Icon/Icon';
-import { Loader, LoaderSizes } from '@components/Loader/Loader';
+import { Loader, LoaderPositions, LoaderSizes } from '@components/Loader/Loader';
 import { Navigation } from '@components/Navigation/Navigation';
 import { useAuth } from '@providers/AuthProvider';
 import { Logger } from '@services/logger';
@@ -28,7 +28,7 @@ export const ProtectedLayout: FC<IProtectedLayout> = ({ withNavigation = false }
     });
 
     if (isAuthenticate === null) {
-        return <Loader size={LoaderSizes.XL} isFixedOnCenter />;
+        return <Loader size={LoaderSizes.XL} position={LoaderPositions.FIXED_ON_CENTER} />;
     }
 
     if (!isAuthenticate) {
@@ -62,7 +62,7 @@ export const ProtectedLayout: FC<IProtectedLayout> = ({ withNavigation = false }
 
     return (
         <div className={rootClasses}>
-            <Suspense fallback={<Loader size={LoaderSizes.XL} isFixedOnCenter />}>
+            <Suspense fallback={<Loader size={LoaderSizes.XL} position={LoaderPositions.FIXED_ON_CENTER} />}>
                 <Outlet />
             </Suspense>
             {withNavigation && <Navigation elements={navs} title="Основное меню" />}

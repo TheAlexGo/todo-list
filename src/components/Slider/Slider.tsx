@@ -1,7 +1,8 @@
-import React, { type JSX, type HTMLAttributes } from 'react';
+import React, { type HTMLAttributes, type JSX } from 'react';
 
 import cn from 'classnames';
 
+import { Loader, LoaderPositions, LoaderSizes } from '@components/Loader/Loader';
 import { RoutingLink } from '@components/RoutingLink/RoutingLink';
 
 import classes from './Slider.module.scss';
@@ -61,6 +62,7 @@ export function Slider<TItem>({
                 )}
             </div>
             <ul {...props} className={rootClasses}>
+                {items.length === 0 && <Loader size={LoaderSizes.L} position={LoaderPositions.STATIC_ON_CENTER} />}
                 {items.map((item) => (
                     <li key={item.id} className={itemClasses}>
                         {renderItem(item)}

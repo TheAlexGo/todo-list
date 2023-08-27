@@ -22,7 +22,7 @@ import {
     GithubAuthProvider,
 } from 'firebase/auth';
 
-import { readUserData, writeUserData } from '@services/api';
+import { readUserData, createUserData, readUserDataByUserId } from '@services/api';
 import { Logger } from '@services/logger';
 
 import type { IAuthContext, IUserData, ProviderIdUnion, TAuthResult } from '@types';
@@ -101,7 +101,11 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
     const signUpWithCredentials = useCallback(
         (name: string, email: string, password: string) =>
             processSignUp(createUserWithEmailAndPassword(auth, email, password)).then(({ user: responseUser }) =>
-                writeUserData(responseUser.uid, name, email),
+                createUserData({
+                    userId: responseUser.uid,
+                    name,
+                    email,
+                }),
             ),
         [auth, processSignUp],
     );
@@ -152,7 +156,7 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
          */
         auth.onAuthStateChanged((responseUser) => {
             if (responseUser) {
-                readUserData(responseUser.uid)
+                readUserDataByUserId(responseUser.uid)
                     .then((userData) => {
                         setUser(userData);
                         setIsAuthenticate(true);

@@ -6,7 +6,7 @@ import { RoutingLink } from '@components/RoutingLink/RoutingLink';
 import { Slider } from '@components/Slider/Slider';
 import { TaskCard } from '@components/TaskCard/TaskCard';
 import { useAuth } from '@providers/AuthProvider';
-import { getTasks } from '@services/api';
+import { readTasks } from '@services/api';
 
 import { type ITask, Pages } from '@types';
 
@@ -17,7 +17,7 @@ export const General: FC = (): JSX.Element => {
     const user = useAuth().user!;
 
     useEffect(() => {
-        getTasks(user.userId).then(setTasks);
+        readTasks(user.userId).then(setTasks);
     }, [user.userId]);
 
     return (

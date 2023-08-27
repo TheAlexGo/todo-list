@@ -4,23 +4,31 @@
     width: var(--loader-size);
     height: var(--loader-size);
 
-    &.__is-size_24 {
-        --loader-size: 24px;
-    }
+    &.__is {
+        &-size {
+            &_24 {
+                --loader-size: 24px;
+            }
 
-    &.__is-size_80 {
-        --loader-size: 80px;
-    }
+            &_80 {
+                --loader-size: 80px;
+            }
 
-    &.__is-size_160 {
-        --loader-size: 160px;
-    }
+            &_160 {
+                --loader-size: 160px;
+            }
+        }
 
-    &.__is-fixed_on-center {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        &-fixed_on-center {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &-static_on-center {
+            margin: 0 auto;
+        }
     }
 }
 
