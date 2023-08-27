@@ -43,7 +43,7 @@ export const General: FC = (): JSX.Element => {
                 <Slider<ITask>
                     heading="В процессе"
                     items={tasks}
-                    renderItem={(task) => <TaskCard {...task} progress={25} />}
+                    renderItem={(task) => <TaskCard {...task} />}
                     moreLink={{ href: Pages.IN_PROGRESS_TASKS, title: 'Все' }}
                     axis="y"
                 />

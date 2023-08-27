@@ -18,10 +18,12 @@ type ProgressBarCSSProperties = CSSProperties & {
 };
 
 export const ProgressBarCircle: FC<IProgressBar> = ({ id, percentage, size = ProgressBarSizes.M }): JSX.Element => {
+    const currentPercentage = +percentage.toFixed();
+
     const barId = `progressBar-label_${id}`;
 
     const rootStyles: ProgressBarCSSProperties = {
-        '--current_percentage': percentage,
+        '--current_percentage': currentPercentage,
     };
 
     const wrapperClasses = cn(classes.wrapper, {
@@ -34,13 +36,13 @@ export const ProgressBarCircle: FC<IProgressBar> = ({ id, percentage, size = Pro
                 role="progressbar"
                 className={classes['progress-bar']}
                 style={rootStyles}
-                aria-valuenow={percentage}
+                aria-valuenow={currentPercentage}
                 aria-valuemin={0}
                 aria-valuemax={100}
                 aria-labelledby={barId}
             />
             <div id={barId} className={classes.label}>
-                {percentage}%
+                {currentPercentage}%
             </div>
         </div>
     );

@@ -8,8 +8,10 @@ import { Header } from '@components/Header/Header';
 import { Icon, Icons } from '@components/Icon/Icon';
 import { ProgressBarCircle } from '@components/ProgressBar/ProgressBarCircle/ProgressBarCircle';
 import { SubTaskCard } from '@components/SubTaskCard/SubTaskCard';
+import { updateSubTask } from '@services/api';
 import { type LoadTaskResult } from '@services/routing';
 import { getCreateSubTaskLink, getUpdateTaskLink } from '@utils/routing';
+import { calculateCurrentPercentage } from '@utils/task';
 
 import type { ISubTask, ITask, ParamRequired } from '@types';
 import { Pages } from '@types';
@@ -20,22 +22,28 @@ const Component: FC<ITask> = (task): JSX.Element | null => {
     const [taskData, setTaskData] = useState<ITask | null>(task);
 
     const changeSubtaskHandler = (currentSubtask: ISubTask) => {
-        setTaskData((prevTaskData) => {
-            if (!prevTaskData) {
-                return null;
-            }
-            return {
-                ...prevTaskData,
-                subtasks: prevTaskData.subtasks.map((subtask) => {
-                    if (subtask.id === currentSubtask.id) {
-                        return {
-                            ...subtask,
-                            isCompleted: !subtask.isCompleted,
-                        };
+        const newData: ISubTask = {
+            ...currentSubtask,
+            isCompleted: !currentSubtask.isCompleted,
+        };
+
+        updateSubTask(currentSubtask.id, newData).then((result) => {
+            if (result) {
+                setTaskData((prevTaskData) => {
+                    if (!prevTaskData) {
+                        return null;
                     }
-                    return subtask;
-                }),
-            };
+                    return {
+                        ...prevTaskData,
+                        subtasks: prevTaskData.subtasks.map((subtask) => {
+                            if (subtask.id === currentSubtask.id) {
+                                return newData;
+                            }
+                            return subtask;
+                        }),
+                    };
+                });
+            }
         });
     };
 
@@ -45,11 +53,7 @@ const Component: FC<ITask> = (task): JSX.Element | null => {
 
     const { id, title, description, date, time, subtasks } = taskData;
 
-    const percentageForOneSubTask = 100 / subtasks.length;
-    const currentPercentage = subtasks.reduce(
-        (acc, { isCompleted }) => (isCompleted ? acc + percentageForOneSubTask : acc),
-        0,
-    );
+    const currentPercentage = calculateCurrentPercentage(taskData);
 
     return (
         <>

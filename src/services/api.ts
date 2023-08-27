@@ -129,7 +129,7 @@ export const updateTask = async (taskId: string, task: TTaskApi): Promise<boolea
  */
 export const createSubTask = async (subTask: TSubTaskApi, taskId: string, userId: string): Promise<string> => {
     try {
-        const newSubTaskDoc = await addSubTask(subTask, userId);
+        const newSubTaskDoc = await addSubTask(subTask, taskId, userId);
         return newSubTaskDoc.id;
     } catch (_e) {
         const e = _e as Error;
