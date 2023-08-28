@@ -2,13 +2,14 @@ import React, { type FC, type JSX } from 'react';
 
 import cn from 'classnames';
 
-import { type IMenuItem, MenuItem } from '@components/Menu/components/MenuItem/MenuItem';
-import {
-    type IMenuItemExpanded,
-    MenuItemExpanded,
-} from '@components/Menu/components/MenuItemExpanded/MenuItemExpanded';
-import { type ISubMenuItem } from '@components/Menu/components/SubMenuItem/SubMenuItem';
 import { isMenuItemExpanded, type IUseMenu, useMenu } from '@hooks/useMenu';
+
+import { MenuItem } from './components/MenuItem/MenuItem';
+import { MenuItemExpanded } from './components/MenuItemExpanded/MenuItemExpanded';
+
+import type { IMenuItem } from './components/MenuItem/MenuItem';
+import type { IMenuItemExpanded } from './components/MenuItemExpanded/MenuItemExpanded';
+import type { ISubMenuItem } from './components/SubMenuItem/SubMenuItem';
 
 import classes from './Menu.module.scss';
 

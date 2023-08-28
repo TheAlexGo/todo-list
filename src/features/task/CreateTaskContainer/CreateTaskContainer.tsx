@@ -82,8 +82,7 @@ export const CreateTaskContainer: FC<ICreateTaskContainer> = ({
             timeErrorHandler('Обязательное поле!');
         }
         if (isValid) {
-            Logger.debug('Создали задачу!');
-            Logger.debug(currentTitle, currentDescription, currentDate, currentTime);
+            Logger.debug('Создали задачу!', currentTitle, currentDescription, currentDate, currentTime);
             const task = {
                 title: currentTitle,
                 description: currentDescription,

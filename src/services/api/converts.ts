@@ -1,7 +1,6 @@
 import { type QueryDocumentSnapshot } from 'firebase/firestore';
 
 import { readSubTasks } from '@services/api';
-import { Logger } from '@services/logger';
 
 import {
     type ISubTask,
@@ -36,7 +35,6 @@ export const subTaskDataConvert = async (subTaskDoc: QueryDocumentSnapshot): Pro
     const subTaskData = subTaskDoc.data() as TSubTaskApiRequest;
     delete subTaskData.userId;
     delete subTaskData.taskId;
-    Logger.debug(subTaskData);
     return {
         id: subTaskDoc.id,
         ...subTaskData,

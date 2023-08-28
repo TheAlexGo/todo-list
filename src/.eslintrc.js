@@ -58,7 +58,7 @@ module.exports = {
         'import/order': [
             'error',
             {
-                groups: [['builtin', 'external'], ['internal'], 'type'],
+                groups: [['builtin', 'external'], ['internal'], 'sibling', 'type'],
                 pathGroups: [
                     {
                         pattern: '{react,react-dom/client}',

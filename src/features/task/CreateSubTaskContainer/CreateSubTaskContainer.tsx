@@ -35,8 +35,7 @@ export const CreateSubTaskContainer: FC<ICreateSubTaskContainer> = (): JSX.Eleme
             titleErrorHandler('Обязательное поле!');
         }
         if (isValid) {
-            Logger.debug('Создали подзадачу!');
-            Logger.debug(currentTitle);
+            Logger.debug('Создали подзадачу!', currentTitle);
             createSubTask(
                 {
                     title: currentTitle,
