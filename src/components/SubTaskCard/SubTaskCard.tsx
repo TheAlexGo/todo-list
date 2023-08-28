@@ -68,6 +68,8 @@ export const SubTaskCard: FC<SubTaskCardProps> = ({
         <article {...props} className={rootClasses}>
             <label htmlFor={controlId} className={classes.label}>
                 <h4 className={classes.title}>{title}</h4>
+            </label>
+            <div className={classes.actions}>
                 <div className={classes['checkbox-wrapper']}>
                     <input
                         id={controlId}
@@ -78,32 +80,32 @@ export const SubTaskCard: FC<SubTaskCardProps> = ({
                     />
                     <div className={classes['checkbox-custom']} />
                 </div>
-            </label>
-            <Menu
-                id={`sub-task-card_more-${id}`}
-                items={[
-                    {
-                        id: `more-${id}`,
-                        isSelected: false,
-                        icon: Icons.MORE,
-                        label: 'Действия',
-                        elements: [
-                            {
-                                id: `edit-${id}`,
-                                title: 'Редактировать',
-                                isSelected: false,
-                                onClick: editClickHandler,
-                            },
-                            {
-                                id: `delete-${id}`,
-                                title: 'Удалить',
-                                isSelected: false,
-                                onClick: deleteClickHandler,
-                            },
-                        ],
-                    },
-                ]}
-            />
+                <Menu
+                    id={`sub-task-card_more-${id}`}
+                    items={[
+                        {
+                            id: `more-${id}`,
+                            isSelected: false,
+                            icon: Icons.MORE,
+                            label: 'Действия',
+                            elements: [
+                                {
+                                    id: `edit-${id}`,
+                                    title: 'Редактировать',
+                                    isSelected: false,
+                                    onClick: editClickHandler,
+                                },
+                                {
+                                    id: `delete-${id}`,
+                                    title: 'Удалить',
+                                    isSelected: false,
+                                    onClick: deleteClickHandler,
+                                },
+                            ],
+                        },
+                    ]}
+                />
+            </div>
         </article>
     );
 };

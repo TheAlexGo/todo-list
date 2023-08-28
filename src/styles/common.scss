@@ -20,6 +20,10 @@ body {
     font-weight: 400;
 }
 
+body {
+    height: 100%;
+}
+
 /* Системные теги */
 h1,
 h2,
@@ -97,6 +101,6 @@ ol {
 /* /Системные теги */
 
 #root {
-    height: 100vh;
+    height: calc(100% + env(safe-area-inset-top, 0) + env(safe-area-inset-bottom, 0));
     padding: 0 16px;
 }

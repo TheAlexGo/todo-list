@@ -18,8 +18,8 @@ interface ICreateSubTaskContainer {
 }
 
 export const CreateSubTaskContainer: FC<ICreateSubTaskContainer> = ({ subTaskId, title }): JSX.Element => {
-    const [titleState, titleChangeHandler, titleErrorHandler] = useFieldReducer<IInput, HTMLInputElement>({
-        title: 'Название подзадачи',
+    const [titleState, titleChangeHandler, titleErrorHandler] = useFieldReducer<IInput, HTMLTextAreaElement>({
+        title: 'Описание подзадачи',
         value: title,
     });
 
