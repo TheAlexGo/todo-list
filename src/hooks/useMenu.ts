@@ -80,7 +80,6 @@ interface IMenuItemLess extends IMenuItemCore {
     keyDownMenuItemHandler: TKeyDownMenuItemCallback;
     focusMenuItemHandler: TFocusMenuItemCallback;
     blurMenuItemHandler: TBlurMenuItemCallback;
-    'aria-selected'?: boolean;
 }
 
 /**
@@ -98,7 +97,6 @@ interface IMenuItem extends IMenuItemLess {}
 interface IMenuItemExpanded<TSubMenuItem> extends IMenuItemLess, IMenuItemExpandedCore<TSubMenuItemFull<TSubMenuItem>> {
     currentSubMenuItemIndex: number;
     'aria-haspopup': boolean;
-    'aria-selected': boolean;
     'aria-expanded'?: boolean;
     clickSubMenuItemHandler: TClickSubMenuItemCallback;
     keyDownSubMenuItemHandler: TKeyDownSubMenuItemCallback;
@@ -234,7 +232,6 @@ const prepareAllData = <TMenuItem, TMenuItemExpandedData, TSubMenuItem>(
             ...menuItem,
             ...withoutFocusProps,
             tabIndex: selectedMenuItem === null && menuItem.isSelected ? 0 : -1,
-            'aria-selected': selectedMenuItem === null && menuItem.isSelected,
             menuItemIndex: index,
         } as TMenuItemFull<TMenuItem, TMenuItemExpandedData, TSubMenuItem>;
 

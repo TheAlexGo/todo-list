@@ -1,19 +1,25 @@
 import React, { type FC, type JSX, useEffect, useRef } from 'react';
 
-import { Icon, type Icons } from '@components/Icon/Icon';
-import { type ISubMenuItem, SubMenuItem } from '@components/Menu/components/SubMenuItem/SubMenuItem';
-import { type TMenuItemExpanded } from '@hooks/useMenu';
+import { Icon } from '@components/Icon/Icon';
+
+import { SubMenuItem } from '../SubMenuItem/SubMenuItem';
+
+import type { ISubMenuItem } from '../SubMenuItem/SubMenuItem';
+import type { Icons } from '@components/Icon/Icon';
+import type { TMenuItemExpanded } from '@hooks/useMenu';
 
 import classes from './MenuItemExpanded.module.scss';
 
 export interface IMenuItemExpanded {
     icon: Icons;
+    label: string;
 }
 
 type MenuItemExpandedProps = TMenuItemExpanded<IMenuItemExpanded, ISubMenuItem>;
 
 export const MenuItemExpanded: FC<MenuItemExpandedProps> = ({
     icon,
+    label,
     elements,
     menuItemIndex,
     currentSubMenuItemIndex,
@@ -50,6 +56,7 @@ export const MenuItemExpanded: FC<MenuItemExpandedProps> = ({
             onBlur={blurMenuItemHandler}
             data-menu-index={menuItemIndex}
             data-sub-menu-index={currentSubMenuItemIndex}
+            aria-label={label}
             ref={tabExpandedRef}
         >
             <Icon className={classes.icon} icon={icon} size={24} />

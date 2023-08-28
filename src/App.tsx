@@ -2,7 +2,7 @@ import React, { lazy, type FC, type JSX } from 'react';
 
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom';
 
-import { loadTask } from '@services/routing';
+import { loadSubTask, loadTask } from '@services/routing';
 
 import { Pages } from '@types';
 
@@ -20,8 +20,10 @@ const CreateUpdateTaskPage = lazy(() =>
 const SettingsPage = lazy(() => import('@pages/Settings/Settings').then(({ Settings }) => ({ default: Settings })));
 const ReadTaskPage = lazy(() => import('@pages/ReadTask/ReadTask').then(({ ReadTask }) => ({ default: ReadTask })));
 const NotFoundPage = lazy(() => import('@pages/NotFound/NotFound').then(({ NotFound }) => ({ default: NotFound })));
-const CreateSubTaskPage = lazy(() =>
-    import('@pages/CreateSubTask/CreateSubTask').then(({ CreateSubTask }) => ({ default: CreateSubTask })),
+const CreateUpdateSubTaskPage = lazy(() =>
+    import('@pages/CreateUpdateSubTask/CreateUpdateSubTask').then(({ CreateUpdateSubTask }) => ({
+        default: CreateUpdateSubTask,
+    })),
 );
 
 export const App: FC = (): JSX.Element => (
@@ -33,12 +35,19 @@ export const App: FC = (): JSX.Element => (
                         <Route index element={<GeneralPage />} />
                         <Route path={Pages.SETTINGS} element={<SettingsPage />} />
                     </Route>
-                    <Route path={Pages.TASK} element={<ProtectedLayout />}>
+                    <Route path={Pages.TASKS} element={<ProtectedLayout />}>
                         <Route index element={<Navigate to={Pages.NOT_FOUND} />} />
                         <Route path=":id" element={<ReadTaskPage />} loader={loadTask} />
-                        <Route path=":id/create" loader={loadTask} element={<CreateSubTaskPage />} />
-                        <Route path=":id/update" element={<CreateUpdateTaskPage />} loader={loadTask} />
+                        <Route path=":id/subtasks">
+                            <Route path="create" element={<CreateUpdateSubTaskPage />} loader={loadSubTask} />
+                            <Route
+                                path=":subTaskId/update"
+                                element={<CreateUpdateSubTaskPage />}
+                                loader={loadSubTask}
+                            />
+                        </Route>
                         <Route path="create" element={<CreateUpdateTaskPage />} loader={loadTask} />
+                        <Route path=":id/update" element={<CreateUpdateTaskPage />} loader={loadTask} />
                     </Route>
                     <Route path={Pages.LOGIN} element={<AuthLayout />}>
                         <Route index element={<LoginPage />} />

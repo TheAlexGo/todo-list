@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getDocs, getFirestore, query, where, limit, updateDoc } from 'firebase/firestore';
+import { getDocs, getFirestore, query, where, limit, updateDoc, deleteDoc } from 'firebase/firestore';
 
 import { addSubTask, addTask, addUser } from '@services/api/adding';
 import { getSubTasksCollection, getTasksCollection, getUsersCollection } from '@services/api/collections';
@@ -90,7 +90,7 @@ export const createTask = async (task: TTaskApi, userId: string): Promise<string
 };
 
 export const readTasks = async (userId: string): Promise<ITask[]> => {
-    const q = query(getTasksCollection(), where('userId', '==', userId), limit(10));
+    const q = query(getTasksCollection(), where('userId', '==', userId));
     const querySnapshot = await getDocs(q);
 
     const tasks: ITask[] = [];
@@ -115,7 +115,7 @@ export const readTask = async (taskId: string): Promise<ITask> => {
     return Promise.reject(new Error(`Задача с id ${taskId} не найдена!`));
 };
 
-export const updateTask = async (taskId: string, task: TTaskApi): Promise<boolean> => {
+export const updateTask = async (task: TTaskApi, taskId: string): Promise<boolean> => {
     try {
         await updateDoc(getTaskRef(taskId), task);
         return true;
@@ -127,9 +127,9 @@ export const updateTask = async (taskId: string, task: TTaskApi): Promise<boolea
 /**
  * CRUD для подзадач
  */
-export const createSubTask = async (subTask: TSubTaskApi, taskId: string, userId: string): Promise<string> => {
+export const createSubTask = async (subTask: TSubTaskApi, userId: string): Promise<string> => {
     try {
-        const newSubTaskDoc = await addSubTask(subTask, taskId, userId);
+        const newSubTaskDoc = await addSubTask(subTask, userId);
         return newSubTaskDoc.id;
     } catch (_e) {
         const e = _e as Error;
@@ -139,7 +139,7 @@ export const createSubTask = async (subTask: TSubTaskApi, taskId: string, userId
 };
 
 export const readSubTasks = async (taskId: string): Promise<ISubTask[]> => {
-    const q = query(getSubTasksCollection(), where('taskId', '==', taskId), limit(10));
+    const q = query(getSubTasksCollection(), where('taskId', '==', taskId));
     const querySnapshot = await getDocs(q);
 
     const subTasks: ISubTask[] = [];
@@ -164,9 +164,18 @@ export const readSubTask = async (subTaskId: string): Promise<ISubTask> => {
     return Promise.reject(new Error(`Задача с id ${subTaskId} не найдена!`));
 };
 
-export const updateSubTask = async (subTaskId: string, subTask: TSubTaskApi): Promise<boolean> => {
+export const updateSubTask = async (subTask: TSubTaskApi, subTaskId: string): Promise<boolean> => {
     try {
         await updateDoc(getSubTaskRef(subTaskId), subTask);
+        return true;
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
+export const deleteSubTask = async (subTaskId: string): Promise<boolean> => {
+    try {
+        await deleteDoc(getSubTaskRef(subTaskId));
         return true;
     } catch (error) {
         return Promise.reject(error);

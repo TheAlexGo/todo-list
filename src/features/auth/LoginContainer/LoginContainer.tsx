@@ -11,13 +11,13 @@ import { validateEmail, validatePassword } from '@utils/validate';
 import { Pages } from '@types';
 import type { ProviderIdUnion, TAuthResult } from '@types';
 
+import { OAuthProviderIcons, OAuthProviderTitles } from '../base/constants';
+import { useFieldReducer } from '../base/useFieldReducer';
+
 import type { IInput } from '@components/inputs/Input/Input';
 import type { AuthProvider as IOAuthProvider } from '@firebase/auth';
 
 import classes from '../base/Base.module.scss';
-
-import { OAuthProviderIcons, OAuthProviderTitles } from '../base/constants';
-import { useFieldReducer } from '../base/useFieldReducer';
 
 export const LoginContainer: FC = (): JSX.Element => {
     const [emailState, emailChangeHandler, emailErrorHandler] = useFieldReducer<IInput, HTMLInputElement>({

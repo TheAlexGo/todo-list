@@ -61,8 +61,8 @@ export function Slider<TItem>({
                     </RoutingLink>
                 )}
             </div>
+            {items.length === 0 && <Loader size={LoaderSizes.L} position={LoaderPositions.STATIC_ON_CENTER} />}
             <ul {...props} className={rootClasses}>
-                {items.length === 0 && <Loader size={LoaderSizes.L} position={LoaderPositions.STATIC_ON_CENTER} />}
                 {items.map((item) => (
                     <li key={item.id} className={itemClasses}>
                         {renderItem(item)}

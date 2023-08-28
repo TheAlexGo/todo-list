@@ -15,9 +15,8 @@ export const addTask = async (task: TTaskApi, userId: string): Promise<DocumentR
         userId,
     });
 
-export const addSubTask = async (subtask: TSubTaskApi, taskId: string, userId: string): Promise<DocumentReference> =>
+export const addSubTask = async (subtask: TSubTaskApi, userId: string): Promise<DocumentReference> =>
     addDoc(getSubTasksCollection(), {
         ...subtask,
         userId,
-        taskId,
     });

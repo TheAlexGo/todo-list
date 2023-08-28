@@ -38,7 +38,7 @@ module.exports = {
         '@typescript-eslint/consistent-type-imports': [
             'error',
             {
-                fixStyle: 'inline-type-imports',
+                fixStyle: 'separate-type-imports',
             },
         ],
         'react/no-unknown-property': 'off',
@@ -58,7 +58,7 @@ module.exports = {
         'import/order': [
             'error',
             {
-                groups: [['builtin', 'external'], ['internal'], 'sibling', 'type'],
+                groups: [['builtin', 'external'], ['internal'], ['sibling', 'parent'], 'type'],
                 pathGroups: [
                     {
                         pattern: '{react,react-dom/client}',

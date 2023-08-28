@@ -11,13 +11,14 @@ export enum Pages {
     LOGIN = '/login',
     REGISTRATION = '/registration',
     SETTINGS = '/settings',
-    TASK = 'task',
-    READ_TASK = '/task/:id',
-    CREATE_TASK = '/task/create',
-    UPDATE_TASK = '/task/:id/update',
+    TASKS = 'tasks',
+    READ_TASK = '/tasks/:id',
+    CREATE_TASK = '/tasks/create',
+    UPDATE_TASK = '/tasks/:id/update',
     COMPLETED_TASKS = '/tasks/completed',
     IN_PROGRESS_TASKS = '/tasks/in_progress',
-    SUBTASK_CREATE = '/task/:id/create',
+    SUBTASK_CREATE = '/tasks/:id/subtasks/create',
+    UPDATE_SUBTASK = '/tasks/:id/subtasks/:subTaskId/update',
     NOT_FOUND = '/404',
 }
 
@@ -54,17 +55,19 @@ export type TUserDataApiRequest = TUserDataApi & { id?: string };
 
 export interface RouteParams {
     id: string;
+    subTaskId: string;
 }
 
 export interface ISubTask {
     id: string;
+    taskId: string;
     title: string;
     isCompleted: boolean;
 }
 
 export type TSubTaskApi = Omit<ISubTask, 'id'>;
 
-export type TSubTaskApiRequest = TSubTaskApi & { userId?: string; taskId?: string };
+export type TSubTaskApiRequest = TSubTaskApi & { userId?: string };
 
 export interface ITask {
     id: string;

@@ -1,4 +1,4 @@
-import React, { type FC, type JSX, useState } from 'react';
+import React, { type FC, type JSX, useEffect, useState } from 'react';
 
 import { Await, Navigate, useLoaderData, useParams } from 'react-router-dom';
 
@@ -18,40 +18,76 @@ import { Pages } from '@types';
 
 import classes from './ReadTask.module.scss';
 
+const UPDATE_DELAY = 1000;
+
 const Component: FC<ITask> = (task): JSX.Element | null => {
     const [taskData, setTaskData] = useState<ITask | null>(task);
+    const [subTasks, setSubTasks] = useState<ISubTask[]>([]);
 
-    const changeSubtaskHandler = (currentSubtask: ISubTask) => {
+    const changeSubTaskHandler = (currentSubTask: ISubTask) => {
+        setSubTasks((prevSubTasks) =>
+            prevSubTasks.map((subTask) => {
+                if (subTask.id === currentSubTask.id) {
+                    return {
+                        ...subTask,
+                        isDisabled: true,
+                    };
+                }
+                return subTask;
+            }),
+        );
+
         const newData: ISubTask = {
-            ...currentSubtask,
-            isCompleted: !currentSubtask.isCompleted,
+            ...currentSubTask,
+            isCompleted: !currentSubTask.isCompleted,
         };
 
-        updateSubTask(currentSubtask.id, newData).then((result) => {
+        updateSubTask(newData, currentSubTask.id).then((result) => {
             if (result) {
-                setTaskData((prevTaskData) => {
-                    if (!prevTaskData) {
-                        return null;
-                    }
-                    return {
-                        ...prevTaskData,
-                        subtasks: prevTaskData.subtasks.map((subtask) => {
-                            if (subtask.id === currentSubtask.id) {
-                                return newData;
-                            }
-                            return subtask;
-                        }),
-                    };
-                });
+                setTimeout(() => {
+                    setSubTasks((prevSubTasks) =>
+                        prevSubTasks
+                            .map((subTask) => {
+                                if (subTask.id === currentSubTask.id) {
+                                    return {
+                                        ...subTask,
+                                        isCompleted: !subTask.isCompleted,
+                                        isDisabled: false,
+                                    };
+                                }
+                                return subTask;
+                            })
+                            .sort((subTask) => (subTask.isCompleted ? 1 : -1)),
+                    );
+                }, UPDATE_DELAY);
             }
         });
     };
+
+    const deleteSubTaskHandler = (currentSubTask: ISubTask) => {
+        setTaskData((prevTaskData) => {
+            if (!prevTaskData) {
+                return null;
+            }
+            return {
+                ...prevTaskData,
+                subtasks: prevTaskData.subtasks.filter((subTask) => subTask.id !== currentSubTask.id),
+            };
+        });
+    };
+
+    useEffect(() => {
+        if (!taskData) {
+            return;
+        }
+        setSubTasks(taskData.subtasks.sort((subTask) => (subTask.isCompleted ? 1 : -1)));
+    }, [taskData]);
 
     if (taskData === null) {
         return null;
     }
 
-    const { id, title, description, date, time, subtasks } = taskData;
+    const { id, title, description, date, time } = taskData;
 
     const currentPercentage = calculateCurrentPercentage(taskData);
 
@@ -95,9 +131,13 @@ const Component: FC<ITask> = (task): JSX.Element | null => {
                 <div className={classes['subtask-container']}>
                     <h3 className={classes['heading-h3']}>Все подзадачи</h3>
                     <ol className={classes['subtask-list']}>
-                        {subtasks.map((subtask) => (
+                        {subTasks.map((subtask) => (
                             <li key={subtask.id}>
-                                <SubTaskCard {...subtask} onChange={changeSubtaskHandler} />
+                                <SubTaskCard
+                                    {...subtask}
+                                    onChange={changeSubTaskHandler}
+                                    onDelete={deleteSubTaskHandler}
+                                />
                             </li>
                         ))}
                     </ol>

@@ -1,8 +1,13 @@
 import React, { type FC, type JSX, useEffect, useRef } from 'react';
 
+import { Button } from '@components/Button/Button';
 import { type TSubMenuItemFull } from '@hooks/useMenu';
 
-export interface ISubMenuItem {}
+import classes from './SubMenuItem.module.scss';
+
+export interface ISubMenuItem {
+    onClick: () => void;
+}
 
 type SubMenuItemProps = TSubMenuItemFull<ISubMenuItem>;
 
@@ -15,9 +20,10 @@ export const SubMenuItem: FC<SubMenuItemProps> = ({
     clickSubMenuItemHandler,
     focusSubMenuItemHandler,
     blurSubMenuItemHandler,
+    onClick,
     ...props
 }): JSX.Element => {
-    const subMenuItemRef = useRef<HTMLLIElement>(null);
+    const subMenuItemRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         if (withFocus) {
@@ -26,17 +32,18 @@ export const SubMenuItem: FC<SubMenuItemProps> = ({
     }, [subMenuItemRef, withFocus]);
 
     return (
-        <li
+        <Button
             {...props}
             id={id}
             role="menuitem"
+            className={classes.item}
             onKeyDown={keyDownSubMenuItemHandler}
-            onClick={clickSubMenuItemHandler}
+            onClick={onClick}
             onFocus={focusSubMenuItemHandler}
             onBlur={blurSubMenuItemHandler}
             ref={subMenuItemRef}
         >
             {title}
-        </li>
+        </Button>
     );
 };

@@ -6,17 +6,21 @@ import { CreateSubTaskForm } from '@components/forms/CreateSubTaskForm/CreateSub
 import { type IInput } from '@components/inputs/Input/Input';
 import { useFieldReducer } from '@features/auth/base/useFieldReducer';
 import { useAuth } from '@providers/AuthProvider';
-import { createSubTask } from '@services/api';
+import { createSubTask, updateSubTask } from '@services/api';
 import { Logger } from '@services/logger';
 import { validateNotEmpty } from '@utils/validate';
 
 import { Pages, type ParamRequired } from '@types';
 
-interface ICreateSubTaskContainer {}
+interface ICreateSubTaskContainer {
+    subTaskId?: string;
+    title?: string;
+}
 
-export const CreateSubTaskContainer: FC<ICreateSubTaskContainer> = (): JSX.Element => {
+export const CreateSubTaskContainer: FC<ICreateSubTaskContainer> = ({ subTaskId, title }): JSX.Element => {
     const [titleState, titleChangeHandler, titleErrorHandler] = useFieldReducer<IInput, HTMLInputElement>({
         title: 'Название подзадачи',
+        value: title,
     });
 
     const [createError] = useState('');
@@ -36,14 +40,18 @@ export const CreateSubTaskContainer: FC<ICreateSubTaskContainer> = (): JSX.Eleme
         }
         if (isValid) {
             Logger.debug('Создали подзадачу!', currentTitle);
-            createSubTask(
-                {
-                    title: currentTitle,
-                    isCompleted: false,
-                },
+            const subTask = {
                 taskId,
-                userId,
-            ).then(() => {
+                title: currentTitle,
+                isCompleted: false,
+            };
+            new Promise((resolve) => {
+                if (subTaskId) {
+                    resolve(updateSubTask(subTask, subTaskId));
+                } else {
+                    resolve(createSubTask(subTask, userId));
+                }
+            }).then(() => {
                 navigate(state?.from || Pages.INDEX);
             });
         }

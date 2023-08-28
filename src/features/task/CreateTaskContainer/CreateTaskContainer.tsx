@@ -55,7 +55,7 @@ export const CreateTaskContainer: FC<ICreateTaskContainer> = ({
     const [createError] = useState('');
     const navigate = useNavigate();
     const { state } = useLocation();
-    const user = useAuth().user!;
+    const { userId } = useAuth().user!;
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -91,9 +91,9 @@ export const CreateTaskContainer: FC<ICreateTaskContainer> = ({
             };
             new Promise((resolve) => {
                 if (taskId) {
-                    resolve(updateTask(taskId, task));
+                    resolve(updateTask(task, taskId));
                 } else {
-                    resolve(createTask(task, user.userId));
+                    resolve(createTask(task, userId));
                 }
             }).then(() => {
                 navigate(state?.from || Pages.INDEX);
