@@ -22,7 +22,7 @@ import {
     GithubAuthProvider,
 } from 'firebase/auth';
 
-import { readUserData, createUserData, readUserDataByUserId } from '@services/api';
+import { createUserData, readUserDataByUserId } from '@services/api';
 import { Logger } from '@services/logger';
 
 import type { IAuthContext, IUserData, ProviderIdUnion, TAuthResult } from '@types';
@@ -69,7 +69,7 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
                 Logger.info('AuthProvider, processAuth complete:', result);
                 return result;
             })
-            .then(({ user: responseUser }) => readUserData(responseUser.uid))
+            .then(({ user: responseUser }) => readUserDataByUserId(responseUser.uid))
             .then((result) => {
                 Logger.info(result);
                 return result;

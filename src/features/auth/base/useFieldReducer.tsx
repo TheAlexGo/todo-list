@@ -1,5 +1,7 @@
-import type { Reducer, ChangeEvent } from 'react';
 import { useReducer } from 'react';
+import type { Reducer, ChangeEvent } from 'react';
+
+import { v4 as uuidv4 } from 'uuid';
 
 import { Actions } from './types';
 
@@ -47,7 +49,7 @@ export const useFieldReducer = <TFieldProps extends object, TFieldElement extend
     value,
 }: IHook): [TFieldProps, TChangeCallback<TFieldElement>, TErrorCallback] => {
     const [fieldState, dispatchField] = useReducer<TReducer<TFieldProps>>(reducer, {
-        id: window.crypto.randomUUID(),
+        id: uuidv4(),
         title,
         icon,
         value: value || '',
