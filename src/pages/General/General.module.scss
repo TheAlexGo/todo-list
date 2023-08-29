@@ -14,3 +14,16 @@
         background-color: var(--color_primary);
     }
 }
+
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--color_main);
+    font-size: var(--fs_m);
+}
+
+.link {
+    color: var(--color_primary);
+}

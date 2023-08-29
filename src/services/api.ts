@@ -76,55 +76,6 @@ export const updateUserData = async (userId: string, userData: TUserDataApi): Pr
 };
 
 /**
- * CRUD для задач
- */
-export const createTask = async (task: TTaskApi, userId: string): Promise<string> => {
-    try {
-        const newDoc = await addTask(task, userId);
-        return newDoc.id;
-    } catch (_e) {
-        const e = _e as Error;
-        Logger.error(e);
-        return Promise.reject(e);
-    }
-};
-
-export const readTasks = async (userId: string): Promise<ITask[]> => {
-    const q = query(getTasksCollection(), where('userId', '==', userId));
-    const querySnapshot = await getDocs(q);
-
-    const tasks: ITask[] = [];
-
-    try {
-        for (let i = 0; i < querySnapshot.size; i++) {
-            // eslint-disable-next-line no-await-in-loop
-            tasks.push(await taskDataConvert(querySnapshot.docs[i]));
-        }
-    } catch (error) {
-        return Promise.reject(error);
-    }
-
-    return tasks;
-};
-
-export const readTask = async (taskId: string): Promise<ITask> => {
-    const taskDoc = await getTaskDoc(taskId);
-    if (taskDoc.exists()) {
-        return taskDataConvert(taskDoc);
-    }
-    return Promise.reject(new Error(`Задача с id ${taskId} не найдена!`));
-};
-
-export const updateTask = async (task: TTaskApi, taskId: string): Promise<boolean> => {
-    try {
-        await updateDoc(getTaskRef(taskId), task);
-        return true;
-    } catch (error) {
-        return Promise.reject(error);
-    }
-};
-
-/**
  * CRUD для подзадач
  */
 export const createSubTask = async (subTask: TSubTaskApi, userId: string): Promise<string> => {
@@ -176,6 +127,65 @@ export const updateSubTask = async (subTask: TSubTaskApi, subTaskId: string): Pr
 export const deleteSubTask = async (subTaskId: string): Promise<boolean> => {
     try {
         await deleteDoc(getSubTaskRef(subTaskId));
+        return true;
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
+/**
+ * CRUD для задач
+ */
+export const createTask = async (task: TTaskApi, userId: string): Promise<string> => {
+    try {
+        const newDoc = await addTask(task, userId);
+        return newDoc.id;
+    } catch (_e) {
+        const e = _e as Error;
+        Logger.error(e);
+        return Promise.reject(e);
+    }
+};
+
+export const readTasks = async (userId: string): Promise<ITask[]> => {
+    const q = query(getTasksCollection(), where('userId', '==', userId));
+    const querySnapshot = await getDocs(q);
+
+    const tasks: ITask[] = [];
+
+    try {
+        for (let i = 0; i < querySnapshot.size; i++) {
+            // eslint-disable-next-line no-await-in-loop
+            tasks.push(await taskDataConvert(querySnapshot.docs[i]));
+        }
+    } catch (error) {
+        return Promise.reject(error);
+    }
+
+    return tasks;
+};
+
+export const readTask = async (taskId: string): Promise<ITask> => {
+    const taskDoc = await getTaskDoc(taskId);
+    if (taskDoc.exists()) {
+        return taskDataConvert(taskDoc);
+    }
+    return Promise.reject(new Error(`Задача с id ${taskId} не найдена!`));
+};
+
+export const updateTask = async (task: TTaskApi, taskId: string): Promise<string> => {
+    try {
+        await updateDoc(getTaskRef(taskId), task);
+        return taskId;
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
+export const deleteTask = async (taskId: string, subTasks: ISubTask[]): Promise<boolean> => {
+    try {
+        await Promise.all(subTasks.map((subTask) => deleteSubTask(subTask.id)));
+        await deleteDoc(getTaskRef(taskId));
         return true;
     } catch (error) {
         return Promise.reject(error);

@@ -11,7 +11,7 @@ import { SubTaskCard } from '@components/SubTaskCard/SubTaskCard';
 import { updateSubTask } from '@services/api';
 import { type LoadTaskResult } from '@services/routing';
 import { getCreateSubTaskLink, getUpdateTaskLink } from '@utils/routing';
-import { calculateCurrentPercentage } from '@utils/task';
+import { calculateCurrentPercentage, getCurrentDateText } from '@utils/task';
 
 import type { ISubTask, ITask, ParamRequired } from '@types';
 import { Pages } from '@types';
@@ -89,7 +89,7 @@ const Component: FC<ITask> = (task): JSX.Element | null => {
 
     const { id, title, description, date, time } = taskData;
 
-    const currentPercentage = calculateCurrentPercentage(taskData);
+    const currentPercentage = calculateCurrentPercentage(subTasks);
 
     return (
         <>
@@ -108,12 +108,7 @@ const Component: FC<ITask> = (task): JSX.Element | null => {
                         <div className={classes['date-text']}>Сделать до</div>
                         <div className={classes['date-value']}>
                             <time>
-                                {new Date(date).toLocaleDateString('ru', {
-                                    day: 'numeric',
-                                    month: 'long',
-                                    year: 'numeric',
-                                })}
-                                , {time}
+                                {getCurrentDateText(date)}, {time}
                             </time>
                         </div>
                     </div>

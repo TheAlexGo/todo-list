@@ -24,9 +24,12 @@ interface ISlider<TItem extends ISliderItemCore> {
         href: string;
     };
     axis?: 'x' | 'y';
+    isLoading?: boolean;
+    placeholder?: JSX.Element | null;
 }
 
-type SliderProps<TItem> = ISlider<TScrollItem<TItem>> & Omit<HTMLAttributes<HTMLUListElement>, 'children'>;
+type SliderProps<TItem> = ISlider<TScrollItem<TItem>> &
+    Omit<HTMLAttributes<HTMLUListElement>, 'children' | 'placeholder'>;
 
 export function Slider<TItem>({
     heading,
@@ -37,8 +40,10 @@ export function Slider<TItem>({
     itemClassName,
     className,
     axis = 'x',
+    isLoading = false,
+    placeholder = null,
     ...props
-}: SliderProps<TItem>): JSX.Element {
+}: SliderProps<TItem>): JSX.Element | null {
     const rootClasses = cn(
         classes.slider,
         {
@@ -51,6 +56,29 @@ export function Slider<TItem>({
     });
     const itemClasses = cn(classes.item, itemClassName);
 
+    if (!items.length && !isLoading && !placeholder) {
+        return null;
+    }
+
+    const renderContent = () => {
+        if (!items.length && !isLoading) {
+            return placeholder;
+        }
+
+        return (
+            <>
+                {isLoading && <Loader size={LoaderSizes.L} position={LoaderPositions.STATIC_ON_CENTER} />}
+                <ul {...props} className={rootClasses}>
+                    {items.map((item) => (
+                        <li key={item.id} className={itemClasses}>
+                            {renderItem(item)}
+                        </li>
+                    ))}
+                </ul>
+            </>
+        );
+    };
+
     return (
         <div>
             <div className={headerClasses}>
@@ -61,14 +89,7 @@ export function Slider<TItem>({
                     </RoutingLink>
                 )}
             </div>
-            {items.length === 0 && <Loader size={LoaderSizes.L} position={LoaderPositions.STATIC_ON_CENTER} />}
-            <ul {...props} className={rootClasses}>
-                {items.map((item) => (
-                    <li key={item.id} className={itemClasses}>
-                        {renderItem(item)}
-                    </li>
-                ))}
-            </ul>
+            {renderContent()}
         </div>
     );
 }

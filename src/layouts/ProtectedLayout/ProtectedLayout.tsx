@@ -7,7 +7,6 @@ import { Icons } from '@components/Icon/Icon';
 import { Loader, LoaderPositions, LoaderSizes } from '@components/Loader/Loader';
 import { Navigation } from '@components/Navigation/Navigation';
 import { useAuth } from '@providers/AuthProvider';
-import { Logger } from '@services/logger';
 
 import { Pages } from '@types';
 
@@ -35,10 +34,6 @@ export const ProtectedLayout: FC<IProtectedLayout> = ({ withNavigation = false }
         return <Navigate to={Pages.LOGIN} state={{ from: location }} />;
     }
 
-    const createTask = () => {
-        Logger.info('Создание таски');
-    };
-
     const navs: INavItem[] = [
         {
             icon: Icons.HOME,
@@ -50,7 +45,9 @@ export const ProtectedLayout: FC<IProtectedLayout> = ({ withNavigation = false }
             title: 'Создание задачи',
             to: Pages.CREATE_TASK,
             className: classes['add-button'],
-            onClick: createTask,
+            state: {
+                to: Pages.READ_TASK,
+            },
             isInvisibleTitle: true,
         },
         {

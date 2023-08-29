@@ -11,14 +11,14 @@ import type { IMenuItem } from './components/MenuItem/MenuItem';
 import type { IMenuItemExpanded } from './components/MenuItemExpanded/MenuItemExpanded';
 import type { ISubMenuItem } from './components/SubMenuItem/SubMenuItem';
 
-import classes from './Menu.module.scss';
+import classes from './ActionsMenu.module.scss';
 
 interface IMenu {
     id: string;
     items: IUseMenu<IMenuItem, IMenuItemExpanded, ISubMenuItem>['items'];
 }
 
-export const Menu: FC<IMenu> = ({ id, items }): JSX.Element => {
+export const ActionsMenu: FC<IMenu> = ({ id, items }): JSX.Element => {
     const {
         menuItems,
         clickMenuItemHandler,

@@ -4,7 +4,7 @@
     position: relative;
     display: grid;
     grid-template:
-        'h h h' minmax(28px, auto)
+        'h h m' minmax(28px, auto)
         'd d p' 60px / 1fr 1fr 60px;
     grid-gap: 8px;
     width: 100%;
@@ -30,4 +30,10 @@
 
 .progress {
     grid-area: p;
+}
+
+.menu {
+    grid-area: m;
+    display: flex;
+    justify-content: end;
 }

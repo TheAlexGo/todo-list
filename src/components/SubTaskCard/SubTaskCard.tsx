@@ -3,13 +3,12 @@ import React, { type FC, type JSX, type HTMLAttributes } from 'react';
 import cn from 'classnames';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { ActionsMenu } from '@components/ActionsMenu/ActionsMenu';
 import { Icons } from '@components/Icon/Icon';
 import { deleteSubTask } from '@services/api';
 import { getUpdateSubTaskLink } from '@utils/routing';
 
 import type { ISubTask } from '@types';
-
-import { Menu } from './components/Menu/Menu';
 
 import classes from './SubTaskCard.module.scss';
 
@@ -59,8 +58,10 @@ export const SubTaskCard: FC<SubTaskCardProps> = ({
     };
 
     const deleteClickHandler = () => {
-        deleteSubTask(id).then(() => {
-            onDelete(taskData);
+        deleteSubTask(id).then((result) => {
+            if (result) {
+                onDelete(taskData);
+            }
         });
     };
 
@@ -80,7 +81,7 @@ export const SubTaskCard: FC<SubTaskCardProps> = ({
                     />
                     <div className={classes['checkbox-custom']} />
                 </div>
-                <Menu
+                <ActionsMenu
                     id={`sub-task-card_more-${id}`}
                     items={[
                         {

@@ -1,15 +1,14 @@
 import React, { useState, type FC, type FormEvent, type JSX } from 'react';
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { CreateTaskForm } from '@components/forms/CreateTaskForm/CreateTaskForm';
 import { useFieldReducer } from '@features/auth/base/useFieldReducer';
 import { useAuth } from '@providers/AuthProvider';
 import { createTask, updateTask } from '@services/api';
 import { Logger } from '@services/logger';
+import { getTaskLink } from '@utils/routing';
 import { validateNotEmpty } from '@utils/validate';
-
-import { Pages } from '@types';
 
 import type { IInput } from '@components/inputs/Input/Input';
 import type { ITextarea } from '@components/inputs/Textarea/Textarea';
@@ -54,7 +53,6 @@ export const CreateTaskContainer: FC<ICreateTaskContainer> = ({
 
     const [createError] = useState('');
     const navigate = useNavigate();
-    const { state } = useLocation();
     const { userId } = useAuth().user!;
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
@@ -89,14 +87,14 @@ export const CreateTaskContainer: FC<ICreateTaskContainer> = ({
                 date: currentDate,
                 time: currentTime,
             };
-            new Promise((resolve) => {
+            new Promise<string>((resolve) => {
                 if (taskId) {
                     resolve(updateTask(task, taskId));
                 } else {
                     resolve(createTask(task, userId));
                 }
-            }).then(() => {
-                navigate(state?.from || Pages.INDEX);
+            }).then((resultId) => {
+                navigate(getTaskLink(resultId));
             });
         }
     };
