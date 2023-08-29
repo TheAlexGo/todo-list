@@ -22,8 +22,8 @@ export const userDataConvert = async (userDoc: QueryDocumentSnapshot): Promise<I
 
 export const taskDataConvert = async (taskDoc: QueryDocumentSnapshot): Promise<ITask> => {
     const taskData = taskDoc.data() as TTaskApiRequest;
+    const subTasksData = await readSubTasks(taskData.userId!, taskDoc.id);
     delete taskData.userId;
-    const subTasksData = await readSubTasks(taskDoc.id);
     return {
         ...taskData,
         id: taskDoc.id,

@@ -91,8 +91,8 @@ export const createSubTask = async (subTask: TSubTaskApi, userId: string): Promi
     }
 };
 
-export const readSubTasks = async (taskId: string): Promise<ISubTask[]> => {
-    const q = query(getSubTasksCollection(), where('taskId', '==', taskId));
+export const readSubTasks = async (userId: string, taskId: string): Promise<ISubTask[]> => {
+    const q = query(getSubTasksCollection(), where('userId', '==', userId), where('taskId', '==', taskId));
     const querySnapshot = await getDocs(q);
 
     const subTasks: ISubTask[] = [];

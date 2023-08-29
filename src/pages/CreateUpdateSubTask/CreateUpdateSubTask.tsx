@@ -1,6 +1,6 @@
 import React, { type FC, type JSX } from 'react';
 
-import { Await, useLoaderData, useParams } from 'react-router-dom';
+import { Await, Navigate, useLoaderData, useParams } from 'react-router-dom';
 
 import { Header } from '@components/Header/Header';
 import { CreateSubTaskContainer } from '@features/task/CreateSubTaskContainer/CreateSubTaskContainer';
@@ -21,7 +21,9 @@ export const CreateUpdateSubTask: FC = (): JSX.Element => {
         <>
             <Header page={page} text={`${title} подзадачу`} />
             <main>
-                <Await resolve={subTaskResponse}>{renderComponent}</Await>
+                <Await resolve={subTaskResponse} errorElement={<Navigate to={Pages.NOT_FOUND} />}>
+                    {renderComponent}
+                </Await>
             </main>
         </>
     );
