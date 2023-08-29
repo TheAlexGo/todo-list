@@ -39,7 +39,9 @@ export const readUserDataByUserId = async (userId: string): Promise<IUserData | 
     let userData: IUserData | null = null;
 
     try {
-        userData = await userDataConvert(querySnapshot.docs[0]);
+        if (querySnapshot.docs.length !== 0) {
+            userData = await userDataConvert(querySnapshot.docs[0]);
+        }
     } catch (e) {
         return Promise.reject(e);
     }
@@ -55,10 +57,10 @@ export const readUserData = async (userDataId: string): Promise<IUserData> => {
     return Promise.reject(new Error(`Пользователь с id ${userDataId} не найден!`));
 };
 
-export const createUserData = async (userData: IUserData): Promise<IUserData | null> => {
+export const createUserData = async (userData: IUserData): Promise<IUserData> => {
     try {
-        await addUser(userData);
-        return await readUserData(userData.userId);
+        const newDoc = await addUser(userData);
+        return await readUserData(newDoc.id);
     } catch (_e) {
         const e = _e as Error;
         Logger.error(e);

@@ -66,12 +66,7 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
 
         return promise
             .then((result) => {
-                Logger.info('AuthProvider, processAuth complete:', result);
-                return result;
-            })
-            .then(({ user: responseUser }) => readUserDataByUserId(responseUser.uid))
-            .then((result) => {
-                Logger.info(result);
+                Logger.debug('AuthProvider, processAuth complete:', result);
                 return result;
             })
             .catch((error) => {
@@ -87,7 +82,7 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
 
         return promise
             .then((result) => {
-                Logger.info('AuthProvider, processAuth complete:', result);
+                Logger.debug('AuthProvider, processAuth complete:', result);
                 return result;
             })
             .catch((error) => {
@@ -100,13 +95,15 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
 
     const signUpWithCredentials = useCallback(
         (name: string, email: string, password: string) =>
-            processSignUp(createUserWithEmailAndPassword(auth, email, password)).then(({ user: responseUser }) =>
+            processSignUp(createUserWithEmailAndPassword(auth, email, password)).then((response) => {
+                const { user: responseUser } = response;
                 createUserData({
                     userId: responseUser.uid,
                     name,
                     email,
-                }),
-            ),
+                });
+                return response;
+            }),
         [auth, processSignUp],
     );
 
@@ -157,8 +154,21 @@ export const AuthProvider: FC<PropsWithChildren<IAuthProvider>> = ({ firebaseApp
         auth.onAuthStateChanged((responseUser) => {
             if (responseUser) {
                 readUserDataByUserId(responseUser.uid)
-                    .then((userData) => {
-                        setUser(userData);
+                    .then(async (userData) => {
+                        Logger.debug('Авторизуемся...');
+                        let currentUserData = userData;
+                        if (!currentUserData) {
+                            if (!userData) {
+                                Logger.debug('Данных от пользователя нет. Создаём');
+                                currentUserData = await createUserData({
+                                    userId: responseUser.uid,
+                                    name: responseUser.displayName || '',
+                                    email: responseUser.email || '',
+                                });
+                            }
+                        }
+                        Logger.debug('Авторизация завершена!', currentUserData);
+                        setUser(currentUserData);
                         setIsAuthenticate(true);
                     })
                     .catch((e) => {

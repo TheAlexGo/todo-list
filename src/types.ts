@@ -1,6 +1,6 @@
 import type { FC, SVGProps } from 'react';
 
-import type { ProviderId } from 'firebase/auth';
+import type { ProviderId, UserCredential } from 'firebase/auth';
 
 export enum RoutingConstants {
     ID = ':id',
@@ -26,7 +26,7 @@ export type TRequired<A, T extends keyof A> = Required<Pick<A, T>>;
 
 export type ParamRequired<T extends keyof RouteParams> = TRequired<RouteParams, T>;
 
-export type TAuthResult = Promise<IUserData | null>;
+export type TAuthResult = Promise<UserCredential | null>;
 
 export type TSvgComponent = FC<SVGProps<SVGSVGElement>>;
 
