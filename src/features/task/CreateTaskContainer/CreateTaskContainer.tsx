@@ -1,6 +1,6 @@
 import React, { useState, type FC, type FormEvent, type JSX } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { CreateTaskForm } from '@components/forms/CreateTaskForm/CreateTaskForm';
 import { useFieldReducer } from '@features/auth/base/useFieldReducer';
@@ -9,6 +9,8 @@ import { createTask, updateTask } from '@services/api';
 import { Logger } from '@services/logger';
 import { getTaskLink } from '@utils/routing';
 import { validateNotEmpty } from '@utils/validate';
+
+import { Pages } from '@types';
 
 import type { IInput } from '@components/inputs/Input/Input';
 import type { ITextarea } from '@components/inputs/Textarea/Textarea';
@@ -53,7 +55,9 @@ export const CreateTaskContainer: FC<ICreateTaskContainer> = ({
 
     const [createError] = useState('');
     const navigate = useNavigate();
+    const { state } = useLocation();
     const { userId } = useAuth().user!;
+    const isUpdate = taskId !== undefined;
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -88,13 +92,17 @@ export const CreateTaskContainer: FC<ICreateTaskContainer> = ({
                 time: currentTime,
             };
             new Promise<string>((resolve) => {
-                if (taskId) {
+                if (isUpdate) {
                     resolve(updateTask(task, taskId));
                 } else {
                     resolve(createTask(task, userId));
                 }
             }).then((resultId) => {
-                navigate(getTaskLink(resultId));
+                if (isUpdate) {
+                    navigate(state?.from || Pages.INDEX);
+                } else {
+                    navigate(getTaskLink(resultId));
+                }
             });
         }
     };
@@ -107,6 +115,7 @@ export const CreateTaskContainer: FC<ICreateTaskContainer> = ({
             time={{ ...timeState, onChange: timeChangeHandler }}
             error={createError}
             onSubmit={submitHandler}
+            buttonText={isUpdate ? 'Сохранить' : 'Создать'}
         />
     );
 };

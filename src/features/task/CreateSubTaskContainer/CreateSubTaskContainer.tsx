@@ -8,9 +8,10 @@ import { useFieldReducer } from '@features/auth/base/useFieldReducer';
 import { useAuth } from '@providers/AuthProvider';
 import { createSubTask, updateSubTask } from '@services/api';
 import { Logger } from '@services/logger';
+import { getTaskLink } from '@utils/routing';
 import { validateNotEmpty } from '@utils/validate';
 
-import { Pages, type ParamRequired } from '@types';
+import { type ParamRequired } from '@types';
 
 interface ICreateSubTaskContainer {
     subTaskId?: string;
@@ -29,6 +30,8 @@ export const CreateSubTaskContainer: FC<ICreateSubTaskContainer> = ({ subTaskId,
     const { id: taskId } = useParams<ParamRequired<'id'>>() as ParamRequired<'id'>;
     const { userId } = useAuth().user!;
 
+    const isUpdate = subTaskId !== undefined;
+
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { value: currentTitle } = titleState;
@@ -46,13 +49,13 @@ export const CreateSubTaskContainer: FC<ICreateSubTaskContainer> = ({ subTaskId,
                 isCompleted: false,
             };
             new Promise((resolve) => {
-                if (subTaskId) {
+                if (isUpdate) {
                     resolve(updateSubTask(subTask, subTaskId));
                 } else {
                     resolve(createSubTask(subTask, userId));
                 }
             }).then(() => {
-                navigate(state?.from || Pages.INDEX);
+                navigate(state?.from || getTaskLink(taskId));
             });
         }
     };
@@ -62,6 +65,7 @@ export const CreateSubTaskContainer: FC<ICreateSubTaskContainer> = ({ subTaskId,
             title={{ ...titleState, onChange: titleChangeHandler }}
             error={createError}
             onSubmit={submitHandler}
+            buttonText={isUpdate ? 'Сохранить' : 'Создать'}
         />
     );
 };

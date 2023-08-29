@@ -14,9 +14,10 @@ interface ICreateSubTaskForm {
     title: ITextarea;
     error: string;
     onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+    buttonText: string;
 }
 
-export const CreateSubTaskForm: FC<ICreateSubTaskForm> = ({ title, error, onSubmit }): JSX.Element => {
+export const CreateSubTaskForm: FC<ICreateSubTaskForm> = ({ title, error, onSubmit, buttonText }): JSX.Element => {
     const rootClasses = cn(baseClasses.form, classes.form);
 
     return (
@@ -26,7 +27,7 @@ export const CreateSubTaskForm: FC<ICreateSubTaskForm> = ({ title, error, onSubm
                 {error && <strong className={baseClasses.error}>{error}</strong>}
             </div>
             <Button type="submit" view={Buttons.PRIMARY} size={ButtonSizes.XL}>
-                Создать
+                {buttonText}
             </Button>
         </form>
     );

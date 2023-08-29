@@ -1,7 +1,7 @@
 import React, { type FC, type JSX, type HTMLAttributes } from 'react';
 
 import cn from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ActionsMenu } from '@components/ActionsMenu/ActionsMenu';
@@ -9,10 +9,10 @@ import { Icons } from '@components/Icon/Icon';
 import { ProgressBarCircle } from '@components/ProgressBar/ProgressBarCircle/ProgressBarCircle';
 import { RoutingLink } from '@components/RoutingLink/RoutingLink';
 import { deleteTask } from '@services/api';
-import { getTaskLink } from '@utils/routing';
+import { getTaskLink, getUpdateTaskLink } from '@utils/routing';
 import { calculateCurrentPercentage, getCurrentDateText } from '@utils/task';
 
-import { type ITask, Pages } from '@types';
+import { type ITask } from '@types';
 
 import classes from './TaskCard.module.scss';
 
@@ -43,6 +43,7 @@ export const TaskCard: FC<TTaskProps> = ({
     };
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const currentPercentage = calculateCurrentPercentage(subtasks);
 
@@ -53,9 +54,9 @@ export const TaskCard: FC<TTaskProps> = ({
     const rootClasses = cn(classes.card, className);
 
     const editClickHandler = () =>
-        navigate(Pages.CREATE_TASK, {
+        navigate(getUpdateTaskLink(id), {
             state: {
-                to: Pages.READ_TASK,
+                from: location,
             },
         });
 

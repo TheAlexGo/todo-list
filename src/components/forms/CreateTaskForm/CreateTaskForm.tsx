@@ -24,6 +24,7 @@ interface ICreateTaskForm {
     time: ITimePicker;
     error: string;
     onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+    buttonText: string;
 }
 
 export const CreateTaskForm: FC<PropsWithClassname<ICreateTaskForm>> = ({
@@ -33,6 +34,7 @@ export const CreateTaskForm: FC<PropsWithClassname<ICreateTaskForm>> = ({
     time,
     error,
     onSubmit,
+    buttonText,
 }): JSX.Element => {
     const rootClasses = cn(baseClasses.form, classes.form);
 
@@ -50,7 +52,7 @@ export const CreateTaskForm: FC<PropsWithClassname<ICreateTaskForm>> = ({
                 {error && <strong className={baseClasses.error}>{error}</strong>}
             </div>
             <Button type="submit" view={Buttons.PRIMARY} size={ButtonSizes.XL}>
-                Создать
+                {buttonText}
             </Button>
         </form>
     );
