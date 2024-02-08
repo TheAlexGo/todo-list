@@ -1,0 +1,24 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox {
+    margin-top: 16px;
+}
+
+.link {
+    margin-top: 12px;
+    color: var(--color_secodary);
+    text-align: right;
+}
+
+.button {
+    margin-top: 36px;
+}
+
+.error {
+    margin: 12px;
+    text-align: center;
+    color: var(--color_dangerous);
+}

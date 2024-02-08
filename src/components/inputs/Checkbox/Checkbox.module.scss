@@ -1,0 +1,26 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    color: var(--color_secodary);
+}
+
+.checkbox {
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    overflow: hidden;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.icon {
+    flex-shrink: 0;
+    pointer-events: none;
+
+    .__is-checked & {
+        color: var(--color_primary);
+    }
+}

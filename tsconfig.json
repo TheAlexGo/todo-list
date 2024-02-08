@@ -5,6 +5,7 @@
         "esModuleInterop": true,
         "jsx": "react",
         "target": "ESNext",
+        "module": "NodeNext",
         "moduleResolution": "NodeNext",
         "paths": {
             "@components/*": ["components/*"],
@@ -12,9 +13,15 @@
             "@features/*": ["features/*"],
             "@static/*": ["static/*"],
             "@icons/*": ["static/icons/*"],
-            "@fonts/*": ["static/fonts/*"]
+            "@fonts/*": ["static/fonts/*"],
+            "@providers/*": ["providers/*"],
+            "@services/*": ["services/*"],
+            "@pages/*": ["pages/*"],
+            "@utils/*": ["utils/*"],
+            "@hooks/*": ["hooks/*"],
+            "@types": ["types.ts"]
         }
     },
-    "include": ["src"],
+    "include": ["src", "./src/.eslintrc.js"],
     "exclude": ["node_modules", "dist"]
 }

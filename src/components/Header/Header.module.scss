@@ -1,0 +1,25 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    height: 72px;
+    padding: 24px 16px;
+    color: var(--color_main);
+    font-size: var(--fs_m);
+    font-weight: 500;
+    background-color: var(--color_background_dark);
+    z-index: 1;
+}
+
+.heading {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.container-action {
+    width: 24px;
+    height: 24px;
+}

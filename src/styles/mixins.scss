@@ -1,0 +1,19 @@
+@mixin multieEllip($countOfLine, $lineHeight) {
+    /* fallback */
+    max-height: $countOfLine * $lineHeight;
+    display: block;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    line-height: $lineHeight;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $countOfLine;
+}
+
+@mixin invisible() {
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+}

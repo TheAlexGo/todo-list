@@ -1,0 +1,49 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.title {
+    margin-bottom: 16px;
+    color: inherit;
+}
+
+.container-content {
+    display: flex;
+    width: 100%;
+    height: 40px;
+}
+
+.wrapper-icon {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    color: var(--color_dark);
+    background-color: var(--color_primary);
+    pointer-events: none;
+}
+
+.field {
+    width: 100%;
+    border: 0;
+    color: var(--color_main);
+    font-family: Inter, sans-serif;
+    font-size: var(--fs_m);
+    font-weight: 400;
+    text-align: center;
+    background-color: var(--color_background_light);
+
+    &::-webkit-calendar-picker-indicator {
+        position: absolute;
+        left: 4px;
+        width: 24px;
+        height: 24px;
+        opacity: 0;
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,40 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+    cursor: pointer;
+
+    &.__view {
+        &-primary {
+            color: var(--color_black);
+            font-weight: 600;
+            background: var(--color_primary);
+        }
+
+        &-outline {
+            box-shadow: inset 0 0 0 2px var(--color_main);
+            font-weight: 500;
+            color: var(--color_main);
+        }
+    }
+
+    &.__size {
+        &-auto {
+            height: auto;
+        }
+
+        &-xl {
+            height: 64px;
+            font-size: var(--fs_m);
+        }
+    }
+
+    &.__is-full_width {
+        width: 100%;
+    }
+}

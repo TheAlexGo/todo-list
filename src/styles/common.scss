@@ -1,0 +1,106 @@
+@import 'variables';
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Устанавливаем свой outline на элементы с фокусом */
+*:focus-visible {
+    outline: 2px solid var(--color_primary);
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--color_background_dark);
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+}
+
+body {
+    height: 100%;
+}
+
+/* Системные теги */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Сбрасываем автокомплит у полей */
+label {
+    display: block;
+    cursor: pointer;
+}
+
+label[hidden] {
+    display: none;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: var(--fs_m);
+    background: var(--color_background_light);
+
+    &:-webkit-autofill {
+        box-shadow: 0 0 0 1000px var(--color_background_light) inset !important;
+        -webkit-text-fill-color: var(--color_main) !important;
+        caret-color: var(--color_main) !important;
+
+        &::selection {
+            -webkit-text-fill-color: var(--color_black) !important;
+        }
+    }
+}
+
+*::selection {
+    color: var(--color_black) !important;
+    background: var(--color_primary) !important;
+}
+
+form {
+    margin: 0;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+}
+
+/* /Системные теги */
+
+#root {
+    height: calc(100% + env(safe-area-inset-top, 0) + env(safe-area-inset-bottom, 0));
+    padding: 0 16px;
+}

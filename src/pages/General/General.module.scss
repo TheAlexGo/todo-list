@@ -1,0 +1,29 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    padding: 34px 0;
+}
+
+.task-completed {
+    color: var(--color_white);
+    background-color: var(--color_background_light);
+
+    &:first-child .task-card {
+        color: var(--color_black);
+        background-color: var(--color_primary);
+    }
+}
+
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--color_main);
+    font-size: var(--fs_m);
+}
+
+.link {
+    color: var(--color_primary);
+}

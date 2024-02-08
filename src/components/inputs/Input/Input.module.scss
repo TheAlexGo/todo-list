@@ -1,0 +1,28 @@
+.input {
+    height: 56px;
+    padding: 12px 24px;
+    font-weight: 400;
+
+    &.__with-icon {
+        padding-left: 56px;
+    }
+
+    &.__is-password {
+        padding-right: 56px;
+    }
+}
+
+.icon {
+    position: absolute;
+    color: inherit;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.__is-left {
+        left: 16px;
+    }
+
+    &.__is-right {
+        right: 16px;
+    }
+}

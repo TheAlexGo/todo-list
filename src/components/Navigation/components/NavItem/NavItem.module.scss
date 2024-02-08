@@ -1,0 +1,30 @@
+@import '~@styles/mixins';
+
+.wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.item {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 52px;
+    color: var(--color_inactive);
+
+    &.__is-active {
+        color: var(--color_primary);
+    }
+}
+
+.title {
+    margin-top: 4px;
+    font-size: var(--fs_xs);
+
+    &.__is-invisible {
+        margin-top: -1px;
+
+        @include invisible;
+    }
+}
